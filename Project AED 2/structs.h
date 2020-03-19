@@ -30,6 +30,16 @@ typedef struct LineMorph
     struct LineMorph *preview;
 }Morph;
 
+
+/**
+ *?  Struct: coluna
+ *?  Descrição: Esta estrutura é uma lista ligada e contém as seguintes variaveis-
+ *+       nome          = corresponde a palavra da determinada coluna;
+ *+       qtdAbs        = corresponde a qtd total desta palavra no texto;
+ *+       qtdRelativa   = corresponde a qtd relativa desta palavra(qtdRelativa = qtdAbs/Total);
+ *+       next          = corresponde a próxima posição;
+ *+       preview       = corresponde a posição anterior;
+ */
 typedef struct Column
 {
     char *nome;
