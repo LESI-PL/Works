@@ -1,5 +1,5 @@
 /*
-* Author: Yuri Lemos
+* Author: Yuri Lemos e João Figueiredo
 * Description: Este Programa faz leitura de uma fichero ".txt" e com estes dados recolhidos efetua calculos estatisticos
 * Data: 14 / 3 / 2020 
 * Version: 1.0
