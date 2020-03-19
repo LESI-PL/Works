@@ -1,6 +1,12 @@
 {
     "better-comments.tags": [
         {
+          "tag": "+",
+          "color": "#36bfae",
+          "strikethrough": false,
+          "backgroundColor": "transparent"
+        },
+        {
           "tag": "!",
           "color": "#FF2D00",
           "strikethrough": false,

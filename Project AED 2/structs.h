@@ -10,7 +10,16 @@
 /**
  *!                                                 STRUCTS
 */
-
+/**
+ *?  Struct: Morph
+ *?  Descrição: Esta estrutura é uma lista ligada e contém as seguintes variaveis-
+ *+       originWord   = corresponde a palavra da frase original;
+ *+       wordRoot     = corresponde ao seu lema (raiz da palavra);
+ *+       morphAnalise = corresponde a sua análise morfossintática;
+ *+       rightProb    = corresponde a certeza da ferramenta em relação a análise realizada;
+ *+       next         = corresponde a próxima posição;
+ *+       preview      = corresponde a posição anterior;
+ */
 typedef struct LineMorph
 {
     char *originWord;
