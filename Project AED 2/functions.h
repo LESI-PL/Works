@@ -54,6 +54,18 @@ Morph* InsertNode(Morph *m,char *oriWord, char *wordRoot, char *morphAnalise, fl
 */
 void ShowList(Morph *morph);
 
+char ShowMenu();
+
+coluna* NewNodeCol(char *nome);
+
+coluna* InsertInCol(coluna* coluna,char* nome);
+
+coluna* LoadCol3(Morph *morph);
+
+int ContaTotalCol3(coluna* col);
+
+void CalcularRelativa(coluna* col,int total);
+
 /**
  *!                                                END OF SIGNATURES
 */

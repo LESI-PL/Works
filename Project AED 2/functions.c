@@ -89,6 +89,75 @@ void ShowList(Morph *morph){
 		morph = (morph->next ? morph->next : NULL) ;
 	}
 }
+
+char ShowMenu(){
+    char op;
+        system("cls");
+        printf("\n|-------------------------------------------------------|");
+        printf("\n| 1) Exercicio 1          | 2) Exercicio 2              |");
+        printf("\n|-------------------------------------------------------|");
+        printf("\n| 3) Exercicio 3          | 4) Exercicio 4              |");
+        printf("\n|-------------------------------------------------------|");
+        printf("\n| 5) Exercicio 5          | 6) exercicio 6              |");
+        printf("\n|-------------------------------------------------------|");
+        printf("\n|                        s)Sair                         |");
+        printf("\n|-------------------------------------------------------|\n\n");
+    op=getch();
+    return op;
+}
+
+coluna* NewNodeCol(char *nome){
+    coluna *temp = (coluna*)malloc(sizeof(coluna));
+    temp->nome = (char *)malloc((contWord(nome)+1)*sizeof(char));
+    strcpy(temp->nome,nome); 
+    temp->qtdAbs = 1;
+    temp->next = NULL;
+    temp->preview=NULL;
+    return temp;
+}
+
+coluna* InsertInCol(coluna* coluna,char* nome){
+    if(coluna==NULL)return NewNodeCol(nome);
+    if(strcmp(coluna->nome,nome)==0){
+        coluna->qtdAbs++; 
+    }else{
+        coluna->next = InsertInCol(coluna->next,nome);
+    }
+    return coluna;
+}
+
+
+coluna* LoadCol3(Morph *morph){
+    coluna* col;
+    
+    col = NewNodeCol(morph->morphAnalise);
+    morph = (morph->next ? morph->next : NULL) ; 
+    while(morph!=NULL){
+        /*printf("%s\n",morph->morphAnalise);*/
+        InsertInCol(col,morph->morphAnalise);
+        morph = (morph->next ? morph->next : NULL) ;  
+    }
+    
+    return col;
+}
+
+int ContaTotalCol3(coluna* col){
+    int i=0;
+    while(col != NULL){
+        i += col->qtdAbs;
+        col = (col->next ? col->next : NULL);
+    }
+    return i;
+}
+
+void CalcularRelativa(coluna* col,int total){
+    while(col!=NULL){
+        col->qtdrelativa = (float)col->qtdAbs / total;
+        col = (col->next ? col->next : NULL);
+    }
+}
+
+
 /**
  *!                                                END FUNCTION
 */

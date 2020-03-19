@@ -30,6 +30,16 @@ typedef struct LineMorph
     struct LineMorph *preview;
 }Morph;
 
+typedef struct Column
+{
+    char *nome;
+    int qtdAbs;
+    float qtdrelativa;
+    struct Column *next;
+    struct Column *preview;
+}coluna;
+
+
 /**
  *!                                              END OF STRUCTS
 */
