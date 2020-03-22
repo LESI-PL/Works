@@ -53,6 +53,7 @@ Morph* InsertNode(Morph *m,char *oriWord, char *wordRoot, char *morphAnalise, fl
  *  @return void
 */
 void ShowList(Morph *morph);
+void ShowList1(coluna *coluna3);
 
 char ShowMenu();
 
@@ -65,12 +66,8 @@ coluna* LoadCol3(Morph *morph);
 int ContaTotalCol3(coluna* col);
 
 void CalcularRelativa(coluna* col,int total);
-
-int ContarCategorias_NN(Morph *morph); /*conta o numero de vezes que aparece a sigla NN para a contrução da tabela*/
-int ContarCategorias_VBZ(Morph *morph);  /*conta o numero de vezes que aparece a sigla VBZ para a contrução da tabela*/
-int ContarCategorias_RB(Morph *morph);  /*conta o numero de vezes que aparece a sigla RB para a contrução da tabela*/
-
 int Comprimento_zero(Morph *morph); /* comprimento da palavra*/
+coluna *Ordenado(coluna *coluna3);
 
 /**
  *!                                                END OF SIGNATURES

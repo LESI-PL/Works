@@ -20,8 +20,8 @@ int main()
     char op;
     int abs = 0;
     Morph *morph = NULL;
-    coluna *coluna3 = NULL;
-    int nn=0;
+    coluna *coluna3 = NULL, *col3Ordenada=NULL;
+
     int i;
     string col3[20];
 
@@ -29,6 +29,7 @@ int main()
     coluna3 = LoadCol3(morph);
     abs = ContaTotalCol3(coluna3);
     CalcularRelativa(coluna3, abs);
+    col3Ordenada=Ordenado(coluna3);
     do
     {
         op = ShowMenu();
@@ -50,12 +51,12 @@ int main()
                 printf("col3 -- %s\n", col3[i].word);
             }
             printf("NOME:%s QTD:%d\n", coluna3->nome, coluna3->qtdAbs);
-            nn=ContarCategorias_NN(morph);
-            printf("n vale %d ",nn);
+    
             fflush(stdin);
             getchar();
             break;
         case '3':
+            ShowList1(col3Ordenada);
             printf("Entrou em %c", op);
             getchar();
             break;

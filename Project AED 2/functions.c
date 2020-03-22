@@ -113,6 +113,31 @@ void ShowList(Morph *morph)
         morph = (morph->next ? morph->next : NULL);
     }
 }
+void ShowList1(coluna *coluna3)
+{
+    int x = 0;
+    int i;
+    float y = 0;
+    printf("\t\t\t\t\t\tTabela de Frequencias\n");
+    for (i = 0; i < 136; i++)
+        printf("%c", '_');
+    printf("\n|%20s|%20s|%20s|%35s|%35s|\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Aculumlada", "Frequencia Relativa Acumulada");
+    for (i = 0; i < 136; i++)
+        printf("%c", '_');
+    printf("\n");
+    while (coluna3 != NULL)
+    {
+        x += coluna3->qtdAbs;
+        y += coluna3->qtdrelativa;
+        printf("|%20s|%20d|%20.10f|%35d|%35.10f|\n", coluna3->nome, coluna3->qtdAbs, coluna3->qtdrelativa, x, y);
+        coluna3 = (coluna3->next ? coluna3->next : NULL);
+    }
+    for (i = 0; i < 136; i++)
+        printf("%c", '_');
+    printf("\n|%20s|%20d|%20f|%35s|%35s|\n", "Total", x, y, "", "");
+    for (i = 0; i < 136; i++)
+        printf("%c", '_');
+}
 
 char ShowMenu()
 {
@@ -192,54 +217,6 @@ void CalcularRelativa(coluna *col, int total)
         col = (col->next ? col->next : NULL);
     }
 }
-int ContarCategorias_NN(Morph *morph)
-{
-    int count = 0;
-    char a[] = "NN";
-    printf("A-%s\n", a);
-    while (morph != NULL)
-    {
-        if (strcmp(morph->morphAnalise, a) == 0)
-        {
-            count++;
-        }
-
-        morph = (morph->next ? morph->next : NULL);
-    }
-    return count;
-}
-int ContarCategorias_RB(Morph *morph)
-{
-    int count = 0;
-    char a[] = "RB";
-    printf("A-%s\n", a);
-    while (morph != NULL)
-    {
-        if (strcmp(morph->morphAnalise, a) == 0)
-        {
-            count++;
-        }
-
-        morph = (morph->next ? morph->next : NULL);
-    }
-    return count;
-}
-int ContarCategorias_VBZ(Morph *morph)
-{
-    int count = 0;
-    char a[] = "VBZ";
-    printf("A-%s\n", a);
-    while (morph != NULL)
-    {
-        if (strcmp(morph->morphAnalise, a) == 0)
-        {
-            count++;
-        }
-
-        morph = (morph->next ? morph->next : NULL);
-    }
-    return count;
-}
 
 int Comprimento_zero(Morph *morph) /* para a segunda tabela*/
 {
@@ -261,7 +238,25 @@ void ImprimeTabela(coluna *coluna3)
     printf("\t\tTabela de Frequencias\n");
     printf("_____________________________________________");
     printf("|20%s|%20s|20%s|%20s|20%s|\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Aculumlada", "Frequncia Relativa Acumulada");
-    printf("|20%s|", coluna3->nome);
+    printf("|20%s|%20d|%20d|%20d|20%s|", coluna3->nome);
+}
+
+coluna *Ordenado(coluna *coluna3)
+{
+     coluna *aux=NULL;
+
+    if (!coluna3 || coluna3->qtdAbs>coluna3->next->qtdAbs)
+    {
+        coluna *aux = (coluna*)malloc(sizeof(coluna));
+        aux->qtdAbs = coluna3->next->qtdAbs;
+        coluna3->next->qtdAbs = coluna3->qtdAbs;
+        coluna3=aux;
+    }
+    else{
+        aux->next = Ordenado(coluna3->next);
+    }
+    return aux;
+
 }
 
 /**
