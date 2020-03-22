@@ -257,6 +257,7 @@ coluna *Ordenado(coluna *coluna3)
     }
     return aux;
 
+printf("ola\n");
 }
 
 /**
