@@ -66,6 +66,12 @@ int ContaTotalCol3(coluna* col);
 
 void CalcularRelativa(coluna* col,int total);
 
+int ContarCategorias_NN(Morph *morph); /*conta o numero de vezes que aparece a sigla NN para a contrução da tabela*/
+int ContarCategorias_VBZ(Morph *morph);  /*conta o numero de vezes que aparece a sigla VBZ para a contrução da tabela*/
+int ContarCategorias_RB(Morph *morph);  /*conta o numero de vezes que aparece a sigla RB para a contrução da tabela*/
+
+int Comprimento_zero(Morph *morph); /* comprimento da palavra*/
+
 /**
  *!                                                END OF SIGNATURES
 */

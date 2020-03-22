@@ -49,6 +49,9 @@ typedef struct Column
     struct Column *preview;
 }coluna;
 
+typedef struct string{
+    char word[6];
+}string;
 
 /**
  *!                                              END OF STRUCTS
