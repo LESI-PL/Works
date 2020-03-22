@@ -20,15 +20,14 @@ int main()
     char op;
     int abs = 0;
     Morph *morph = NULL;
-    coluna *coluna3 = NULL, *col3Ordenada=NULL;
-    col3Ordenada = (coluna*)malloc(sizeof(coluna));
+    coluna *coluna3 = NULL,*cl3, *col3Ordenada=NULL;
 
     
     morph = LoadFile();
     coluna3 = LoadCol3(morph);
     abs = ContaTotalCol3(coluna3);
     CalcularRelativa(coluna3, abs);
-    
+    cl3 = coluna3;
     do
     {
         op = ShowMenu();
@@ -52,11 +51,10 @@ int main()
         case '3':
             
                 system("cls");
-                while(coluna3!=NULL){
-                    col3Ordenada = Ordenado(col3Ordenada,coluna3->nome,coluna3->qtdAbs,coluna3->qtdrelativa);
-                    coluna3 = coluna3->next;
+                while(cl3!=NULL){
+                    col3Ordenada = Ordenado(col3Ordenada,cl3->nome,cl3->qtdAbs,cl3->qtdrelativa);
+                    cl3 = (cl3->next ? cl3->next : NULL);
                 }
-                
                 ShowList1(col3Ordenada);
                 
                 getchar();

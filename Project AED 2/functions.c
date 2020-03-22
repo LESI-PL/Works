@@ -120,6 +120,19 @@ void ShowList1(coluna *coluna3)
         printf("%c", '_');
 }
 
+void ShowList2(coluna *coluna3)
+{
+    int x = 0;
+    float y = 0;
+    while (coluna3!=NULL)
+    {
+        x += coluna3->qtdAbs;
+        y += coluna3->qtdrelativa;
+        printf("|%20s|%20d|%20.10f|%35d|%35.10f|\n", coluna3->nome, coluna3->qtdAbs, coluna3->qtdrelativa, x, y);
+        coluna3 = (coluna3->next ? coluna3->next : NULL);
+    }
+}
+
 char ShowMenu()
 {
     char op;
@@ -215,36 +228,39 @@ int Comprimento_zero(Morph *morph) /* para a segunda tabela*/
 coluna *Ordenado(coluna *lista, char *string, int qtdAbs, float flo)
 {
     coluna *aux = NULL;
-    /*coluna *c = (coluna *)malloc(sizeof(coluna));
-    c = c3;*/
-
-    printf("LString:%s     LQtdABS:%d\n",lista->nome,lista->qtdAbs);
-    printf("String:%s     QtdABS:%d\n",string,qtdAbs);getchar();
+    int b = qtdAbs;
+    float c = flo;
+    char* a = (char*)malloc((contWord(string) + 1) * sizeof(char));
+    strcpy(a,string);
+    
+    
     if (lista == NULL)
     {
-        printf("\nA");
-        lista = (coluna *)malloc(sizeof(coluna)*4);
-        strcpy(lista->nome,string);
-        lista->qtdAbs = qtdAbs;
-        lista->qtdrelativa = flo;
+        /*printf("\nA");*/
+        lista = (coluna *)malloc(sizeof(coluna));
+        lista->nome = (char*)malloc((contWord(a) + 1) * sizeof(char));
+        strcpy(lista->nome,a);
+        lista->qtdAbs = b;
+        lista->qtdrelativa = c;
         lista->next = NULL;
     }
     else
     {
-        if (lista->qtdAbs <= qtdAbs)
+        if (lista->qtdAbs <= b)
         {
-            printf("\nB");
-            lista->next = Ordenado(lista->next, string, qtdAbs,flo);
+            /*printf("\nB");*/
+            lista->next = Ordenado(lista->next, a, b,c);
         }
         else
         {
-            if (lista->qtdAbs > qtdAbs)
+            if (lista->qtdAbs > b)
             {
                 aux = (coluna *)malloc(sizeof(coluna));
-                printf("\nC");
-                strcpy(aux->nome,string);
-                aux->qtdAbs = qtdAbs;
-                aux->qtdrelativa = flo;
+                aux->nome = (char*)malloc((contWord(a) + 1) * sizeof(char));
+                /*printf("\nC");*/
+                strcpy(aux->nome,a);
+                aux->qtdAbs = b;
+                aux->qtdrelativa = c;
                 aux->next = lista;
                 lista = aux;
             }

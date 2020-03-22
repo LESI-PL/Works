@@ -60,6 +60,8 @@ void ShowList(Morph *morph);
  *   @return valor de retorno aqui
  */
 void ShowList1(coluna *coluna3);
+
+void ShowList2(coluna *coluna3);
 /**  Syntax Da Funcao
  *  Funçao:Nome da Funcao
  **  Descrição: Aqui
