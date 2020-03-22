@@ -21,15 +21,14 @@ int main()
     int abs = 0;
     Morph *morph = NULL;
     coluna *coluna3 = NULL, *col3Ordenada=NULL;
+    col3Ordenada = (coluna*)malloc(sizeof(coluna));
 
-    int i;
-    string col3[20];
-
+    
     morph = LoadFile();
     coluna3 = LoadCol3(morph);
     abs = ContaTotalCol3(coluna3);
     CalcularRelativa(coluna3, abs);
-    col3Ordenada=Ordenado(coluna3);
+    
     do
     {
         op = ShowMenu();
@@ -46,19 +45,22 @@ int main()
             getchar();
             break;
         case '2':
-
-            for(i=0;i<20;i++){
-                printf("col3 -- %s\n", col3[i].word);
-            }
-            printf("NOME:%s QTD:%d\n", coluna3->nome, coluna3->qtdAbs);
-    
+            ShowList1(coluna3);
             fflush(stdin);
             getchar();
             break;
         case '3':
-            ShowList1(col3Ordenada);
-            printf("Entrou em %c", op);
-            getchar();
+            
+                system("cls");
+                while(coluna3!=NULL){
+                    col3Ordenada = Ordenado(col3Ordenada,coluna3->nome,coluna3->qtdAbs,coluna3->qtdrelativa);
+                    coluna3 = coluna3->next;
+                }
+                
+                ShowList1(col3Ordenada);
+                
+                getchar();
+            
             break;
         case '4':
             printf("Entrou em %c", op);

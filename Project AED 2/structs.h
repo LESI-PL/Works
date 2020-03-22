@@ -46,7 +46,6 @@ typedef struct Column
     int qtdAbs;
     float qtdrelativa;
     struct Column *next;
-    struct Column *preview;
 }coluna;
 
 typedef struct string{

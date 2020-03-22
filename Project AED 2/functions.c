@@ -59,25 +59,6 @@ int contWord(char *string)
     }
     return i;
 }
-string VerAnalises(Morph *morph, string col3[])
-{
-    int i = 0;
-    strcpy(col3[i].word, morph->morphAnalise);
-    i++;
-    while (morph != NULL)
-    {
-        for (i = 0; i < 20; i++)
-        {
-            if (strcmp(morph->morphAnalise, col3[i].word) != 0)
-            {
-                strcpy(col3[i].word, morph->morphAnalise);
-                i++;
-            }
-            i++;
-        }
-    }
-    return *col3;
-}
 
 Morph *NewNode(char *oriWord, char *wordRoot, char *morphAnalise, float rightProb)
 {
@@ -163,7 +144,6 @@ coluna *NewNodeCol(char *nome)
     strcpy(temp->nome, nome);
     temp->qtdAbs = 1;
     temp->next = NULL;
-    temp->preview = NULL;
     return temp;
 }
 
@@ -232,32 +212,45 @@ int Comprimento_zero(Morph *morph) /* para a segunda tabela*/
     return i;
 }
 
-void ImprimeTabela(coluna *coluna3)
+coluna *Ordenado(coluna *lista, char *string, int qtdAbs, float flo)
 {
+    coluna *aux = NULL;
+    /*coluna *c = (coluna *)malloc(sizeof(coluna));
+    c = c3;*/
 
-    printf("\t\tTabela de Frequencias\n");
-    printf("_____________________________________________");
-    printf("|20%s|%20s|20%s|%20s|20%s|\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Aculumlada", "Frequncia Relativa Acumulada");
-    printf("|20%s|%20d|%20d|%20d|20%s|", coluna3->nome);
-}
-
-coluna *Ordenado(coluna *coluna3)
-{
-     coluna *aux=NULL;
-
-    if (!coluna3 || coluna3->qtdAbs>coluna3->next->qtdAbs)
+    printf("LString:%s     LQtdABS:%d\n",lista->nome,lista->qtdAbs);
+    printf("String:%s     QtdABS:%d\n",string,qtdAbs);getchar();
+    if (lista == NULL)
     {
-        coluna *aux = (coluna*)malloc(sizeof(coluna));
-        aux->qtdAbs = coluna3->next->qtdAbs;
-        coluna3->next->qtdAbs = coluna3->qtdAbs;
-        coluna3=aux;
+        printf("\nA");
+        lista = (coluna *)malloc(sizeof(coluna)*4);
+        strcpy(lista->nome,string);
+        lista->qtdAbs = qtdAbs;
+        lista->qtdrelativa = flo;
+        lista->next = NULL;
     }
-    else{
-        aux->next = Ordenado(coluna3->next);
+    else
+    {
+        if (lista->qtdAbs <= qtdAbs)
+        {
+            printf("\nB");
+            lista->next = Ordenado(lista->next, string, qtdAbs,flo);
+        }
+        else
+        {
+            if (lista->qtdAbs > qtdAbs)
+            {
+                aux = (coluna *)malloc(sizeof(coluna));
+                printf("\nC");
+                strcpy(aux->nome,string);
+                aux->qtdAbs = qtdAbs;
+                aux->qtdrelativa = flo;
+                aux->next = lista;
+                lista = aux;
+            }
+        }
     }
-    return aux;
-
-printf("ola\n");
+    return lista;
 }
 
 /**

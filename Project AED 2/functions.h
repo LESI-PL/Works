@@ -53,8 +53,20 @@ Morph* InsertNode(Morph *m,char *oriWord, char *wordRoot, char *morphAnalise, fl
  *  @return void
 */
 void ShowList(Morph *morph);
+/**  Syntax Da Funcao
+ **  Funçao:Nome da Funcao
+ *   Descrição: Aqui
+ *   @param parametros da funçao aqui
+ *   @return valor de retorno aqui
+ */
 void ShowList1(coluna *coluna3);
-
+/**  Syntax Da Funcao
+ *  Funçao:Nome da Funcao
+ **  Descrição: Aqui
+ *!  Alertas Aqui
+ *   @param parametros da funçao aqui
+ *   @return valor de retorno aqui
+ */
 char ShowMenu();
 
 coluna* NewNodeCol(char *nome);
@@ -67,7 +79,7 @@ int ContaTotalCol3(coluna* col);
 
 void CalcularRelativa(coluna* col,int total);
 int Comprimento_zero(Morph *morph); /* comprimento da palavra*/
-coluna *Ordenado(coluna *coluna3);
+coluna *Ordenado(coluna *lista, char *string, int num, float flo);
 
 /**
  *!                                                END OF SIGNATURES
