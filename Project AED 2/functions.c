@@ -99,24 +99,24 @@ void ShowList1(coluna *coluna3)
     int x = 0;
     int i;
     float y = 0;
-    printf("\t\t\t\t\t\tTabela de Frequencias\n");
-    for (i = 0; i < 136; i++)
+    printf("\t\t\t\t\t\tTabela de Frequencias Da Terceira Coluna\n");
+    for (i = 0; i < 142; i++)
         printf("%c", '_');
-    printf("\n|%20s|%20s|%20s|%35s|%35s|\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Aculumlada", "Frequencia Relativa Acumulada");
-    for (i = 0; i < 136; i++)
+    printf("\n|%20s|%23s|%23s|%35s|%35s|\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Acumulada", "Frequencia Relativa Acumulada");
+    for (i = 0; i < 142; i++)
         printf("%c", '_');
     printf("\n");
     while (coluna3 != NULL)
     {
         x += coluna3->qtdAbs;
         y += coluna3->qtdrelativa;
-        printf("|%20s|%20d|%20.10f|%35d|%35.10f|\n", coluna3->nome, coluna3->qtdAbs, coluna3->qtdrelativa, x, y);
+        printf("|%20s|%23d|%23.10f|%35d|%35.10f|\n", coluna3->nome, coluna3->qtdAbs, coluna3->qtdrelativa, x, y);
         coluna3 = (coluna3->next ? coluna3->next : NULL);
     }
-    for (i = 0; i < 136; i++)
+    for (i = 0; i < 142; i++)
         printf("%c", '_');
-    printf("\n|%20s|%20d|%20f|%35s|%35s|\n", "Total", x, y, "", "");
-    for (i = 0; i < 136; i++)
+    printf("\n|%20s|%23d|%23f|%35s|%35s|\n", "Total", x, y, "", "");
+    for (i = 0; i < 142; i++)
         printf("%c", '_');
 }
 
@@ -132,20 +132,46 @@ void ShowList2(coluna *coluna3)
         coluna3 = (coluna3->next ? coluna3->next : NULL);
     }
 }
+void ShowList_3(Coluna1 *coluna3)
+{
+    int x = 0;
+    int i;
+    float y = 0;
+    printf("\t\t\t\t\t\tTabela de Frequencias Do Comprimento Das Palavras\n");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n|%20s|%23s|%23s|%35s|%35s|\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Acumulada", "Frequencia Relativa Acumulada");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n");
+    while (coluna3 != NULL)
+    {
+        x += coluna3->qtdAbs;
+        y += coluna3->qtdrelativa;
+        printf("|%20d|%23d|%23.10f|%35d|%35.10f|\n", coluna3->lenght, coluna3->qtdAbs, coluna3->qtdrelativa, x, y);
+        coluna3 = (coluna3->next ? coluna3->next : NULL);
+    }
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n|%20s|%23d|%23f|%35s|%35s|\n", "Total", x, y, "", "");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+}
+
 
 char ShowMenu()
 {
     char op;
     system("cls");
-    printf("\n|-------------------------------------------------------|");
-    printf("\n| 1) Exercicio 1          | 2) Exercicio 2              |");
-    printf("\n|-------------------------------------------------------|");
-    printf("\n| 3) Exercicio 3          | 4) Exercicio 4              |");
-    printf("\n|-------------------------------------------------------|");
-    printf("\n| 5) Exercicio 5          | 6) exercicio 6              |");
-    printf("\n|-------------------------------------------------------|");
-    printf("\n|                        s)Sair                         |");
-    printf("\n|-------------------------------------------------------|\n\n");
+    printf("\n|------------------------------------------------------------------------------------|");
+    printf("\n| 1) Tabela de Frequencias Da Terceira Coluna          | 2) Exercicio 2              |");
+    printf("\n|------------------------------------------------------------------------------------|");
+    printf("\n| 3) Exercicio 3  \t\t\t\t\t | 4) Exercicio 4            |");
+    printf("\n|------------------------------------------------------------------------------------|");
+    printf("\n| 5) Exercicio 5    \t\t\t\t      | 6) exercicio 6               |");
+    printf("\n|------------------------------------------------------------------------------------|");
+    printf("\n|\t\t\t\t\ts)Sair\t\t\t\t\t     |");
+    printf("\n|------------------------------------------------------------------------------------|\n\n");
     op = getch();
     return op;
 }
@@ -159,6 +185,7 @@ coluna *NewNodeCol(char *nome)
     temp->next = NULL;
     return temp;
 }
+
 
 coluna *InsertInCol(coluna *coluna, char *nome)
 {
@@ -191,6 +218,7 @@ coluna *LoadCol3(Morph *morph)
     return col;
 }
 
+
 int ContaTotalCol3(coluna *col)
 {
     int i = 0;
@@ -216,12 +244,14 @@ int Comprimento_zero(Morph *morph) /* para a segunda tabela*/
     int i = 0;
     while (morph != NULL)
     {
+        printf("%d",strlen(morph->originWord));
         if (strlen(morph->originWord) == 0)
         {
             i++;
         }
         morph = (morph->next ? morph->next : NULL);
     }
+    getchar();
     return i;
 }
 
@@ -268,7 +298,94 @@ coluna *Ordenado(coluna *lista, char *string, int qtdAbs, float flo)
     }
     return lista;
 }
+/**!**************   Daqui para baixo usei as tuas funcoes   nao esta a ordenar  ********************************/
+Coluna1 *LoadCol4(Morph *morph)
+{
+    Coluna1 *col;
 
+    col = NewNodeCol1(morph->originWord);
+    morph = (morph->next ? morph->next : NULL);
+    while (morph != NULL)
+    {
+        /*printf("%s\n",morph->morphAnalise);*/
+        InsertInCol1(col, morph->originWord);
+        morph = (morph->next ? morph->next : NULL);
+    }
+
+    return col;
+}
+Coluna1 *NewNodeCol1(char *nome)
+{
+    Coluna1 *temp = (Coluna1 *)malloc(sizeof(Coluna1));
+    temp->lenght =strlen(nome);
+    temp->qtdAbs = 1;
+    temp->next = NULL;
+    return temp;
+}
+Coluna1 *InsertInCol1(Coluna1 *coluna, char *nome)
+{
+    int a=strlen(nome);
+    if (coluna == NULL)
+        return NewNodeCol1(nome);
+    if (a==coluna->lenght)
+    {
+        coluna->qtdAbs++;
+    }
+    else
+    {
+        coluna->next = InsertInCol1(coluna->next, nome);
+    }
+    return coluna;
+}
+
+void CalcularRelativa_Comprimento(Coluna1 *col, int total)
+{
+    while (col != NULL)
+    {
+        col->qtdrelativa = (float)col->qtdAbs / total;
+        col = (col->next ? col->next : NULL);
+    }
+}
+Coluna1 *Ordenado_Comprimento(Coluna1 *lista, int num, int qtdAbs, float flo)
+{
+    Coluna1 *aux = NULL;
+    int a = num;
+    int b = qtdAbs;
+    float c = flo;
+    
+    
+    
+    if (lista == NULL)
+    {
+        /*printf("\nA");*/
+        lista = (Coluna1 *)malloc(sizeof(Coluna1));
+        lista->lenght=a;
+        lista->qtdAbs = b;
+        lista->qtdrelativa = c;
+        lista->next = NULL;
+    }
+    else
+    {
+        if (lista->lenght <= a)
+        {
+            /*printf("\nB");*/
+            lista->next = Ordenado_Comprimento(lista->next, a, b,c);
+        }
+        else
+        {
+            if (lista->lenght > a)
+            {
+                aux = (Coluna1 *)malloc(sizeof(Coluna1));
+                aux->lenght=a;
+                aux->qtdAbs = b;
+                aux->qtdrelativa = c;
+                aux->next = lista;
+                lista = aux;
+            }
+        }
+    }
+    return lista;
+}
 /**
  *!                                                END FUNCTION
 */

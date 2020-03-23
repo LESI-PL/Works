@@ -61,6 +61,8 @@ void ShowList(Morph *morph);
  */
 void ShowList1(coluna *coluna3);
 
+void ShowList_3(Coluna1 *colunaAux);
+
 void ShowList2(coluna *coluna3);
 /**  Syntax Da Funcao
  *  Funçao:Nome da Funcao
@@ -82,6 +84,14 @@ int ContaTotalCol3(coluna* col);
 void CalcularRelativa(coluna* col,int total);
 int Comprimento_zero(Morph *morph); /* comprimento da palavra*/
 coluna *Ordenado(coluna *lista, char *string, int num, float flo);
+
+
+/*! isto eu fiz com base no teu codigo, nao estou a conseguir ordenar, mas ja apresenta qualquer coisa, ve e depois diz qualquer coisa*/
+Coluna1 *InsertInCol1(Coluna1 *coluna, char *nome);
+Coluna1 *NewNodeCol1(char *nome);
+Coluna1 *LoadCol4(Morph *morph);
+void CalcularRelativa_Comprimento(Coluna1 *col, int total);
+Coluna1 *Ordenado_Comprimento(Coluna1 *lista, int num, int qtdAbs, float flo);
 
 /**
  *!                                                END OF SIGNATURES

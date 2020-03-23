@@ -48,6 +48,14 @@ typedef struct Column
     struct Column *next;
 }coluna;
 
+typedef struct Coluna1
+{
+    int lenght;
+    int qtdAbs;
+    float qtdrelativa;
+    struct Coluna1 *next;
+}Coluna1;
+
 typedef struct string{
     char word[6];
 }string;
