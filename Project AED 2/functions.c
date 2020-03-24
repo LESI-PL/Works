@@ -148,14 +148,17 @@ void ShowList_3(Coluna1 *coluna3)
     {
         x += coluna3->qtdAbs;
         y += coluna3->qtdrelativa;
-        printf("|%20d|%23d|%23.10f|%35d|%35.10f|\n", coluna3->lenght, coluna3->qtdAbs, coluna3->qtdrelativa, x, y);
+        printf("|N%c Letras: %d%8c|%23d|%23.10f|%35d|%35.10f|\n",248, coluna3->lenght,' ', coluna3->qtdAbs, coluna3->qtdrelativa, x, y);
         coluna3 = (coluna3->next ? coluna3->next : NULL);
     }
     for (i = 0; i < 142; i++)
         printf("%c", '_');
     printf("\n|%20s|%23d|%23f|%35s|%35s|\n", "Total", x, y, "", "");
-    for (i = 0; i < 142; i++)
+    for (i = 0; i < 142; i++){
         printf("%c", '_');
+    }
+        
+    printf("\n");
 }
 
 
@@ -244,7 +247,7 @@ int Comprimento_zero(Morph *morph) /* para a segunda tabela*/
     int i = 0;
     while (morph != NULL)
     {
-        printf("%d",strlen(morph->originWord));
+        /*printf("%d",strlen(morph->originWord));*/
         if (strlen(morph->originWord) == 0)
         {
             i++;

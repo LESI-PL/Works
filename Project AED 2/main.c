@@ -76,8 +76,11 @@ int main()
                 colunaAux_Ordenada = Ordenado_Comprimento(colunaAux_Ordenada, cl4->lenght, cl4->qtdAbs, cl4->qtdrelativa);
                 cl4 = (cl4->next ? cl4->next : NULL);
             }
-            ShowList_3(colunaAux);
-            printf("Entrou em %c", op);
+            /**
+             *! ShowList_3(colunaAux); Aqui estava com a variavel desordenada 
+             */
+            ShowList_3(colunaAux_Ordenada);
+            
             getchar();
             break;
         case '6':

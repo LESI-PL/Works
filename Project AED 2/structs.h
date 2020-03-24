@@ -50,6 +50,7 @@ typedef struct Column
 
 typedef struct Coluna1
 {
+    char* nome;
     int lenght;
     int qtdAbs;
     float qtdrelativa;
