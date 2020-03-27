@@ -18,14 +18,16 @@
 int main()
 {
     char op;
-    int abs = 0;
+    int abs = 0, i;
     Morph *morph = NULL;
     coluna *coluna3 = NULL, *cl3, *col3Ordenada = NULL;
     Coluna1 *colunaAux = NULL, *cl4, *colunaAux_Ordenada = NULL;
+    TipoLetra *letras = NULL;
 
     morph = LoadFile();
     coluna3 = LoadCol3(morph);
     colunaAux = LoadCol4(morph);
+    letras = LoadCol5(morph);
     abs = ContaTotalCol3(coluna3);
     CalcularRelativa(coluna3, abs);
     CalcularRelativa_Comprimento(colunaAux, abs);
@@ -36,51 +38,55 @@ int main()
         op = ShowMenu();
         switch (op)
         {
-        case '1':
+        case '1': /*Exercicio 1*/
             system("cls");
-            while (cl3 != NULL)
+
+            if (morph == NULL)
             {
-                col3Ordenada = Ordenado(col3Ordenada, cl3->nome, cl3->qtdAbs, cl3->qtdrelativa);
-                cl3 = (cl3->next ? cl3->next : NULL);
+
+                morph = LoadFile();
+                if (morph == NULL)
+                    printf("Falha ao carregar o ficheiro!");
+                else
+                    printf("Ficheiro carregado com sucesso!");
             }
-            ShowList1(col3Ordenada);
+            ShowList(morph);
+            getchar();
+
+            break;
+        case '2': /*Exercicio 2*/
+            system("cls");
+
+            ShowListEx2(cl3, col3Ordenada);
 
             getchar();
 
             break;
-        case '2':
-            ShowList1(coluna3);
+        case '3': /*Exercicio 3*/
+            system("cls");
+
+            ShowList_3(cl4, colunaAux_Ordenada);
+
+            getchar();
+
+            break;
+        case '4': /*Exercicio 4*/
+            
+            
+            letras = CalcularMedia(letras);
+            letras = CalcularDp(letras);
+            ShowListEx4(letras);
+            /*printf("\n\n");
+            ShowListEx42(letras);*/
+
             fflush(stdin);
-            getchar();
-            break;
-        case '3':
-            Comprimento_zero(morph);
-
-            break;
-        case '4':
-            printf("|   Nome   |   ABS   |    REL.  |\n");
-            printf("|    %s    |    %d    |   %.3f  |\n", coluna3->nome, coluna3->qtdAbs, coluna3->qtdrelativa);
-            printf("|    %s   |    %d    |   %.3f  |\n", coluna3->next->nome, coluna3->next->qtdAbs, coluna3->next->qtdrelativa);
-            printf("|    %s    |    %d    |   %.3f  |\n", coluna3->next->next->nome, coluna3->next->next->qtdAbs, coluna3->next->next->qtdrelativa);
-            printf("|    %s    |    %d    |   %.3f  |\n", coluna3->next->next->next->nome, coluna3->next->next->next->qtdAbs, coluna3->next->next->next->qtdrelativa);
-            printf("|   Total  |    %d    |          |\n", abs);
-            fflush(stdin);
-            getchar();
-            printf("Entrou em %c", op);
             getchar();
             break;
         case '5':
             system("cls");
-            while (cl4 != NULL)
-            {
-                colunaAux_Ordenada = Ordenado_Comprimento(colunaAux_Ordenada, cl4->lenght, cl4->qtdAbs, cl4->qtdrelativa);
-                cl4 = (cl4->next ? cl4->next : NULL);
-            }
-            /**
-             *! ShowList_3(colunaAux); Aqui estava com a variavel desordenada 
-             */
-            ShowList_3(colunaAux_Ordenada);
-            
+
+            ShowList_3(cl4, colunaAux_Ordenada);
+
             getchar();
             break;
         case '6':

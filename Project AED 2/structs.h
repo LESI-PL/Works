@@ -6,10 +6,19 @@
 */
 #ifndef STRUCTS_H_
 #define STRUCTS_H_
+#define MAX 200
 
 /**
  *!                                                 STRUCTS
 */
+typedef struct _ListaFloat
+{
+    float valor;
+    struct _ListaFloat *next;
+
+}ListaFloat;
+
+
 /**
  *?  Struct: Morph
  *?  Descrição: Esta estrutura é uma lista ligada e contém as seguintes variaveis-
@@ -22,9 +31,9 @@
  */
 typedef struct LineMorph
 {
-    char *originWord;
-    char *wordRoot;
-    char *morphAnalise;
+    char originWord[MAX];
+    char wordRoot[MAX];
+    char morphAnalise[MAX];
     float rightProb;
     struct LineMorph *next;
     struct LineMorph *preview;
@@ -42,7 +51,7 @@ typedef struct LineMorph
  */
 typedef struct Column
 {
-    char *nome;
+    char nome[MAX];
     int qtdAbs;
     float qtdrelativa;
     struct Column *next;
@@ -50,12 +59,22 @@ typedef struct Column
 
 typedef struct Coluna1
 {
-    char* nome;
+    char nome[MAX];
     int lenght;
     int qtdAbs;
     float qtdrelativa;
     struct Coluna1 *next;
 }Coluna1;
+
+typedef struct _TipoLetra
+{
+    char nome[MAX];
+    float *valores;
+    float media;
+    float desvioPadrao;
+    int total;
+    struct _TipoLetra *next;
+}TipoLetra;
 
 typedef struct string{
     char word[6];
