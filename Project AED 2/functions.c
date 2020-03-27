@@ -531,11 +531,11 @@ void ShowList_3(Coluna1 *cl4, Coluna1 *coluna3)
 void ShowListEx4(TipoLetra *letras)
 {
     int i;
-    printf("Letra       Media        Desvio Padrao       Total\n");
+    printf("| %5s | %6s   | %12s | %5s |\n","Letra","Media","Desvio Padrao","Total");
     while (letras)
     {
 
-        printf("  %s       %f       %f             %d\n", letras->nome, letras->media,letras->desvioPadrao, letras->total);
+        printf("| %4s  | %f |    %f   | %3d   |\n", letras->nome, letras->media,letras->desvioPadrao, letras->total);
         letras = (letras->next ? letras->next : NULL);
     }
 }
