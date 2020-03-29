@@ -3,7 +3,7 @@ Quiet quiet JJ 0.931138
 Revenge revenge NN 0.858811
 of of IN 0.99995
 Vile vile JJ 1
-Food food HH 1
+Food food NN 1
 Dear dear NN 0.637002
 Chris chris NN 0.86066
 , , Fc 1
@@ -21,3 +21,5 @@ a a DT 0.998827
 dreadful dreadful JJ 1
 thought thought NN 0.0950141
 ! ! Fat 1
+
+Which which WDT 0.999954
