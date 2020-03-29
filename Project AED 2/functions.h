@@ -13,6 +13,9 @@
 /**
  *!                                                 SIGNATURES FUNCTION
 */
+/**
+ *?----------------------------------------------Funçoes de Carregamento--------------------------------------------------------------
+*/
 
 /** Morph LoadFile()
  ** Funçao:LoadFile
@@ -22,13 +25,23 @@
 */
 Morph *LoadFile();
 
-/** int contWord(char *string)
- ** Funçao:ContWord
- *  Conta o numero de caracteres que contem numa string
- *  @param char* string
- *  @return int
+coluna* LoadCol3(Morph *morph);
+
+Coluna1 *LoadCol4(Morph *morph);
+
+TipoLetra *LoadCol5(Morph *morph);
+/**
+ *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
-int contWord(char *string);
+
+
+
+
+
+/**
+ *?----------------------------------------------Manuseamento de Struct----------------------------------------------------------------
+*/
+
 
 /**  Morph *NewNode(char *oriWord, char *wordRoot, char *morphAnalise, float rightProb)
  *  Funçao:NewNode
@@ -46,52 +59,117 @@ Morph* NewNode(char *oriWord, char *wordRoot, char *morphAnalise, float rightPro
 */
 Morph* InsertNode(Morph *m,char *oriWord, char *wordRoot, char *morphAnalise, float rightProb);
 
+coluna* NewNodeCol(char *nome);
+
+coluna* InsertInCol(coluna* coluna,char* nome);
+
+coluna *Ordenado(coluna *lista, char *string, int qtdAbs, float flo);
+
+Coluna1 *NewNodeCol1(char *nome);
+
+Coluna1 *InsertInCol1(Coluna1 *coluna, char *nome);
+
+Coluna1 *Ordenado_Comprimento(Coluna1 *lista, int num, int qtdAbs, float flo);
+
+TipoLetra *NewNodeCol2(char *nome, float valor);
+
+TipoLetra *InsertInCol2(TipoLetra *coluna, char *nome,float valor);
+
+int checkWord(char palavra[]);
+
+void Destroy(Morph *morph);
+
+Coluna1* Ordennar_Lista3(Coluna1 *cl4, Coluna1 *cl3);
+
+
+/**
+ *?----------------------------------------------------Fim-----------------------------------------------------------------------------
+*/
+
+
+
+
+
+/**
+ *?--------------------------------------------------Calculos--------------------------------------------------------------------------
+*/
+/** int contWord(char *string)
+ ** Funçao:ContWord
+ *  Conta o numero de caracteres que contem numa string
+ *  @param char* string
+ *  @return int
+*/
+int contWord(char *string);
+
+int ContaTotalCol3(coluna *col);
+
+void CalcularRelativa(coluna *col, int total);
+
+int Comprimento_zero(Morph *morph);
+
+void CalcularRelativa_Comprimento(Coluna1 *col, int total);
+
+TipoLetra* CalcularMedia(TipoLetra* letras);
+
+TipoLetra* CalcularDp(TipoLetra* letras);
+
+float CalcularMediaComprimento(Coluna1* colunaAux_Ordenada);
+
+/*int CalcularMedianaComprimento(Coluna1 *colunaAux_Ordenada, int abs);*/
+
+int* CalcularModaComprimento(Coluna1 *colunaAux_Ordenada);
+
+float DesvioPadraoComprimento(Coluna1 *colunaAux_Ordenada, int abs, int media);
+
+float Amplitude(float intervalo, int numclasses);
+
+float NumeroClasses(int abs);
+
+float IntervaloDaCerteza(Morph *morph);
+
+int ProcuraModa(Coluna1* colunaAux_Ordenada);
+
+int* ProcuraModas(Coluna1* colunaAux_Ordenada,int moda);
+
+int ContarModas(Coluna1 *colunaAux_Ordenada, int moda);
+
+int ProcurarMediana(int abs);
+int CalcularMedianaComprimento(Coluna1 *cl41, int ordem, int abs);
+
+
+/**
+ *?----------------------------------------------------Fim-----------------------------------------------------------------------------
+*/
+
+
+
+
+/**
+ *?-------------------------------------------------Mostrar Dados----------------------------------------------------------------------
+*/
+
 /** void ShowList(Morph *morph)
  ** Funçao:ShowList
  *  Apresenta a lista ligada
  *  @param Morph morph
  *  @return void
 */
-void ShowList(Morph *morph);
-/**  Syntax Da Funcao
- **  Funçao:Nome da Funcao
- *   Descrição: Aqui
- *   @param parametros da funçao aqui
- *   @return valor de retorno aqui
- */
-void ShowList1(coluna *coluna3);
-
-void ShowList_3(Coluna1 *colunaAux);
-
-void ShowList2(coluna *coluna3);
-/**  Syntax Da Funcao
- *  Funçao:Nome da Funcao
- **  Descrição: Aqui
- *!  Alertas Aqui
- *   @param parametros da funçao aqui
- *   @return valor de retorno aqui
- */
 char ShowMenu();
 
-coluna* NewNodeCol(char *nome);
+void ShowList(Morph *morph);
 
-coluna* InsertInCol(coluna* coluna,char* nome);
+void ShowListEx2(coluna *coluna3, coluna* colOrdenada);
 
-coluna* LoadCol3(Morph *morph);
+void ShowList2(coluna *coluna3);
 
-int ContaTotalCol3(coluna* col);
+void ShowList_3(Coluna1 *cl4,Coluna1 *coluna3);
 
-void CalcularRelativa(coluna* col,int total);
-int Comprimento_zero(Morph *morph); /* comprimento da palavra*/
-coluna *Ordenado(coluna *lista, char *string, int num, float flo);
+void ShowListEx4(TipoLetra *letras);
+void ShowListEx42(TipoLetra* letras);
 
-
-/*! isto eu fiz com base no teu codigo, nao estou a conseguir ordenar, mas ja apresenta qualquer coisa, ve e depois diz qualquer coisa*/
-Coluna1 *InsertInCol1(Coluna1 *coluna, char *nome);
-Coluna1 *NewNodeCol1(char *nome);
-Coluna1 *LoadCol4(Morph *morph);
-void CalcularRelativa_Comprimento(Coluna1 *col, int total);
-Coluna1 *Ordenado_Comprimento(Coluna1 *lista, int num, int qtdAbs, float flo);
+/**
+ *?----------------------------------------------------Fim-----------------------------------------------------------------------------
+*/
 
 /**
  *!                                                END OF SIGNATURES
