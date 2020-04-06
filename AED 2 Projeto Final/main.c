@@ -17,5 +17,58 @@
  * */
 int main()
 {
+    char op;
 
+    do
+    {
+        op = ShowMenu();
+        switch (op)
+        {
+        case '1': /*Exercicio 1*/
+            system("cls");
+
+            
+            getchar();
+
+            break;
+        case '2': /*Exercicio 2*/
+            system("cls");
+
+            
+
+            getchar();
+
+            break;
+        case '3': /*Exercicio 3*/
+            system("cls");
+
+            
+
+            getchar();
+
+            break;
+        case '4': /*Exercicio 4*/
+            
+            
+
+            fflush(stdin);
+            getchar();
+            break;
+        case '5':
+            system("cls");
+
+            
+
+            getchar();
+            break;
+        case '6':
+            system("cls");
+            
+            getchar();
+            break;
+        default:
+            break;
+        }
+
+    } while (op != 's');
 }

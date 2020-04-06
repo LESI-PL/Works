@@ -11,7 +11,30 @@
 /**
  *!                                                 STRUCTS
 */
+typedef struct LineMorph
+{
+    char originWord[MAX];
+    char wordRoot[MAX];
+    char morphAnalise[MAX];
+    float rightProb;
+    struct LineMorph *next;
+    struct LineMorph *preview;
+}Morph;
 
+
+typedef struct _Geral
+{
+    char *nome;
+    int *qtdAbs;
+    int *lenght;
+    float *valores;
+    float *media;
+    float *desvioPadrao;
+    int *total;
+    float *qtdRelativa;
+    struct _Geral* next;
+
+}Geral;
 /**
  *!                                              END OF STRUCTS
 */
