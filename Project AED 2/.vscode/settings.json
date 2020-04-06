@@ -45,12 +45,12 @@
         {
           "tag": "<function>",
           "color": "#3645b8",
-          "strikethrough": false,
+          "strikethrough": true,
           "backgroundColor": "transparent"
         },
         {
-          "tag": "<main>",
-          "color": "#60c7c9",
+          "tag": "done",
+          "color": "#3fc9aa",
           "strikethrough": false,
           "backgroundColor": "transparent"
         }

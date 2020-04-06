@@ -79,6 +79,9 @@ int checkWord(char palavra[]);
 
 void Destroy(Morph *morph);
 
+Coluna1* Ordennar_Lista3(Coluna1 *cl4, Coluna1 *cl3);
+
+
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -109,6 +112,30 @@ void CalcularRelativa_Comprimento(Coluna1 *col, int total);
 TipoLetra* CalcularMedia(TipoLetra* letras);
 
 TipoLetra* CalcularDp(TipoLetra* letras);
+
+float CalcularMediaComprimento(Coluna1* colunaAux_Ordenada);
+
+/*int CalcularMedianaComprimento(Coluna1 *colunaAux_Ordenada, int abs);*/
+
+int* CalcularModaComprimento(Coluna1 *colunaAux_Ordenada);
+
+float DesvioPadraoComprimento(Coluna1 *colunaAux_Ordenada, int abs, int media);
+
+float Amplitude(float intervalo, int numclasses);
+
+float NumeroClasses(int abs);
+
+float IntervaloDaCerteza(Morph *morph);
+
+int ProcuraModa(Coluna1* colunaAux_Ordenada);
+
+int* ProcuraModas(Coluna1* colunaAux_Ordenada,int moda);
+
+int ContarModas(Coluna1 *colunaAux_Ordenada, int moda);
+
+int ProcurarMediana(int abs);
+int CalcularMedianaComprimento(Coluna1 *cl41, int ordem, int abs);
+
 
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
