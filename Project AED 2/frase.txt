@@ -21,5 +21,3 @@ a a DT 0.998827
 dreadful dreadful JJ 1
 thought thought NN 0.0950141
 ! ! Fat 1
-
-Which which WDT 0.999954

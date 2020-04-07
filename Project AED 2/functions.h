@@ -167,6 +167,7 @@ void ShowList_3(Coluna1 *cl4,Coluna1 *coluna3);
 void ShowListEx4(TipoLetra *letras);
 void ShowListEx42(TipoLetra* letras);
 
+void ListarMedidasComprimento(Morph *morph, int contamodas, int *moda_comprimento, float media_comprimento, int mediana_comprimento, float dp_comprimento);
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */

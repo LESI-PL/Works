@@ -494,25 +494,28 @@ int ProcurarMediana(int abs)
 int CalcularMedianaComprimento(Coluna1 *cl41, int ordem, int abs)
 {
     int abs_acumulada = 0;
-    int classeXK=0, classeXK1;
-    int aux = 0,aux1=0;
+    int classeXK = 0, classeXK1;
+    int aux = 0, aux1 = 0;
     int mediana = 0;
     if (abs % 2 == 0)
     {
-        printf("par\n");getchar();
+        printf("par\n");
+        getchar();
         while (cl41 != NULL && abs_acumulada <= ordem)
         {
             abs_acumulada += cl41->qtdAbs;
-            aux= cl41->lenght;
-            aux1=cl41->next->lenght;
+            aux = cl41->lenght;
+            aux1 = cl41->next->lenght;
             if (abs_acumulada >= ordem)
             {
                 classeXK = aux;
-                if (ordem+1<=abs_acumulada)
+                if (ordem + 1 <= abs_acumulada)
                 {
                     classeXK1 = aux;
-                }else{
-                    classeXK1=aux1;
+                }
+                else
+                {
+                    classeXK1 = aux1;
                 }
             }
             cl41 = (cl41->next ? cl41->next : NULL);
@@ -809,6 +812,54 @@ void ShowListEx42(TipoLetra *letras)
         }
         printf("\n");
         letras = (letras->next ? letras->next : NULL);
+    }
+}
+void ListarMedidasComprimento(Morph *morph, int contamodas, int *moda_comprimento, float media_comprimento, int mediana_comprimento, float dp_comprimento)
+{
+    int i = 0, j = 0;
+    char aux[20];
+    char aux1[20];
+    if (morph)
+    {
+        printf("\t\t\tMedidas de tendecia central e medida de tendencia nao central\n\n");
+        for (i = 0; i < 95; i++)
+            printf("%c", '_');
+        printf("\n\t\t\t\tMedidas de tendecia central\n");
+        for (i = 0; i < 95; i++)
+            printf("%c", '_');
+        printf("\n|%30s|%20s|%20s|%20s|\n", "Categoria", "Media", "Mediana", "Moda(s)");
+        for (i = 0; i < 95; i++)
+            printf("%c", '_');
+        printf("\n|%30s|%20.2f|%20d|%20d|\n", "Numero de Letras", media_comprimento, mediana_comprimento);
+        /*if (contamodas > 1)
+        {
+            while (j < contamodas)
+            {
+                itoa(moda_comprimento[j],aux,10);
+                strcpy(aux1[j],aux);
+                j++;
+            }
+            itoa(moda_comprimento,aux,10);
+            printf("estou aqui\n");
+            printf("%s\n",aux1);
+        }*/
+        for (i = 0; i < 95; i++)
+            printf("%c", '_');
+        printf("\n\t\t\t\t\nMedidas de tendecia nao central\n\n");
+        for (i = 0; i < 95; i++)
+            printf("%c", '_');
+        printf("\n|%30s|%62s|\n", "Categoria", "Desvio Padrao");
+        for (i = 0; i < 95; i++)
+            printf("%c", '_');
+        printf("\n|%30s|%62.2f|\n", "Numero de Letras", dp_comprimento);
+        for (i = 0; i < 95; i++)
+            printf("%c", '_');
+    }
+    else
+    {
+        system("cls");
+        printf("Nao existe nada para listar\n");
+        getchar();
     }
 }
 
