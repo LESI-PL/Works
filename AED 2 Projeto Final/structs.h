@@ -17,8 +17,10 @@ typedef struct LineMorph
     char wordRoot[MAX];
     char morphAnalise[MAX];
     float rightProb;
-    struct LineMorph *next;
-    struct LineMorph *preview;
+    int quantidade;
+    int total;
+    struct LineMorph *right;
+    struct LineMorph *left;
 }Morph;
 
 

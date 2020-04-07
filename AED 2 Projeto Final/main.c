@@ -18,6 +18,9 @@
 int main()
 {
     char op;
+    Morph *tree= NULL;
+    
+    tree = CarregarDados();/* Carregameto dos dados*/
 
     do
     {
@@ -25,9 +28,13 @@ int main()
         switch (op)
         {
         case '1': /*Exercicio 1*/
+            /**
+             * !          Ex1)  listagem dos dados
+            */
             system("cls");
-
-            
+            ListarMorph(tree);
+            printf("\nTotal:%d\n",tree->total);
+                       
             getchar();
 
             break;
@@ -71,4 +78,5 @@ int main()
         }
 
     } while (op != 's');
+    return 0;
 }
