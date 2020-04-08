@@ -16,19 +16,63 @@
 /**
  *?----------------------------------------------Funçoes de Carregamento--------------------------------------------------------------
 */
+/**
+ *! Exercicio 1
+*/
 Morph *CarregarDados();
+/**
+ *! Fim Exercicio 1
+*/
+
+
+
+/**
+ *! Exercicio 2
+*/
+Geral* Ex2Load(Morph* morph,Geral* dados);
+Geral *Ex2LoadTree(Geral *dados, Geral* dadosOrganizados);
+/**
+ *! Fim Exercicio 2
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
 
+
+
+
 /**
  *?----------------------------------------------Manuseamento de Struct----------------------------------------------------------------
+*/
+/**
+ *! Exercicio 1
 */
 Morph *NewNode(Morph* dados);
 Morph *InsertNode(Morph *temp, Morph *dados);
 /**
+ *! Fim Exercicio 1
+*/
+
+
+
+
+/**
+ *! Exercicio 2
+*/
+Geral *Ex2NewNode(Morph *morph);
+Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados);
+Geral *Ex2InsertNewTree(Geral *dados);
+Geral *Ex2OrganizarTree(Geral *dados, Geral *dadosOrganizados);
+/**
+ *! Fim Exercicio 2
+*/
+/**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
+
+
+
+
 
 /**
  *?----------------------------------------------Verificacoes de dados----------------------------------------------------------------
@@ -42,10 +86,22 @@ char* checkLetra(char* palavra);
 
 
 
+
+
 /**
  *?--------------------------------------------------Calculos--------------------------------------------------------------------------
 */
 int contWord(char *string);
+
+/**
+ *! Exercicio 2
+*/
+int AbsAcomulada(Geral* ex2, int sum);
+float RelAcomulada(Geral* ex2, float sum);
+Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados);
+/**
+ *! Fim Exercicios 2
+ */
 
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -57,8 +113,24 @@ int contWord(char *string);
 /**
  *?-------------------------------------------------Mostrar Dados----------------------------------------------------------------------
 */
+/**
+ *! Exercicio 1
+*/
 char ShowMenu();
 void ListarMorph(Morph* tree);
+/**
+ *! Fim Exercicio 1
+*/
+
+
+/**
+ *! Exercicio 2
+*/
+void ListarEx2(Geral* ex2);
+void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada);
+/**
+ *! Fim Exercicio 2
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */

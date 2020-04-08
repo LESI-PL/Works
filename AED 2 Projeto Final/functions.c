@@ -20,8 +20,10 @@
 /**
  *?----------------------------------------------Funçoes de Carregamento--------------------------------------------------------------
 */
-Morph *CarregarDados()
-{
+/**
+ *! Exercicio 1
+*/
+Morph *CarregarDados(){
     Morph *dados = NULL, *temp = NULL;
     FILE *f;
     int i = 0;
@@ -49,13 +51,49 @@ Morph *CarregarDados()
     fclose(f);
     return temp;
 }
+/**
+ *! Fim Exercicio 1
+*/
 
+
+/**
+ *! Exercicio 2
+*/
+Geral *Ex2Load(Morph *morph, Geral *dados){
+    int i;
+    if (morph)
+    {
+        dados = Ex2Load(morph->left, dados);
+        for (i = 0; i < morph->quantidade; i++)
+        {
+            dados = Ex2InsertNode(dados, morph);
+        }
+
+        dados = Ex2Load(morph->right, dados);
+    }
+    return dados;
+}
+Geral *Ex2LoadTree(Geral *dados, Geral *dadosOrganizados){
+    if (dados != NULL)
+    {
+        dadosOrganizados = Ex2LoadTree(dados->right, dadosOrganizados);
+
+        dadosOrganizados = Ex2OrganizarTree(dados, dadosOrganizados);
+    }
+    return dadosOrganizados;
+}
+/**
+ *! Fim Exercicio 2
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
 
 /**
  *?----------------------------------------------Manuseamento de Struct----------------------------------------------------------------
+*/
+/**
+ *! Exercicio 1
 */
 Morph *NewNode(Morph *dados)
 {
@@ -98,16 +136,77 @@ Morph *InsertNode(Morph *temp, Morph *dados)
     }
     return temp;
 }
+/**
+ *! Fim Exercicio 1
+*/
 
-/*Geral *newNode(Morph *morph)
-{
-    Geral *temp = (Geral *)malloc(sizeof(Geral));
-    temp->nome = (char *)malloc((contWord(morph->originWord) + 1) * sizeof(char));
-    temp->qtdAbs = (int *)malloc(sizeof(int));
 
-    strcpy(temp->nome, morph->originWord);
+
+/**
+ *! Exercicio 2
+*/
+Geral *Ex2NewNode(Morph *morph){
+    Geral *temp;
+    temp = (Geral *)malloc(sizeof(Geral));
+    temp->nome = (char *)malloc((contWord(morph->morphAnalise) + 1) * sizeof(char));
+
+    strcpy(temp->nome, morph->morphAnalise);
     temp->qtdAbs = 1;
-}*/
+    temp->qtdRelativa = 0;
+    temp->right = NULL;
+    temp->left = NULL;
+    return temp;
+}
+Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados){
+    if (dadosEx2 == NULL)
+    {
+        return Ex2NewNode(dados);
+    }
+    else if (strcmp(dados->morphAnalise, dadosEx2->nome) == 0)
+    {
+        dadosEx2->qtdAbs++;
+    }
+    else
+    {
+        dadosEx2->right = Ex2InsertNode(dadosEx2->right, dados);
+    }
+    return dadosEx2;
+}
+Geral *Ex2InsertNewTree(Geral *dados){
+    Geral *temp = (Geral *)malloc(sizeof(Geral));
+    temp->nome = (char *)malloc((contWord(dados->nome) + 1) * sizeof(char));
+
+    strcpy(temp->nome, dados->nome);
+    temp->qtdAbs = dados->qtdAbs;
+    temp->qtdRelativa = dados->qtdRelativa;
+    temp->left = NULL;
+    temp->right = NULL;
+    return temp;
+}
+Geral *Ex2OrganizarTree(Geral *dados, Geral *dadosOrganizados){
+    if (dadosOrganizados == NULL)
+    {
+        /*printf("Dados: %s\n",dados->nome);getchar();*/
+        return Ex2InsertNewTree(dados);
+    }
+    else
+    {
+        if (dados->qtdAbs > dadosOrganizados->qtdAbs)
+        {   /*Right*/
+            /*printf("Right   dados:%s %d  |  dadosOrg: %s  %d",dados->nome,dados->qtdAbs,dadosOrganizados->nome,dadosOrganizados->qtdAbs);getchar();*/
+            dadosOrganizados->right = Ex2OrganizarTree(dados, dadosOrganizados->right);
+        }
+        else if (dados->qtdAbs >= dadosOrganizados->qtdAbs)
+        {   /*Left*/
+            /*printf("Left   dados:%s %d  |  dadosOrg: %s  %d",dados->nome,dados->qtdAbs,dadosOrganizados->nome,dadosOrganizados->qtdAbs);getchar();*/
+            dadosOrganizados->left = Ex2OrganizarTree(dados, dadosOrganizados->left);
+        }
+    }
+    return dadosOrganizados;
+}
+/**
+ *! Fim Exercicio 2
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -146,11 +245,17 @@ char *checkLetra(char *palavra)
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
 
+
+
+
+
 /**
  *?--------------------------------------------------Calculos--------------------------------------------------------------------------
 */
-int contWord(char *string)
-{
+/**
+ *! Gerericas
+*/
+int contWord(char *string){
     int i = 0;
     while (string[i] != '\0')
     {
@@ -158,12 +263,46 @@ int contWord(char *string)
     }
     return i;
 }
+
+/**
+ *! Exercicio 2
+*/
+int AbsAcomulada(Geral* ex2, int sum){
+    if(ex2){
+        sum = ex2->qtdAbs + AbsAcomulada(ex2->left,sum);
+    }
+    return sum;
+}
+float RelAcomulada(Geral* ex2, float sum){
+    if(ex2){
+        sum = ex2->qtdRelativa + RelAcomulada(ex2->left,sum);
+    }
+    return sum;
+}
+Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados){
+    if (dados == NULL)
+    {
+        return dados;
+    }
+    else
+    {
+        dados->right = Ex2CalcularFreqRel(dados->right, totalDados);
+        dados->qtdRelativa = dados->qtdAbs / (float)totalDados;
+    }
+    return dados;
+}
+/**
+ *! Fim Exercicio 2
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
 
 /**
  *?-------------------------------------------------Mostrar Dados----------------------------------------------------------------------
+*/
+/**
+ *! Exercicio 1
 */
 char ShowMenu()
 {
@@ -191,13 +330,46 @@ void ListarMorph(Morph *tree)
     if (tree)
     {
         ListarMorph(tree->left);
-        for(i = 0; i < tree->quantidade; i++)
+        for (i = 0; i < tree->quantidade; i++)
         {
             printf("%s %s %s %f\n", tree->originWord, tree->wordRoot, tree->morphAnalise, tree->rightProb);
         }
         ListarMorph(tree->right);
     }
 }
+/**
+ *! Fim Exercicio 1
+*/
+
+
+
+
+/**
+ *! Exercicio 2
+*/
+void ListarEx2(Geral *ex2)
+{
+    while (ex2)
+    {
+        printf("%s %d \n", ex2->nome, ex2->qtdAbs);
+        ex2 = (ex2->right ? ex2->right : NULL);
+    }
+}
+
+void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada)
+{
+    if (ex2)
+    {
+        ListarEx2Tree(ex2->left,absAcomulada,relAcomulada);
+        absAcomulada = AbsAcomulada(ex2,absAcomulada);
+        relAcomulada = RelAcomulada(ex2,relAcomulada);
+        printf("| %4s | %7d      |   %f   | %10d         |       %f     |\n", ex2->nome, ex2->qtdAbs, ex2->qtdRelativa, absAcomulada, relAcomulada);
+        ListarEx2Tree(ex2->right,absAcomulada,relAcomulada);
+    }
+}
+/**
+ *! Fim Exercicio 2
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */

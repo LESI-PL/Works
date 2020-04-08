@@ -27,14 +27,15 @@ typedef struct LineMorph
 typedef struct _Geral
 {
     char *nome;
-    int *qtdAbs;
-    int *lenght;
-    float *valores;
-    float *media;
-    float *desvioPadrao;
-    int *total;
-    float *qtdRelativa;
-    struct _Geral* next;
+    int qtdAbs;
+    int lenght;
+    float valores;
+    float media;
+    float desvioPadrao;
+    int total;
+    float qtdRelativa;
+    struct _Geral* right;
+    struct _Geral* left;
 
 }Geral;
 /**

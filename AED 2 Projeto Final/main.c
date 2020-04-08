@@ -18,12 +18,30 @@
 int main()
 {
     char op;
-    Morph *tree= NULL;
-    
-    tree = CarregarDados();/* Carregameto dos dados*/
+    int absAcomulada = 0;
+    float relAcomulada = 0;
+    Morph *tree = NULL;
+    Geral *ex2 = NULL, *ex2Org = NULL;
+
+
+    /**
+     *! Exercicio 2
+    */
+    /* Carregameto dos dados*/
+    tree = CarregarDados();
+    /*Carrega os dados de tree para uma lista ligada somente com os dados que preciso da coluna 3*/
+    ex2 = Ex2Load(tree, ex2);
+    /*Usa o total de dados para calcular a Frequencia Relativa de cada letra*/
+    ex2 = Ex2CalcularFreqRel(ex2, tree->total);
+    /*Passa tudo para uma arvore binaria para que os dados fiquem organizados*/
+    ex2Org = Ex2LoadTree(ex2, ex2Org);
+    /**
+     *! Fim Exercicio2 
+    */
 
     do
     {
+        /*Mostra o menu e retorna a escolha do utilizador*/
         op = ShowMenu();
         switch (op)
         {
@@ -33,30 +51,29 @@ int main()
             */
             system("cls");
             ListarMorph(tree);
-            printf("\nTotal:%d\n",tree->total);
-                       
+            printf("\nTotal:%d\n", tree->total);
+
             getchar();
 
             break;
         case '2': /*Exercicio 2*/
+            /**
+             * !          Ex2)  Categoria gramatical ordenada 
+             * !   | Nome | Qtd Abs | Qtd Relativa | Abs acomulada | Relativa Acomulada |
+            */
             system("cls");
-
-            
-
+            /*Faz a listagem dos dados; La dentro faz as acomuladas*/
+            printf("| %s | %s | %s | %s | %s |\n", "Nome", "Qtd Absoluta", "Qtd Relativa", "Absoluta Acomulada", "Relativa Acomulada");
+            ListarEx2Tree(ex2Org, absAcomulada, relAcomulada);
             getchar();
-
             break;
         case '3': /*Exercicio 3*/
             system("cls");
-
-            
 
             getchar();
 
             break;
         case '4': /*Exercicio 4*/
-            
-            
 
             fflush(stdin);
             getchar();
@@ -64,13 +81,11 @@ int main()
         case '5':
             system("cls");
 
-            
-
             getchar();
             break;
         case '6':
             system("cls");
-            
+
             getchar();
             break;
         default:
