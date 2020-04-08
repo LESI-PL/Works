@@ -107,8 +107,9 @@ int main()
             mediana_comprimento = CalcularMedianaComprimento(cl41, ordem, abs);
             printf(" mediana = %d\n", mediana_comprimento);
             dp_comprimento = DesvioPadraoComprimento(cl41, abs, media_comprimento);
-            printf("desvio %.2f",dp_comprimento);
-
+            printf("desvio %.2f\n",dp_comprimento);
+            getchar();
+            ListarMedidasComprimento(morph,contamodas,moda_comprimento,  media_comprimento, mediana_comprimento,  dp_comprimento);
 
             getchar();
             break;
