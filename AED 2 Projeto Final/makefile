@@ -9,6 +9,5 @@ functions.o: functions.c functions.h structs.h
 clean:
 	del /Q /S *.o *~ main
 run:
-	mingw32-make clean
 	mingw32-make all
 	.\main

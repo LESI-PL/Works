@@ -24,22 +24,26 @@ Morph *CarregarDados();
  *! Fim Exercicio 1
 */
 
-
-
 /**
  *! Exercicio 2
 */
-Geral* Ex2Load(Morph* morph,Geral* dados);
-Geral *Ex2LoadTree(Geral *dados, Geral* dadosOrganizados);
+Geral *Ex2Load(Morph *morph, Geral *dados);
+Geral *Ex2LoadTree(Geral *dados, Geral *dadosOrganizados);
 /**
  *! Fim Exercicio 2
+*/
+
+/**
+ *! Exercicio 3
+*/
+Geral *Ex3Load(Morph *morph, Geral *dados);
+Geral *Ex3LoadTree(Geral *dados, Geral *dadosOrganizados);
+/**
+ *! Fim Exercicio 3
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
-
-
-
 
 /**
  *?----------------------------------------------Manuseamento de Struct----------------------------------------------------------------
@@ -47,14 +51,11 @@ Geral *Ex2LoadTree(Geral *dados, Geral* dadosOrganizados);
 /**
  *! Exercicio 1
 */
-Morph *NewNode(Morph* dados);
+Morph *NewNode(Morph *dados);
 Morph *InsertNode(Morph *temp, Morph *dados);
 /**
  *! Fim Exercicio 1
 */
-
-
-
 
 /**
  *! Exercicio 2
@@ -66,27 +67,33 @@ Geral *Ex2OrganizarTree(Geral *dados, Geral *dadosOrganizados);
 /**
  *! Fim Exercicio 2
 */
+
 /**
- *?----------------------------------------------------Fim-----------------------------------------------------------------------------
+ *! Exercicio 3
+*/
+Geral *Ex3NewNode(Morph *morph);
+Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados);
+Geral *Ex3InsertNewTree(Geral *dados);
+Geral *Ex3OrganizarTree(Geral *dados, Geral *dadosOrganizados);
+/**
+ *! Fim Exercicio 3
 */
 
 
-
-
+/**
+ *?----------------------------------------------------Fim-----------------------------------------------------------------------------
+*/
 
 /**
  *?----------------------------------------------Verificacoes de dados----------------------------------------------------------------
 */
-int checkWord(char palavra[]);
 
-char* checkLetra(char* palavra);
+int checkWord(char palavra[]);
+char *checkLetra(char *palavra);
+
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
-
-
-
-
 
 /**
  *?--------------------------------------------------Calculos--------------------------------------------------------------------------
@@ -96,40 +103,70 @@ int contWord(char *string);
 /**
  *! Exercicio 2
 */
-int AbsAcomulada(Geral* ex2, int sum);
-float RelAcomulada(Geral* ex2, float sum);
+int AbsAcomulada(Geral *ex2, int sum);
+float RelAcomulada(Geral *ex2, float sum);
 Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados);
+int buscarTotalAcumulado(Geral *ex2, int abs);
+float buscarTotalRelAcumulada(Geral *ex2, float rel);
 /**
  *! Fim Exercicios 2
+ */
+
+
+/**
+ *! Exercicio 3
+*/
+int AbsAcomuladaEx3(Geral *ex2, int sum);
+float RelAcomuladaEx3(Geral *ex2, float sum);
+Geral *Ex3CalcularFreqRelEx3(Geral *dados, int totalDados);
+int buscarTotalAcumuladoEx3(Geral *ex2, int abs);
+float buscarTotalRelAcumuladaEx3(Geral *ex2, float rel);
+/**
+ *! Fim Exercicios 3
  */
 
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
 
-
-
-
 /**
  *?-------------------------------------------------Mostrar Dados----------------------------------------------------------------------
 */
 /**
+ * ! Genericos
+*/
+void Cabecalho(char *nome);
+/**
+ *! Fim 
+*/
+
+/**
  *! Exercicio 1
 */
 char ShowMenu();
-void ListarMorph(Morph* tree);
+void ListarMorph(Morph *tree);
 /**
  *! Fim Exercicio 1
 */
 
-
 /**
  *! Exercicio 2
 */
-void ListarEx2(Geral* ex2);
+void ListarEx2(Geral *ex2);
 void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada);
+void RodapeEx2(int abs, float rel);
 /**
  *! Fim Exercicio 2
+*/
+
+/**
+ *! Exercicio 3
+*/
+void ListarEx3(Geral *ex3);
+void ListarEx3Tree(Geral *ex3, int absAcomulada, float relAcomulada);
+void RodapeEx3(int abs, float rel);
+/**
+ *! Fim Exercicio 3
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------

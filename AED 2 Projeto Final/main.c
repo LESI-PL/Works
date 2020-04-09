@@ -22,13 +22,22 @@ int main()
     float relAcomulada = 0;
     Morph *tree = NULL;
     Geral *ex2 = NULL, *ex2Org = NULL;
+    Geral *ex3 = NULL, *ex3Org = NULL;
+    char Ex2Titulo[50], Ex3Titulo[70];
+    ;
 
+    /**
+     * ! Exercicio 1
+    */
+    /* Carregameto dos dados*/
+    tree = CarregarDados();
+    /**
+     * ! Fim Exercicio 1
+    */
 
     /**
      *! Exercicio 2
     */
-    /* Carregameto dos dados*/
-    tree = CarregarDados();
     /*Carrega os dados de tree para uma lista ligada somente com os dados que preciso da coluna 3*/
     ex2 = Ex2Load(tree, ex2);
     /*Usa o total de dados para calcular a Frequencia Relativa de cada letra*/
@@ -39,8 +48,20 @@ int main()
      *! Fim Exercicio2 
     */
 
+   /**
+     *! Exercicio 3
+    */
+    /*Carrega os dados de tree para uma lista ligada somente com os dados que preciso da coluna 3*/
+    ex3 = Ex3Load(tree, ex3);
+    /*Usa o total de dados para calcular a Frequencia Relativa de cada tamanho da palavra*/
+    ex3 = Ex3CalcularFreqRelEx3(ex3, tree->total);
+    /**
+     *! Fim Exercicio 3 
+    */
+    getchar();
     do
     {
+        
         /*Mostra o menu e retorna a escolha do utilizador*/
         op = ShowMenu();
         switch (op)
@@ -59,17 +80,40 @@ int main()
         case '2': /*Exercicio 2*/
             /**
              * !          Ex2)  Categoria gramatical ordenada 
-             * !   | Nome | Qtd Abs | Qtd Relativa | Abs acomulada | Relativa Acomulada |
+             * !   | Nome | Qtd Abs | Qtd Relativa | Abs acumulada | Relativa Acumulada |
             */
             system("cls");
-            /*Faz a listagem dos dados; La dentro faz as acomuladas*/
-            printf("| %s | %s | %s | %s | %s |\n", "Nome", "Qtd Absoluta", "Qtd Relativa", "Absoluta Acomulada", "Relativa Acomulada");
+            /*Faz a listagem dos dados; La dentro faz as acumuladas*/
+            
+            strcpy(Ex2Titulo, "Tabela de Frequencias Da Terceira Coluna");
+            Cabecalho(Ex2Titulo);
+            absAcomulada = 0;
+            relAcomulada = 0;
             ListarEx2Tree(ex2Org, absAcomulada, relAcomulada);
+            absAcomulada = 0;
+            relAcomulada = 0;
+            absAcomulada = buscarTotalAcumulado(ex2Org, absAcomulada);
+            relAcomulada = buscarTotalRelAcumulada(ex2Org, relAcomulada);
+            RodapeEx2(absAcomulada, relAcomulada);
             getchar();
             break;
         case '3': /*Exercicio 3*/
+            /**
+             * !          Ex3)  Comprimento das palavras ordenada 
+             * !   | comprimento | Qtd Abs | Qtd Relativa | Abs acumulada | Relativa Acumulada |
+            */
             system("cls");
-
+            /*Faz a listagem dos dados; La dentro faz as acumuladas*/
+            strcpy(Ex3Titulo, "Tabela de Frequencias Da Comprimentos das Palavras");
+            Cabecalho(Ex3Titulo);
+            absAcomulada = 0;
+            relAcomulada = 0;
+            ListarEx3Tree(ex3, absAcomulada, relAcomulada);
+            absAcomulada = 0;
+            relAcomulada = 0;
+            absAcomulada = buscarTotalAcumuladoEx3(ex3, absAcomulada);
+            relAcomulada = buscarTotalRelAcumuladaEx3(ex3, relAcomulada);
+            RodapeEx3(absAcomulada, relAcomulada);
             getchar();
 
             break;
