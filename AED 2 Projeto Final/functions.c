@@ -177,20 +177,23 @@ Morph *InsertNode(Morph *temp, Morph *dados)
 /**
  *! Exercicio 2
 */
-Geral *Ex2NewNode(Morph *morph)
+Geral *Ex2NewNode(Morph *morph)/* Funcao Foi Alterada*/
 {
     Geral *temp;
     temp = (Geral *)malloc(sizeof(Geral));
     temp->nome = (char *)malloc((contWord(morph->morphAnalise) + 1) * sizeof(char));
+    temp->valores = (float *)malloc(sizeof(float));
 
     strcpy(temp->nome, morph->morphAnalise);
     temp->qtdAbs = 1;
     temp->qtdRelativa = 0;
+    temp->valores[temp->qtdAbs - 1] = morph->rightProb;
+    temp->medidaDeCerteza = morph->rightProb;
     temp->right = NULL;
     temp->left = NULL;
     return temp;
 }
-Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados)
+Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados)/* Funcao Foi Alterada*/
 {
     if (dadosEx2 == NULL)
     {
@@ -199,6 +202,9 @@ Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados)
     else if (strcmp(dados->morphAnalise, dadosEx2->nome) == 0)
     {
         dadosEx2->qtdAbs++;
+        dadosEx2->valores = (float *)realloc(dadosEx2->valores, dadosEx2->qtdAbs * sizeof(float));
+        dadosEx2->valores[dadosEx2->qtdAbs - 1] = dados->rightProb;
+        dadosEx2->medidaDeCerteza += dados->rightProb;
     }
     else
     {
@@ -512,6 +518,48 @@ Geral *Ex3CalcularFreqRelEx3(Geral *dados, int totalDados)
 /**
  *! Fim Exercicio 3
 */
+
+
+
+/**
+ *! Exercicio 4
+*/
+Geral *Ex4CalcularMedia(Geral *dados)
+{
+    if (dados)
+    {
+        dados->right = Ex4CalcularMedia(dados->right);
+        dados->media = dados->medidaDeCerteza / dados->qtdAbs;
+    }
+    else if (dados == NULL)
+    {
+        return dados;
+    }
+    return dados;
+}
+
+Geral* Ex4CalcularDp(Geral* dados){
+    Geral *temp = dados;
+    int i = 0;
+    float dp;
+    while (dados)
+    {
+        dp = 0;
+        for (i = 0; i < dados->qtdAbs; i++)
+        {
+            dp += pow(dados->valores[i] - dados->media,2);
+        }
+        dp = dp/dados->qtdAbs;
+        dp = sqrt(dp);
+        dados->desvioPadrao = dp;
+        dados = (dados->right ? dados->right : NULL);
+    }
+    return temp;
+}
+
+/**
+ *! Fim Exercicio 4
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -624,7 +672,7 @@ void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada)
 */
 
 /**
- *! Exercicio 2
+ *! Exercicio 3
 */
 void ListarEx3(Geral *ex3)
 {
@@ -665,6 +713,25 @@ void ListarEx3Tree(Geral *ex3, int absAcomulada, float relAcomulada)
 }
 /**
  *! Fim Exercicio 3
+*/
+
+
+/**
+ *! Exercicio 4
+*/
+
+void ListarEx4(Geral *dados)
+{
+    int i;
+    while (dados)
+    {
+        printf("%s  %f  %f\n", dados->nome, dados->media, dados->desvioPadrao);
+        dados = (dados->right ? dados->right : NULL);
+    }
+}
+
+/**
+ *! Fim Exercicio 4
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------

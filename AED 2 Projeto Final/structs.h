@@ -24,20 +24,21 @@ typedef struct LineMorph
 }Morph;
 
 
-typedef struct _Geral
+typedef struct _Geral  /* Struct Foi Alterada*/
 {
     char *nome;
-    int qtdAbs;
-    int lenght;
-    float valores;
+    float medidaDeCerteza;
     float media;
     float desvioPadrao;
+    int qtdAbs;
+    int lenght;
+    float *valores;
     int total;
     float qtdRelativa;
-    struct _Geral* right;
-    struct _Geral* left;
+    struct _Geral *right;
+    struct _Geral *left;
 
-}Geral;
+} Geral;
 /**
  *!                                              END OF STRUCTS
 */

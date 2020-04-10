@@ -21,10 +21,9 @@ int main()
     int absAcomulada = 0;
     float relAcomulada = 0;
     Morph *tree = NULL;
-    Geral *ex2 = NULL, *ex2Org = NULL;
+    Geral *ex2 = NULL, *ex2Org = NULL; /*Struct para coluna 3 com sua qtd absoluta*/
     Geral *ex3 = NULL, *ex3Org = NULL;
     char Ex2Titulo[50], Ex3Titulo[70];
-    ;
 
     /**
      * ! Exercicio 1
@@ -58,7 +57,14 @@ int main()
     /**
      *! Fim Exercicio 3 
     */
-    getchar();
+    /**
+     *! Exercicio 4
+    */
+    ex2 = Ex4CalcularMedia(ex2);
+    ex2 = Ex4CalcularDp(ex2);
+    /**
+     *! Fim Exercicio 4
+    */
     do
     {
         
@@ -118,7 +124,8 @@ int main()
 
             break;
         case '4': /*Exercicio 4*/
-
+            system("cls");
+            ListarEx4(ex2);
             fflush(stdin);
             getchar();
             break;

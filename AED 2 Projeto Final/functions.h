@@ -126,6 +126,14 @@ float buscarTotalRelAcumuladaEx3(Geral *ex2, float rel);
  */
 
 /**
+ *! Exercicio 4
+*/
+Geral *Ex4CalcularMedia(Geral *dados);
+Geral* Ex4CalcularDp(Geral* dados);
+/**
+ *! Fim Exercicios 4
+ */
+/**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
 
@@ -167,6 +175,15 @@ void ListarEx3Tree(Geral *ex3, int absAcomulada, float relAcomulada);
 void RodapeEx3(int abs, float rel);
 /**
  *! Fim Exercicio 3
+*/
+
+/**
+ *! Exercicio 4
+*/
+void ListarEx4(Geral *dados);
+
+/**
+ *! Fim Exercicio 4
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
