@@ -125,6 +125,7 @@ int main()
             break;
         case '4': /*Exercicio 4*/
             system("cls");
+            Ex4Cabecalho("Tabela de Media e Desvio Padrao");
             ListarEx4(ex2);
             fflush(stdin);
             getchar();

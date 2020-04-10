@@ -719,15 +719,34 @@ void ListarEx3Tree(Geral *ex3, int absAcomulada, float relAcomulada)
 /**
  *! Exercicio 4
 */
-
+void Ex4Cabecalho(char *nome)
+{
+    int i;
+    printf("\t\t%s\n", nome);
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("\n| %5s | %s | %s | %s |\n", "Nome", "Medida de Certeza ", "Media Aritmetica", "Desvio Padrao");
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("\n");
+}
 void ListarEx4(Geral *dados)
 {
     int i;
     while (dados)
     {
-        printf("%s  %f  %f\n", dados->nome, dados->media, dados->desvioPadrao);
+        printf("| %4s  |      %f      |     %f     |    %f   |\n", dados->nome,dados->medidaDeCerteza, dados->media, dados->desvioPadrao);
         dados = (dados->right ? dados->right : NULL);
     }
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("\n");
 }
 
 /**

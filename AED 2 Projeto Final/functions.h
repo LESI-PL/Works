@@ -180,6 +180,8 @@ void RodapeEx3(int abs, float rel);
 /**
  *! Exercicio 4
 */
+void Ex4Cabecalho(char *nome);
+
 void ListarEx4(Geral *dados);
 
 /**
