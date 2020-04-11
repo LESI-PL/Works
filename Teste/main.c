@@ -22,7 +22,7 @@ int main()
     char op;
     
     Morph *listaDL = NULL;
-    Geral *ex2 = NULL;                                      /*Struct para coluna 3 com sua qtd absoluta*/
+    Geral *ex2 = NULL,*ex2org=NULL, *ex22=NULL;                                      /*Struct para coluna 3 com sua qtd absoluta*/
 
 
     /**
@@ -30,7 +30,7 @@ int main()
     */
     /* Carregameto dos dados*/
     listaDL = CarregarDados(); totalListaDL = listaDL->total;
-    printf("Done! %d\n",totalListaDL);
+    printf("Done! %d\n",totalListaDL);getchar();
     /**
      * ! Fim Exercicio 1
     */
@@ -81,8 +81,10 @@ int main()
              * !          Ex2)  Categoria gramatical ordenada 
              * !   | Nome | Qtd Abs | Qtd Relativa | Abs acumulada | Relativa Acumulada |
             */
-            system("cls");
+            
+            Cabecalho("Tabela de Frequencias Da Terceira Coluna");
             ListarE2(ex2);
+            
             getchar();
             break;
         case '3': /*Exercicio 3*/

@@ -26,7 +26,7 @@ typedef struct LineMorph
 
 typedef struct _Geral  /* Struct Foi Alterada*/
 {
-    char *nome;
+    char nome[MAX];
     float medidaDeCerteza;
     float media;
     float desvioPadrao;

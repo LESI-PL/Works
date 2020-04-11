@@ -13,6 +13,7 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 100
+/*#define Texto "frase.txt"*/
 #define Texto "slate-tagged.txt"
 
 /**
@@ -63,13 +64,18 @@ Morph *CarregarDados()
 Geral *Ex2Load(Morph *morph)
 {
     Morph *aux;
-    Geral *dados = NULL;
+    Geral *dados = NULL,*dadosOrg = NULL;
     for (aux = morph; aux; aux = aux->right)
     {
-        dados = Ex2InsertNode(dados,aux);
+        dados = Ex2InsertNode(dados, aux);
     }
-    return dados;    
+    for (; dados; dados = dados->right){
+        dadosOrg = Ex2InsertOrdenada(dadosOrg,dados);
+    }
+    dadosOrg = Ex2CalcularFreqRel(dadosOrg,morph->total);
+    return dadosOrg;
 }
+
 /**
  *! Fim Exercicio 2
 */
@@ -117,7 +123,6 @@ Geral *Ex2NewNode(Morph *morph) /* Funcao Foi Alterada*/
 {
     Geral *temp;
     temp = (Geral *)malloc(sizeof(Geral));
-    temp->nome = (char *)malloc((contWord(morph->morphAnalise) + 1) * sizeof(char));
     temp->valores = (float *)malloc(sizeof(float));
 
     strcpy(temp->nome, morph->morphAnalise);
@@ -132,23 +137,45 @@ Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados) /* Funcao Foi Alterada*/
 {
     if (dadosEx2 == NULL)
     {
-        
+
         return Ex2NewNode(dados);
-    }
-    else if (strcmp(dados->morphAnalise, dadosEx2->nome) == 0)
-    {
-       
-        dadosEx2->qtdAbs++;
-        dadosEx2->valores = (float *)realloc(dadosEx2->valores, dadosEx2->qtdAbs * sizeof(float));
-        dadosEx2->valores[dadosEx2->qtdAbs - 1] = dados->rightProb;
-        dadosEx2->medidaDeCerteza += dados->rightProb;
     }
     else
     {
-        
-        dadosEx2->right = Ex2InsertNode(dadosEx2->right, dados);
+        /*printf("DadosEx:%s    Morph:%s\n",dadosEx2->nome,dados->morphAnalise);*/
+        if (strcmp(dados->morphAnalise, dadosEx2->nome) == 0)
+        {
+            dadosEx2->qtdAbs++;
+            dadosEx2->valores = (float *)realloc(dadosEx2->valores, dadosEx2->qtdAbs * sizeof(float));
+            dadosEx2->valores[dadosEx2->qtdAbs - 1] = dados->rightProb;
+            dadosEx2->medidaDeCerteza += dados->rightProb;
+        }
+        else
+        {
+            dadosEx2->right = Ex2InsertNode(dadosEx2->right, dados);
+        }
     }
     return dadosEx2;
+}
+Geral* Ex2InsertOrdenada(Geral* lista, Geral* dados){
+    Geral* new = (Geral*)malloc(sizeof(Geral));
+    strcpy(new->nome,dados->nome);
+    new->qtdAbs = dados->qtdAbs;
+    new->qtdRelativa = dados->qtdRelativa;
+
+    if(!lista || new->qtdAbs < lista->qtdAbs){
+        new->right = lista;
+        lista = new;
+    }else{
+        Geral* aux = lista;
+        while (aux->right && new->qtdAbs > aux->right->qtdAbs){
+            aux = aux->right;
+        }
+        new->right = aux->right;
+        aux->right = new;
+        
+    }
+    return lista;
 }
 /**
  *! Fim Exercicio 2
@@ -189,7 +216,7 @@ char *checkLetra(char *palavra)
     strcpy(aux, palavra);
     strcpy(aux2, aux);
     aux2 = strupr(aux);
-  
+
     if (aux[0] >= 97 && aux[0] <= 122)
     {
         aux[0] = aux2[0];
@@ -219,7 +246,67 @@ int contWord(char *string)
 /**
  *! Exercicio 2
 */
+Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados)
+{
+    if (dados == NULL)
+    {
+        return dados;
+    }
+    else
+    {
+        dados->right = Ex2CalcularFreqRel(dados->right, totalDados);
+        dados->qtdRelativa = dados->qtdAbs / (float)totalDados;
+    }
+    return dados;
+}
+int AbsAcomulada(Geral *ex2, int sum)
+{
+    if (ex2)
+    {
+        AbsAcomulada(ex2->left, sum);
+        sum = ex2->qtdAbs+AbsAcomulada(ex2->right,sum);
+        AbsAcomulada(ex2->right, sum);
+        
+    }
+    return sum;
+}
+int buscarTotalAcumulado(Geral *ex2, int total)
+{
 
+    if (ex2 != NULL)
+    {
+        buscarTotalAcumulado(ex2->left, total);
+        return total =  AbsAcomulada(ex2, total);
+        buscarTotalAcumulado(ex2->right, total);
+    }
+    else
+    {
+        return total;
+    }
+}
+float RelAcomulada(Geral *ex2, float sum)
+{
+    if (ex2)
+    {
+        sum = ex2->qtdRelativa + RelAcomulada(ex2->left, sum);
+    }
+    return sum;
+}
+float buscarTotalRelAcumulada(Geral *ex2, float total)
+{
+
+    if (ex2 != NULL)
+    {
+        buscarTotalRelAcumulada(ex2->left, total);
+        total = RelAcomulada(ex2, total);
+        buscarTotalRelAcumulada(ex2->right, total);
+    }
+    else
+    {
+        return total;
+    }
+    return total;
+}
 /**
  *! Fim Exercicio 2
 */
@@ -231,8 +318,6 @@ int contWord(char *string)
 /**
  *! Fim Exercicio 3
 */
-
-
 
 /**
  *! Exercicio 4
@@ -271,7 +356,6 @@ char ShowMenu()
     return op;
 }
 
-
 /**
  *! Fim Exercicio 1
 */
@@ -302,11 +386,29 @@ void Cabecalho(char *nome)
 */
 void ListarE2(Geral *ex2)
 {
-    if(ex2){
-        ListarE2(ex2->right);
-        printf("%s    %d\n",ex2->nome,ex2->qtdAbs);
+    Geral* aux;
+    int i=0, absAcomulada=0;
+    float relacomulada=0;
+    for(aux=ex2;aux;aux=aux->right){
+        absAcomulada += aux->qtdAbs;
+        relacomulada += aux->qtdRelativa;
+        printf("%s    %d    %f    %d     %f\n", aux->nome, aux->qtdAbs, aux->qtdRelativa, absAcomulada, relacomulada);
+        i += aux->qtdAbs;
     }
+    printf("TOTAL: %d\n",i);
+}
+
+void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada)
+{
     
+    if (ex2)
+    {
+        ListarEx2Tree(ex2->left, absAcomulada, relAcomulada);
+        absAcomulada = ex2->qtdAbs + AbsAcomulada(ex2->left,absAcomulada);
+        printf("| %5s | %7d      |   %f   | %10d         |       %f     |\n", ex2->nome, ex2->qtdAbs, ex2->qtdRelativa, absAcomulada, relAcomulada);
+        
+        ListarEx2Tree(ex2->right, absAcomulada, relAcomulada);
+    }
 }
 void RodapeEx2(int abs, float rel)
 {
@@ -348,11 +450,9 @@ void RodapeEx3(int abs, float rel)
     printf("\n");
 }
 
-
 /**
  *! Fim Exercicio 3
 */
-
 
 /**
  *! Exercicio 4

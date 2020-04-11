@@ -28,6 +28,8 @@ Morph *CarregarDados();
  *! Exercicio 2
 */
 Geral *Ex2Load(Morph *morph);
+Geral *Ex2LoadTree(Geral *dados, Geral *dadosOrganizados);
+Geral *Ex2LoadToList(Geral *dados,Geral *destino);
 /**
  *! Fim Exercicio 2
 */
@@ -60,6 +62,8 @@ Morph *HeadInsert(Morph *lista, char a[], char b[], char c[], float d);
 */
 Geral *Ex2NewNode(Morph *morph);
 Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados);
+Geral* Ex2InsertOrdenada(Geral* lista, Geral* dados);
+
 /**
  *! Fim Exercicio 2
 */
@@ -98,7 +102,11 @@ int contWord(char *string);
 /**
  *! Exercicio 2
 */
-
+int AbsAcomulada(Geral *ex2, int sum);
+float RelAcomulada(Geral *ex2, float sum);
+Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados);
+int buscarTotalAcumulado(Geral *ex2, int abs);
+float buscarTotalRelAcumulada(Geral *ex2, float rel);
 /**
  *! Fim Exercicios 2
  */
@@ -148,6 +156,7 @@ void ListarMorph(Morph *tree);
  *! Exercicio 2
 */
 void ListarE2(Geral *ex2);
+void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada);
 void RodapeEx2(int abs, float rel);
 /**
  *! Fim Exercicio 2
