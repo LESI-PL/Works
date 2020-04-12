@@ -20,17 +20,18 @@ int main()
 {
     int totalListaDL;
     char op;
-    
-    Morph *listaDL = NULL;
-    Geral *ex2 = NULL,*ex2org=NULL, *ex22=NULL;                                      /*Struct para coluna 3 com sua qtd absoluta*/
 
+    Morph *listaDL = NULL;
+    Geral *ex2 = NULL, *ex3 = NULL; /*Struct para coluna 3 com sua qtd absoluta*/
 
     /**
      * ! Exercicio 1
     */
     /* Carregameto dos dados*/
-    listaDL = CarregarDados(); totalListaDL = listaDL->total;
-    printf("Done! %d\n",totalListaDL);getchar();
+    listaDL = CarregarDados();
+    totalListaDL = listaDL->total;
+    printf("Done! %d\n", totalListaDL);
+    getchar();
     /**
      * ! Fim Exercicio 1
     */
@@ -44,26 +45,27 @@ int main()
      *! Fim Exercicio2 
     */
 
-   /**
+    /**
      *! Exercicio 3
     */
-
+    ex3 = Ex3Load(listaDL);
+    printf("Ex3 Carregada!\n");
     /**
      *! Fim Exercicio 3 
     */
     /**
      *! Exercicio 4
     */
- 
+
     /**
      *! Fim Exercicio 4
     */
     do
     {
-        
+
         /*Mostra o menu e retorna a escolha do utilizador*/
         op = ShowMenu();
-        
+
         switch (op)
         {
         case '1': /*Exercicio 1*/
@@ -71,7 +73,6 @@ int main()
              * !          Ex1)  listagem dos dados
             */
             system("cls");
-            
 
             getchar();
 
@@ -81,25 +82,18 @@ int main()
              * !          Ex2)  Categoria gramatical ordenada 
              * !   | Nome | Qtd Abs | Qtd Relativa | Abs acumulada | Relativa Acumulada |
             */
-            
-            Cabecalho("Tabela de Frequencias Da Terceira Coluna");
             ListarE2(ex2);
-            
-            getchar();
             break;
         case '3': /*Exercicio 3*/
-            /**
+                  /**
              * !          Ex3)  Comprimento das palavras ordenada 
              * !   | comprimento | Qtd Abs | Qtd Relativa | Abs acumulada | Relativa Acumulada |
             */
-            system("cls");
-            
-            getchar();
-
+            ListarE3(ex3);
             break;
         case '4': /*Exercicio 4*/
             system("cls");
-            
+
             break;
         case '5':
             system("cls");

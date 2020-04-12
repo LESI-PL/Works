@@ -13,8 +13,8 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 100
-/*#define Texto "frase.txt"*/
-#define Texto "slate-tagged.txt"
+#define Texto "frase.txt"
+/*#define Texto "slate-tagged.txt"*/
 
 /**
  *!                                                 FUNCTIONS
@@ -64,15 +64,16 @@ Morph *CarregarDados()
 Geral *Ex2Load(Morph *morph)
 {
     Morph *aux;
-    Geral *dados = NULL,*dadosOrg = NULL;
+    Geral *dados = NULL, *dadosOrg = NULL;
     for (aux = morph; aux; aux = aux->right)
     {
         dados = Ex2InsertNode(dados, aux);
     }
-    for (; dados; dados = dados->right){
-        dadosOrg = Ex2InsertOrdenada(dadosOrg,dados);
+    for (; dados; dados = dados->right)
+    {
+        dadosOrg = Ex2InsertOrdenada(dadosOrg, dados);
     }
-    dadosOrg = Ex2CalcularFreqRel(dadosOrg,morph->total);
+    dadosOrg = Ex2CalcularFreqRel(dadosOrg, morph->total);
     return dadosOrg;
 }
 
@@ -83,6 +84,21 @@ Geral *Ex2Load(Morph *morph)
 /**
  *! Exercicio 3
 */
+Geral *Ex3Load(Morph *morph)
+{
+    Morph *aux;
+    Geral *dadosEx3 = NULL, *dadosEx3Org = NULL;
+    for (aux = morph; aux; aux = aux->right)
+    {
+        dadosEx3 = Ex3InsertNode(dadosEx3,aux);
+    }
+    for (; dadosEx3; dadosEx3 = dadosEx3->right)
+    {
+        dadosEx3Org = Ex3InsertOrdenada(dadosEx3Org, dadosEx3);
+    }
+    dadosEx3Org = Ex3CalcularFreqRel(dadosEx3Org, morph->total);
+    return dadosEx3Org;
+}
 
 /**
  *! Fim Exercicio 3
@@ -157,23 +173,27 @@ Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados) /* Funcao Foi Alterada*/
     }
     return dadosEx2;
 }
-Geral* Ex2InsertOrdenada(Geral* lista, Geral* dados){
-    Geral* new = (Geral*)malloc(sizeof(Geral));
-    strcpy(new->nome,dados->nome);
+Geral *Ex2InsertOrdenada(Geral *lista, Geral *dados)
+{
+    Geral *new = (Geral *)malloc(sizeof(Geral));
+    strcpy(new->nome, dados->nome);
     new->qtdAbs = dados->qtdAbs;
     new->qtdRelativa = dados->qtdRelativa;
 
-    if(!lista || new->qtdAbs < lista->qtdAbs){
+    if (!lista || new->qtdAbs < lista->qtdAbs)
+    {
         new->right = lista;
         lista = new;
-    }else{
-        Geral* aux = lista;
-        while (aux->right && new->qtdAbs > aux->right->qtdAbs){
+    }
+    else
+    {
+        Geral *aux = lista;
+        while (aux->right && new->qtdAbs > aux->right->qtdAbs)
+        {
             aux = aux->right;
         }
         new->right = aux->right;
         aux->right = new;
-        
     }
     return lista;
 }
@@ -184,6 +204,63 @@ Geral* Ex2InsertOrdenada(Geral* lista, Geral* dados){
 /**
  *! Exercicio 3
 */
+Geral *Ex3NewNode(Morph *morph) /* Funcao Foi Alterada*/
+{
+    Geral *temp;
+    temp = (Geral *)malloc(sizeof(Geral));
+    temp->lenght = strlen(morph->originWord);
+    temp->qtdAbs = 1;
+    temp->qtdRelativa = 0;
+    temp->right = NULL;
+    return temp;
+}
+
+Geral *Ex3InsertNode(Geral *dadosEx3,Morph *dados) /* Funcao Foi Alterada*/
+{
+    int a = 0;
+    a = strlen(dados->originWord);
+    if (dadosEx3 == NULL)
+    {
+
+        return Ex3NewNode(dados);
+    }
+    else
+    {
+        if (dadosEx3->lenght == a)
+        {
+            dadosEx3->qtdAbs++;
+        }
+        else
+        {
+            dadosEx3->right = Ex3InsertNode(dadosEx3->right,dados);
+        }
+    }
+    return dadosEx3;
+}
+
+Geral *Ex3InsertOrdenada(Geral *dadosEx3Org, Geral *dadosEx3)
+{   int i=0;
+    Geral *new = (Geral *)malloc(sizeof(Geral));
+    new->lenght = dadosEx3->lenght;
+    new->qtdAbs = dadosEx3->qtdAbs;
+    new->qtdRelativa = dadosEx3->qtdRelativa;
+    if (!dadosEx3Org || new->qtdAbs < dadosEx3Org->qtdAbs)
+    {
+        new->right = dadosEx3Org;
+        dadosEx3Org = new;
+    }
+    else
+    {
+        Geral *aux = dadosEx3Org;
+        while (aux->right && new->qtdAbs > aux->right->qtdAbs)
+        {
+            aux = aux->right;
+        }
+        new->right = aux->right;
+        aux->right = new;
+    }
+    return dadosEx3Org;
+}
 
 /**
  *! Fim Exercicio 3
@@ -264,9 +341,8 @@ int AbsAcomulada(Geral *ex2, int sum)
     if (ex2)
     {
         AbsAcomulada(ex2->left, sum);
-        sum = ex2->qtdAbs+AbsAcomulada(ex2->right,sum);
+        sum = ex2->qtdAbs + AbsAcomulada(ex2->right, sum);
         AbsAcomulada(ex2->right, sum);
-        
     }
     return sum;
 }
@@ -276,7 +352,7 @@ int buscarTotalAcumulado(Geral *ex2, int total)
     if (ex2 != NULL)
     {
         buscarTotalAcumulado(ex2->left, total);
-        return total =  AbsAcomulada(ex2, total);
+        return total = AbsAcomulada(ex2, total);
         buscarTotalAcumulado(ex2->right, total);
     }
     else
@@ -314,6 +390,19 @@ float buscarTotalRelAcumulada(Geral *ex2, float total)
 /**
  *! Exercicio 3
 */
+Geral *Ex3CalcularFreqRel(Geral *dadosEx3, int totalDados)
+{
+    if (dadosEx3 == NULL)
+    {
+        return dadosEx3;
+    }
+    else
+    {
+        dadosEx3->right = Ex3CalcularFreqRel(dadosEx3->right, totalDados);
+        dadosEx3->qtdRelativa = dadosEx3->qtdAbs / (float)totalDados;
+    }
+    return dadosEx3;
+}
 
 /**
  *! Fim Exercicio 3
@@ -386,27 +475,44 @@ void Cabecalho(char *nome)
 */
 void ListarE2(Geral *ex2)
 {
-    Geral* aux;
-    int i=0, absAcomulada=0;
-    float relacomulada=0;
-    for(aux=ex2;aux;aux=aux->right){
+    Geral *aux;
+    int i = 0, absAcomulada = 0;
+    float relacomulada = 0;
+    system("cls");
+    printf("\t\t\t\t\t\tTabela de Frequencias Da Terceira Coluna\n");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n| %20s | %23s | %23s | %30s | %30s |\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Acumulada", "Frequencia Relativa Acumulada");
+    printf("| %20s | %23s | %23s | %30s | %30s |\n", "Analise Morfologica", "ni", "fi", "Ni ou Cum ni", "Fi ou Cum fi");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n");
+    for (aux = ex2; aux; aux = aux->right)
+    {
         absAcomulada += aux->qtdAbs;
         relacomulada += aux->qtdRelativa;
-        printf("%s    %d    %f    %d     %f\n", aux->nome, aux->qtdAbs, aux->qtdRelativa, absAcomulada, relacomulada);
+        printf("| %20s | %23d | %23.10f | %30d | %30.10f |\n", aux->nome, aux->qtdAbs, aux->qtdRelativa, absAcomulada, relacomulada);
         i += aux->qtdAbs;
     }
-    printf("TOTAL: %d\n",i);
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n| %20s | %23d | %23.10f | %30s | %30s |\n", "Total", absAcomulada, relacomulada, "", "");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n");
+    fflush(stdin);
+    getchar();
 }
 
 void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada)
 {
-    
+
     if (ex2)
     {
         ListarEx2Tree(ex2->left, absAcomulada, relAcomulada);
-        absAcomulada = ex2->qtdAbs + AbsAcomulada(ex2->left,absAcomulada);
+        absAcomulada = ex2->qtdAbs + AbsAcomulada(ex2->left, absAcomulada);
         printf("| %5s | %7d      |   %f   | %10d         |       %f     |\n", ex2->nome, ex2->qtdAbs, ex2->qtdRelativa, absAcomulada, relAcomulada);
-        
+
         ListarEx2Tree(ex2->right, absAcomulada, relAcomulada);
     }
 }
@@ -434,20 +540,35 @@ void RodapeEx2(int abs, float rel)
  *! Exercicio 3
 */
 
-void RodapeEx3(int abs, float rel)
+void ListarE3(Geral *ex3)
 {
-    int i;
-    for (i = 0; i < 81; i++)
-    {
+    Geral *aux;
+    int i = 0, absAcomulada = 0;
+    float relacomulada = 0;
+    system("cls");
+    printf("\t\t\t\t\t\tTabela de Frequencias Do Comprimento das Palavras\n");
+    for (i = 0; i < 142; i++)
         printf("%c", '_');
-    }
-
-    printf("\n| %s | %10d | %10.f | %20s | %20s |\n", "Total", abs, rel, "", "");
-    for (i = 0; i < 81; i++)
-    {
+    printf("\n| %20s | %23s | %23s | %30s | %30s |\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Acumulada", "Frequencia Relativa Acumulada");
+    printf("| %20s | %23s | %23s | %30s | %30s |\n", "Comprimento", "ni", "fi", "Ni ou Cum ni", "Fi ou Cum fi");
+    for (i = 0; i < 142; i++)
         printf("%c", '_');
-    }
     printf("\n");
+    for (aux = ex3; aux; aux = aux->right)
+    {
+        absAcomulada += aux->qtdAbs;
+        relacomulada += aux->qtdRelativa;
+        printf("| %20d | %23d | %23.10f | %30d | %30.10f |\n", aux->lenght, aux->qtdAbs, aux->qtdRelativa, absAcomulada, relacomulada);
+        i += aux->qtdAbs;
+    }
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n| %20s | %23d | %23.10f | %30s | %30s |\n", "Total", absAcomulada, relacomulada, "", "");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n");
+    fflush(stdin);
+    getchar();
 }
 
 /**

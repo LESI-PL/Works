@@ -37,7 +37,7 @@ Geral *Ex2LoadToList(Geral *dados,Geral *destino);
 /**
  *! Exercicio 3
 */
-Geral *Ex3Load(Morph *morph, Geral *dados);
+Geral *Ex3Load(Morph *morphs);
 
 /**
  *! Fim Exercicio 3
@@ -72,7 +72,8 @@ Geral* Ex2InsertOrdenada(Geral* lista, Geral* dados);
  *! Exercicio 3
 */
 Geral *Ex3NewNode(Morph *morph);
-Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados);
+Geral *Ex3InsertNode(Geral *dadosEx3,Morph *dados);
+Geral *Ex3InsertOrdenada(Geral *dadosEx3Org,Geral *dadosEx3);
 
 /**
  *! Fim Exercicio 3
@@ -115,7 +116,7 @@ float buscarTotalRelAcumulada(Geral *ex2, float rel);
 /**
  *! Exercicio 3
 */
-
+Geral *Ex3CalcularFreqRel(Geral *dadosEx3, int totalDados);
 /**
  *! Fim Exercicios 3
  */
@@ -165,7 +166,7 @@ void RodapeEx2(int abs, float rel);
 /**
  *! Exercicio 3
 */
-void ListarEx3(Geral *ex3);
+void ListarE3(Geral *ex3);
 void ListarEx3Tree(Geral *ex3, int absAcomulada, float relAcomulada);
 void RodapeEx3(int abs, float rel);
 /**
