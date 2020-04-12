@@ -103,11 +103,8 @@ int contWord(char *string);
 /**
  *! Exercicio 2
 */
-int AbsAcomulada(Geral *ex2, int sum);
-float RelAcomulada(Geral *ex2, float sum);
 Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados);
-int buscarTotalAcumulado(Geral *ex2, int abs);
-float buscarTotalRelAcumulada(Geral *ex2, float rel);
+
 /**
  *! Fim Exercicios 2
  */
@@ -129,7 +126,8 @@ Geral* Ex4CalcularDp(Geral* dados);
 /**
  *! Fim Exercicios 4
  */
-
+Geral *Ex4CalcularMedia(Geral *dados);
+Geral* Ex4CalcularDp(Geral* dados);
 /**
  *! Exercicio 5
 */
@@ -187,7 +185,7 @@ void RodapeEx3(int abs, float rel);
 */
 void Ex4Cabecalho(char *nome);
 
-void ListarEx4(Geral *dados);
+void ListarE4(Geral *dados);
 
 /**
  *! Fim Exercicio 4

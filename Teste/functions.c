@@ -156,20 +156,16 @@ Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados) /* Funcao Foi Alterada*/
 
         return Ex2NewNode(dados);
     }
+    else if (strcmp(dados->morphAnalise, dadosEx2->nome) == 0)
+    {
+        dadosEx2->qtdAbs++;
+        dadosEx2->valores = (float *)realloc(dadosEx2->valores, dadosEx2->qtdAbs * sizeof(float));
+        dadosEx2->valores[dadosEx2->qtdAbs - 1] = dados->rightProb;
+        dadosEx2->medidaDeCerteza += dados->rightProb;
+    }
     else
     {
-        /*printf("DadosEx:%s    Morph:%s\n",dadosEx2->nome,dados->morphAnalise);*/
-        if (strcmp(dados->morphAnalise, dadosEx2->nome) == 0)
-        {
-            dadosEx2->qtdAbs++;
-            dadosEx2->valores = (float *)realloc(dadosEx2->valores, dadosEx2->qtdAbs * sizeof(float));
-            dadosEx2->valores[dadosEx2->qtdAbs - 1] = dados->rightProb;
-            dadosEx2->medidaDeCerteza += dados->rightProb;
-        }
-        else
-        {
-            dadosEx2->right = Ex2InsertNode(dadosEx2->right, dados);
-        }
+        dadosEx2->right = Ex2InsertNode(dadosEx2->right, dados);
     }
     return dadosEx2;
 }
@@ -179,6 +175,8 @@ Geral *Ex2InsertOrdenada(Geral *lista, Geral *dados)
     strcpy(new->nome, dados->nome);
     new->qtdAbs = dados->qtdAbs;
     new->qtdRelativa = dados->qtdRelativa;
+    new->medidaDeCerteza = dados->medidaDeCerteza;
+    new->valores = dados->valores;
 
     if (!lista || new->qtdAbs < lista->qtdAbs)
     {
@@ -240,7 +238,6 @@ Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados) /* Funcao Foi Alterada*/
 
 Geral *Ex3InsertOrdenada(Geral *dadosEx3Org, Geral *dadosEx3)
 {
-    int i = 0;
     Geral *new = (Geral *)malloc(sizeof(Geral));
     new->lenght = dadosEx3->lenght;
     new->qtdAbs = dadosEx3->qtdAbs;
@@ -336,53 +333,6 @@ Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados)
         dados->qtdRelativa = dados->qtdAbs / (float)totalDados;
     }
     return dados;
-}
-int AbsAcomulada(Geral *ex2, int sum)
-{
-    if (ex2)
-    {
-        AbsAcomulada(ex2->left, sum);
-        sum = ex2->qtdAbs + AbsAcomulada(ex2->right, sum);
-        AbsAcomulada(ex2->right, sum);
-    }
-    return sum;
-}
-int buscarTotalAcumulado(Geral *ex2, int total)
-{
-
-    if (ex2 != NULL)
-    {
-        buscarTotalAcumulado(ex2->left, total);
-        return total = AbsAcomulada(ex2, total);
-        buscarTotalAcumulado(ex2->right, total);
-    }
-    else
-    {
-        return total;
-    }
-}
-float RelAcomulada(Geral *ex2, float sum)
-{
-    if (ex2)
-    {
-        sum = ex2->qtdRelativa + RelAcomulada(ex2->left, sum);
-    }
-    return sum;
-}
-float buscarTotalRelAcumulada(Geral *ex2, float total)
-{
-
-    if (ex2 != NULL)
-    {
-        buscarTotalRelAcumulada(ex2->left, total);
-        total = RelAcomulada(ex2, total);
-        buscarTotalRelAcumulada(ex2->right, total);
-    }
-    else
-    {
-        return total;
-    }
-    return total;
 }
 /**
  *! Fim Exercicio 2
@@ -516,6 +466,38 @@ void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
 /**
  *! Fim Exercicio 3
 */
+Geral *Ex4CalcularMedia(Geral *dados)
+{
+    if (dados)
+    {
+        dados->right = Ex4CalcularMedia(dados->right);
+        dados->media = dados->medidaDeCerteza / dados->qtdAbs;
+    }
+    else if (dados == NULL)
+    {
+        return dados;
+    }
+    return dados;
+}
+
+Geral* Ex4CalcularDp(Geral* dados){
+    Geral *temp = dados;
+    int i = 0;
+    float dp;
+    while (dados)
+    {
+        dp = 0;
+        for (i = 0; i < dados->qtdAbs; i++)
+        {
+            dp += pow(dados->valores[i] - dados->media,2);
+        }
+        dp = dp/dados->qtdAbs;
+        dp = sqrt(dp);
+        dados->desvioPadrao = dp;
+        dados = (dados->right ? dados->right : NULL);
+    }
+    return temp;
+}
 
 /**
  *! Exercicio 4
@@ -613,18 +595,6 @@ void ListarE2(Geral *ex2)
     getchar();
 }
 
-void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada)
-{
-
-    if (ex2)
-    {
-        ListarEx2Tree(ex2->left, absAcomulada, relAcomulada);
-        absAcomulada = ex2->qtdAbs + AbsAcomulada(ex2->left, absAcomulada);
-        printf("| %5s | %7d      |   %f   | %10d         |       %f     |\n", ex2->nome, ex2->qtdAbs, ex2->qtdRelativa, absAcomulada, relAcomulada);
-
-        ListarEx2Tree(ex2->right, absAcomulada, relAcomulada);
-    }
-}
 void RodapeEx2(int abs, float rel)
 {
     int i;
@@ -691,18 +661,28 @@ void Ex4Cabecalho(char *nome)
 {
     int i;
     printf("\t\t%s\n", nome);
-    for (i = 0; i < 65; i++)
+    for (i = 0; i < 44; i++)
     {
         printf("%c", '_');
     }
-    printf("\n| %5s | %s | %s | %s |\n", "Nome", "Medida de Certeza ", "Media Aritmetica", "Desvio Padrao");
-    for (i = 0; i < 65; i++)
+    printf("\n| %5s | %s | %s |\n", "Nome", "Media Aritmetica", "Desvio Padrao");
+    for (i = 0; i < 44; i++)
     {
         printf("%c", '_');
     }
     printf("\n");
 }
-
+void ListarE4(Geral* dados){
+    Geral* aux;
+    dados = Ex4CalcularMedia(dados);
+    dados = Ex4CalcularDp(dados);
+    system("cls");
+    Ex4Cabecalho("Tabela de Media e Desvio Padrao");
+    for(aux=dados;aux;aux= aux->right){
+        printf("| %4s  |     %.6f     |    %.6f   |\n", aux->nome, aux->media, aux->desvioPadrao);
+    }
+    getchar();
+}
 /**
  *! Fim Exercicio 4
 */

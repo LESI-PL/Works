@@ -31,7 +31,6 @@ int main()
     listaDL = CarregarDados();
     totalListaDL = listaDL->total;
     printf("Done! %d\n", totalListaDL);
-    getchar();
     /**
      * ! Fim Exercicio 1
     */
@@ -41,6 +40,7 @@ int main()
     */
     ex2 = Ex2Load(listaDL);
     printf("Ex2 Carregada!\n");
+    
     /**
      *! Fim Exercicio2 
     */
@@ -93,7 +93,7 @@ int main()
             break;
         case '4': /*Exercicio 4*/
             system("cls");
-
+            ListarE4(ex2);
             break;/*Exercicio 5*/
         case '5':
             Ex5CalcularMedidas_de_Centrais(ex3,totalListaDL);
