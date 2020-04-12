@@ -129,6 +129,15 @@ Geral* Ex4CalcularDp(Geral* dados);
 /**
  *! Fim Exercicios 4
  */
+
+/**
+ *! Exercicio 5
+*/
+void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total);
+/**
+ *! Fim Exercicios 5
+ */
+
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */

@@ -13,8 +13,8 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 100
-#define Texto "frase.txt"
-/*#define Texto "slate-tagged.txt"*/
+/*#define Texto "frase.txt"*/
+#define Texto "slate-tagged.txt"
 
 /**
  *!                                                 FUNCTIONS
@@ -90,7 +90,7 @@ Geral *Ex3Load(Morph *morph)
     Geral *dadosEx3 = NULL, *dadosEx3Org = NULL;
     for (aux = morph; aux; aux = aux->right)
     {
-        dadosEx3 = Ex3InsertNode(dadosEx3,aux);
+        dadosEx3 = Ex3InsertNode(dadosEx3, aux);
     }
     for (; dadosEx3; dadosEx3 = dadosEx3->right)
     {
@@ -215,7 +215,7 @@ Geral *Ex3NewNode(Morph *morph) /* Funcao Foi Alterada*/
     return temp;
 }
 
-Geral *Ex3InsertNode(Geral *dadosEx3,Morph *dados) /* Funcao Foi Alterada*/
+Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados) /* Funcao Foi Alterada*/
 {
     int a = 0;
     a = strlen(dados->originWord);
@@ -232,19 +232,20 @@ Geral *Ex3InsertNode(Geral *dadosEx3,Morph *dados) /* Funcao Foi Alterada*/
         }
         else
         {
-            dadosEx3->right = Ex3InsertNode(dadosEx3->right,dados);
+            dadosEx3->right = Ex3InsertNode(dadosEx3->right, dados);
         }
     }
     return dadosEx3;
 }
 
 Geral *Ex3InsertOrdenada(Geral *dadosEx3Org, Geral *dadosEx3)
-{   int i=0;
+{
+    int i = 0;
     Geral *new = (Geral *)malloc(sizeof(Geral));
     new->lenght = dadosEx3->lenght;
     new->qtdAbs = dadosEx3->qtdAbs;
     new->qtdRelativa = dadosEx3->qtdRelativa;
-    if (!dadosEx3Org || new->qtdAbs < dadosEx3Org->qtdAbs)
+    if (!dadosEx3Org || new->lenght < dadosEx3Org->lenght)
     {
         new->right = dadosEx3Org;
         dadosEx3Org = new;
@@ -252,7 +253,7 @@ Geral *Ex3InsertOrdenada(Geral *dadosEx3Org, Geral *dadosEx3)
     else
     {
         Geral *aux = dadosEx3Org;
-        while (aux->right && new->qtdAbs > aux->right->qtdAbs)
+        while (aux->right && new->lenght > aux->right->lenght)
         {
             aux = aux->right;
         }
@@ -402,6 +403,114 @@ Geral *Ex3CalcularFreqRel(Geral *dadosEx3, int totalDados)
         dadosEx3->qtdRelativa = dadosEx3->qtdAbs / (float)totalDados;
     }
     return dadosEx3;
+}
+void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
+{
+    Geral *aux = ex3, *aux1 = ex3, *aux2 = ex3, *aux3 = ex3, *aux4 = ex3;
+    float media = 0, variancia = 0, desvio = 0;
+    int classeXK = 0, classeXK1 = 0;
+    int i, k = 0, cpaux = 0, cpaux1 = 0, abs_acumulada = 0;
+    int mediana = 0, maior = 0, moda = 0;
+
+    for (; aux; aux = aux->right)
+    {
+        media += (aux->lenght * aux->qtdAbs);
+    }
+    media = (media / total);
+
+    if (total % 2 == 0)
+    {
+
+        k = (total / 2);
+        while (aux1 != NULL && abs_acumulada <= k)
+        {
+            abs_acumulada += aux1->qtdAbs;
+            cpaux = aux1->lenght;
+            if (abs_acumulada >= k)
+            {
+                classeXK = cpaux;
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+        abs_acumulada = 0;
+        while (aux2 != NULL && abs_acumulada <= k + 1)
+        {
+            abs_acumulada += aux2->qtdAbs;
+            cpaux1 = aux2->lenght;
+            if (abs_acumulada >= k)
+            {
+                classeXK1 = cpaux1;
+            }
+            aux2 = (aux2->right ? aux2->right : NULL);
+        }
+        mediana = (classeXK + classeXK1) / 2;
+    }
+    else
+    {
+        k = (total + 1) / 2;
+        while (aux1 != NULL && abs_acumulada <= k)
+        {
+
+            cpaux = aux1->lenght;
+            abs_acumulada += aux1->qtdAbs;
+            if (abs_acumulada >= k)
+            {
+                mediana = cpaux;
+                /* break;*/
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+    }
+    maior = aux3->qtdAbs;
+
+    while (aux3 != NULL)
+    {
+        if (aux3->qtdAbs > maior)
+        {
+            maior = aux3->qtdAbs;
+            moda = aux3->lenght;
+        }
+        aux3 = (aux3->right ? aux3->right : NULL);
+    }
+
+    while (aux4 != NULL)
+    {
+        variancia += aux4->qtdAbs * pow(aux4->lenght - media, 2);
+        aux4 = (aux4->right ? aux4->right : NULL);
+    }
+    variancia = (variancia / total);
+    desvio = sqrt(variancia);
+    system("cls");
+    printf("\t   MEDIDAS DE LOCALIZACAO DO COMPRIMENTO DAS PALAVRAS\n\n");
+    for (i = 0; i < 67; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("\n| %29s | %31s |\n", "Medidas de Tendencia Central", "Medida de Tendencia Nao Central");
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("%c", '|');
+    printf("\n| %10s | %6s | %6s | %31s |\n", "Media", "Mediana", "Moda", "Desvio Padrao");
+    printf("| %10s | %7s | %6s | %31s |\n", "", "Me", "Mo", "S");
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("%c", '|');
+    printf("\n| %10.6f | %5d   | %6d | %31.6f |\n", media, mediana, moda, desvio);
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("%c", '|');
+    printf("\n");
+    fflush(stdin);
+    getchar();
 }
 
 /**
@@ -563,7 +672,7 @@ void ListarE3(Geral *ex3)
     }
     for (i = 0; i < 142; i++)
         printf("%c", '_');
-    printf("\n| %20s | %23d | %23.10f | %30s | %30s |\n", "Total", absAcomulada, relacomulada, "", "");
+    printf("\n| %20s | %23d | %23.4f | %30s | %30s |\n", "Total", absAcomulada, relacomulada, "", "");
     for (i = 0; i < 142; i++)
         printf("%c", '_');
     printf("\n");

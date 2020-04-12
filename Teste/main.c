@@ -94,11 +94,9 @@ int main()
         case '4': /*Exercicio 4*/
             system("cls");
 
-            break;
+            break;/*Exercicio 5*/
         case '5':
-            system("cls");
-
-            getchar();
+            Ex5CalcularMedidas_de_Centrais(ex3,totalListaDL);
             break;
         case '6':
             system("cls");
