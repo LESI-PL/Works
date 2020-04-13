@@ -103,6 +103,37 @@ Geral *Ex3Load(Morph *morph)
 /**
  *! Fim Exercicio 3
 */
+
+/**
+ *! Exercicio 6
+*/
+Geral *Ex6Load(Morph *morph)
+{
+    Morph *aux;
+    Geral *dadosEx6Begin = NULL,*dadosEx6=NULL ,*dadosEx6Org = NULL, *dadosFinal = NULL;
+    for (aux = morph; aux; aux = aux->right)
+    {
+        dadosEx6Begin = Ex6HeadInsert(dadosEx6Begin, aux);
+    }
+    for (; dadosEx6Begin; dadosEx6Begin = dadosEx6Begin->right)
+    {
+        dadosEx6 = Ex6InsertNode(dadosEx6, dadosEx6Begin);
+    }
+    /*for (; dadosEx6; dadosEx6 = dadosEx6->right)
+    {
+        dadosEx6Org = Ex6InsertOrdenada(dadosEx6Org, dadosEx6);
+    }*/
+    /*for (; dadosEx6Org; dadosEx6Org = dadosEx6Org->right)
+    {
+        dadosFinal = Ex6InsertOrdenadaOcorrencias(dadosFinal, dadosEx6Org);
+    }*/
+
+    return dadosEx6;
+}
+
+/**
+ *! Fim Exercicio 6
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -263,6 +294,78 @@ Geral *Ex3InsertOrdenada(Geral *dadosEx3Org, Geral *dadosEx3)
 /**
  *! Fim Exercicio 3
 */
+
+/**
+ *! Exercicio 6
+*/
+
+Geral *Ex6HeadInsert(Geral *dadosEx6, Morph *dados) /* Funcao Foi Alterada*/
+{
+
+    Geral *new = (Geral *)malloc(sizeof(Geral));
+    strcpy(new->nome, dados->originWord);
+    new->right = dadosEx6;
+    if (new->right)
+    {
+        new->right->left = new;
+        new->left = NULL;
+    }
+    return new;
+}
+
+Geral *Ex6InsertOrdenada(Geral *lista, Geral *dados)
+{
+    Geral *new = (Geral *)malloc(sizeof(Geral));
+    strcpy(new->nome, dados->nome);
+    new->qtdAbs = dados->qtdAbs;
+
+    if (!lista || new->qtdAbs < lista->qtdAbs)
+    {
+        new->right = lista;
+        lista = new;
+    }
+    else
+    {
+        Geral *aux = lista;
+        while (aux->right && new->qtdAbs > aux->right->qtdAbs)
+        {
+            aux = aux->right;
+        }
+        new->right = aux->right;
+        aux->right = new;
+    }
+    return lista;
+}
+
+Geral *Ex6InsertOrdenadaOcorrencias(Geral *lista, Geral *dados)
+{
+    
+    printf("F:%d\n",dados->qtdAbs);getchar();
+    if (lista == NULL)
+    {
+        Geral *lista = (Geral *)malloc(sizeof(Geral));
+        lista->qtdAbs = dados->qtdAbs;
+        lista->total = 1;
+        lista->right = NULL;
+        printf("A %d %d\n",lista->qtdAbs,lista->total);
+        return lista;
+    }
+    else
+    {
+        if (lista->qtdAbs == dados->qtdAbs)
+        {
+            lista->total++;
+        }
+        else
+        {
+            lista->right = Ex6InsertOrdenadaOcorrencias(lista->right, dados);
+        }
+    }
+    return lista;
+}
+/**
+ *! Fim Exercicio 6
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -283,11 +386,11 @@ int checkWord(char palavra[])
     return 1;
 }
 
-char *checkLetra(char *palavra)
+char* checkLetra(char *palavra)
 {
     char *aux, *aux2;
-    aux = (char *)malloc(20 * sizeof(char));
-    aux2 = (char *)malloc(20 * sizeof(char));
+    aux = (char *)malloc(100 * sizeof(char));
+    aux2 = (char *)malloc(100 * sizeof(char));
     strcpy(aux, palavra);
     strcpy(aux2, aux);
     aux2 = strupr(aux);
@@ -354,6 +457,53 @@ Geral *Ex3CalcularFreqRel(Geral *dadosEx3, int totalDados)
     }
     return dadosEx3;
 }
+/**
+ *! Fim Exercicio 3
+*/
+
+/**
+ *! Exercicio 4
+*/
+Geral *Ex4CalcularMedia(Geral *dados)
+{
+    if (dados)
+    {
+        dados->right = Ex4CalcularMedia(dados->right);
+        dados->media = dados->medidaDeCerteza / dados->qtdAbs;
+    }
+    else if (dados == NULL)
+    {
+        return dados;
+    }
+    return dados;
+}
+
+Geral *Ex4CalcularDp(Geral *dados)
+{
+    Geral *temp = dados;
+    int i = 0;
+    float dp;
+    while (dados)
+    {
+        dp = 0;
+        for (i = 0; i < dados->qtdAbs; i++)
+        {
+            dp += pow(dados->valores[i] - dados->media, 2);
+        }
+        dp = dp / dados->qtdAbs;
+        dp = sqrt(dp);
+        dados->desvioPadrao = dp;
+        dados = (dados->right ? dados->right : NULL);
+    }
+    return temp;
+}
+/**
+ *! Fim Exercicio 4
+*/
+
+/**
+ *! Exercicio 5
+*/
 void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
 {
     Geral *aux = ex3, *aux1 = ex3, *aux2 = ex3, *aux3 = ex3, *aux4 = ex3;
@@ -462,49 +612,35 @@ void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
     fflush(stdin);
     getchar();
 }
+/**
+ *! Fim Exercicio 5
+*/
 
 /**
- *! Fim Exercicio 3
+ *! Exercicio 6
 */
-Geral *Ex4CalcularMedia(Geral *dados)
+void CalcularQuartis(Geral *dados)
 {
-    if (dados)
-    {
-        dados->right = Ex4CalcularMedia(dados->right);
-        dados->media = dados->medidaDeCerteza / dados->qtdAbs;
-    }
-    else if (dados == NULL)
-    {
-        return dados;
-    }
-    return dados;
-}
-
-Geral* Ex4CalcularDp(Geral* dados){
-    Geral *temp = dados;
+    Geral *aux;
+    Quartil quartis;
+    int q1 = 0, q2 = 0, q3 = 0;
     int i = 0;
-    float dp;
-    while (dados)
+    for (aux = dados; aux; aux = aux->right)
     {
-        dp = 0;
-        for (i = 0; i < dados->qtdAbs; i++)
-        {
-            dp += pow(dados->valores[i] - dados->media,2);
-        }
-        dp = dp/dados->qtdAbs;
-        dp = sqrt(dp);
-        dados->desvioPadrao = dp;
-        dados = (dados->right ? dados->right : NULL);
+        i++;
     }
-    return temp;
+    if ((i % 2) != 0)
+    {
+    }
+
+    /*Calcular Q1*/
+    q1 = i * 0.25;
+    q1 = q1 + 1;
+    printf("%d   %d\n", q1, i);
+    getchar();
 }
-
 /**
- *! Exercicio 4
-*/
-
-/**
- *! Fim Exercicio 4
+ *! Fim Exercicio 6
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -535,10 +671,10 @@ char ShowMenu()
     op = getch();
     return op;
 }
-
 /**
  *! Fim Exercicio 1
 */
+
 /**
  * ! Generico
 */
@@ -594,7 +730,6 @@ void ListarE2(Geral *ex2)
     fflush(stdin);
     getchar();
 }
-
 void RodapeEx2(int abs, float rel)
 {
     int i;
@@ -610,7 +745,6 @@ void RodapeEx2(int abs, float rel)
     }
     printf("\n");
 }
-
 /**
  *! Fim Exercicio 2
 */
@@ -618,7 +752,6 @@ void RodapeEx2(int abs, float rel)
 /**
  *! Exercicio 3
 */
-
 void ListarE3(Geral *ex3)
 {
     Geral *aux;
@@ -649,7 +782,6 @@ void ListarE3(Geral *ex3)
     fflush(stdin);
     getchar();
 }
-
 /**
  *! Fim Exercicio 3
 */
@@ -672,13 +804,15 @@ void Ex4Cabecalho(char *nome)
     }
     printf("\n");
 }
-void ListarE4(Geral* dados){
-    Geral* aux;
+void ListarE4(Geral *dados)
+{
+    Geral *aux;
     dados = Ex4CalcularMedia(dados);
     dados = Ex4CalcularDp(dados);
     system("cls");
     Ex4Cabecalho("Tabela de Media e Desvio Padrao");
-    for(aux=dados;aux;aux= aux->right){
+    for (aux = dados; aux; aux = aux->right)
+    {
         printf("| %4s  |     %.6f     |    %.6f   |\n", aux->nome, aux->media, aux->desvioPadrao);
     }
     getchar();
@@ -686,6 +820,20 @@ void ListarE4(Geral* dados){
 /**
  *! Fim Exercicio 4
 */
+
+void ListarE6(Geral *dados)
+{
+    Geral *aux;
+
+    system("cls");
+    Ex4Cabecalho("Quartis\n");
+    for (aux = dados; aux; aux = aux->right)
+    {
+        printf("| %s | %5d |\n",aux->nome,aux->qtdAbs);
+        
+    }
+    getchar();
+}
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
