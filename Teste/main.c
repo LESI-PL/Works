@@ -22,7 +22,7 @@ int main()
     char op;
 
     Morph *listaDL = NULL;
-    Geral *ex2 = NULL, *ex3 = NULL; /*Struct para coluna 3 com sua qtd absoluta*/
+    Geral *ex2 = NULL, *ex3 = NULL, *ex6=NULL; /*Struct para coluna 3 com sua qtd absoluta*/
 
     /**
      * ! Exercicio 1
@@ -54,11 +54,13 @@ int main()
      *! Fim Exercicio 3 
     */
     /**
-     *! Exercicio 4
+     *! Exercicio 6
     */
-
+   ex6 = Ex6Load(listaDL);
+   ListarE6(ex6);
+   /*CalcularQuartis(ex6);*/
     /**
-     *! Fim Exercicio 4
+     *! Fim Exercicio 6
     */
     do
     {
@@ -78,24 +80,15 @@ int main()
 
             break;
         case '2': /*Exercicio 2*/
-            /**
-             * !          Ex2)  Categoria gramatical ordenada 
-             * !   | Nome | Qtd Abs | Qtd Relativa | Abs acumulada | Relativa Acumulada |
-            */
             ListarE2(ex2);
             break;
         case '3': /*Exercicio 3*/
-                  /**
-             * !          Ex3)  Comprimento das palavras ordenada 
-             * !   | comprimento | Qtd Abs | Qtd Relativa | Abs acumulada | Relativa Acumulada |
-            */
             ListarE3(ex3);
             break;
         case '4': /*Exercicio 4*/
-            system("cls");
             ListarE4(ex2);
-            break;/*Exercicio 5*/
-        case '5':
+            break;
+        case '5': /*Exercicio 5*/
             Ex5CalcularMedidas_de_Centrais(ex3,totalListaDL);
             break;
         case '6':

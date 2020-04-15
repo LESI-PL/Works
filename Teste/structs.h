@@ -39,6 +39,14 @@ typedef struct _Geral  /* Struct Foi Alterada*/
     struct _Geral *left;
 
 } Geral;
+
+typedef struct _Quartis
+{
+    int Q1;
+    int Q2;
+    int Q3;
+}Quartil;
+
 /**
  *!                                              END OF STRUCTS
 */

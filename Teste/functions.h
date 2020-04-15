@@ -42,6 +42,14 @@ Geral *Ex3Load(Morph *morphs);
 /**
  *! Fim Exercicio 3
 */
+
+/**
+ *! Exercicio 6
+*/
+Geral* Ex6Load(Morph* morph);
+/**
+ *! Fim Exercicio 6
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -79,7 +87,16 @@ Geral *Ex3InsertOrdenada(Geral *dadosEx3Org,Geral *dadosEx3);
  *! Fim Exercicio 3
 */
 
-
+/**
+ *! Exercicio 6
+*/
+Geral *Ex6HeadInsert(Geral *dadosEx6, Morph *dados);
+Geral *Ex6NewNode(Morph *morph);
+Geral *Ex6InsertOrdenada(Geral *lista, Geral *dados);
+Geral *Ex6InsertOrdenadaOcorrencias(Geral *lista, Geral *dados);
+/**
+ *! Fim Exercicio 6
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -89,7 +106,7 @@ Geral *Ex3InsertOrdenada(Geral *dadosEx3Org,Geral *dadosEx3);
 */
 
 int checkWord(char palavra[]);
-char *checkLetra(char *palavra);
+char* checkLetra(char *palavra);
 
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -135,7 +152,13 @@ void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total);
 /**
  *! Fim Exercicios 5
  */
-
+/**
+ *! Exercicio 6
+*/
+void CalcularQuartis(Geral* dados);
+/**
+ *! Fim Exercicios 6
+ */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -190,6 +213,8 @@ void ListarE4(Geral *dados);
 /**
  *! Fim Exercicio 4
 */
+
+void ListarE6(Geral *dados);
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
