@@ -27,8 +27,9 @@ Morph *CarregarDados();
 /**
  *! Exercicio 2
 */
-Geral *Ex2Load(Morph *morph, Geral *dados);
+Geral *Ex2Load(Morph *morph);
 Geral *Ex2LoadTree(Geral *dados, Geral *dadosOrganizados);
+Geral *Ex2LoadToList(Geral *dados,Geral *destino);
 /**
  *! Fim Exercicio 2
 */
@@ -36,10 +37,18 @@ Geral *Ex2LoadTree(Geral *dados, Geral *dadosOrganizados);
 /**
  *! Exercicio 3
 */
-Geral *Ex3Load(Morph *morph, Geral *dados);
-Geral *Ex3LoadTree(Geral *dados, Geral *dadosOrganizados);
+Geral *Ex3Load(Morph *morphs);
+
 /**
  *! Fim Exercicio 3
+*/
+
+/**
+ *! Exercicio 6
+*/
+Ex6 *Ex6Load(Morph *morph);
+/**
+ *! Fim Exercicio 6
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -51,8 +60,7 @@ Geral *Ex3LoadTree(Geral *dados, Geral *dadosOrganizados);
 /**
  *! Exercicio 1
 */
-Morph *NewNode(Morph *dados);
-Morph *InsertNode(Morph *temp, Morph *dados);
+Morph *HeadInsert(Morph *lista, char a[], char b[], char c[], float d);
 /**
  *! Fim Exercicio 1
 */
@@ -62,8 +70,8 @@ Morph *InsertNode(Morph *temp, Morph *dados);
 */
 Geral *Ex2NewNode(Morph *morph);
 Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados);
-Geral *Ex2InsertNewTree(Geral *dados);
-Geral *Ex2OrganizarTree(Geral *dados, Geral *dadosOrganizados);
+Geral* Ex2InsertOrdenada(Geral* lista, Geral* dados);
+
 /**
  *! Fim Exercicio 2
 */
@@ -72,14 +80,26 @@ Geral *Ex2OrganizarTree(Geral *dados, Geral *dadosOrganizados);
  *! Exercicio 3
 */
 Geral *Ex3NewNode(Morph *morph);
-Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados);
-Geral *Ex3InsertNewTree(Geral *dados);
-Geral *Ex3OrganizarTree(Geral *dados, Geral *dadosOrganizados);
+Geral *Ex3InsertNode(Geral *dadosEx3,Morph *dados);
+Geral *Ex3InsertOrdenada(Geral *dadosEx3Org,Geral *dadosEx3);
+
 /**
  *! Fim Exercicio 3
 */
 
+/**
+ *! Exercicio 6
+*/
+Ex6* Ex6NewNode(char* ori);
+Ex6* Ex6InsertNode(Ex6* bTree,char* ori);
 
+Ex6 *Ex6ListNewNode(Ex6 *dadosTree);
+Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree);
+Ex6 *Ex6ContarAbs(Ex6* lista,Ex6* dadosTree);
+Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6);
+/**
+ *! Fim Exercicio 6
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -89,7 +109,7 @@ Geral *Ex3OrganizarTree(Geral *dados, Geral *dadosOrganizados);
 */
 
 int checkWord(char palavra[]);
-char *checkLetra(char *palavra);
+char* checkLetra(char *palavra);
 
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -103,11 +123,8 @@ int contWord(char *string);
 /**
  *! Exercicio 2
 */
-int AbsAcomulada(Geral *ex2, int sum);
-float RelAcomulada(Geral *ex2, float sum);
 Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados);
-int buscarTotalAcumulado(Geral *ex2, int abs);
-float buscarTotalRelAcumulada(Geral *ex2, float rel);
+
 /**
  *! Fim Exercicios 2
  */
@@ -116,11 +133,7 @@ float buscarTotalRelAcumulada(Geral *ex2, float rel);
 /**
  *! Exercicio 3
 */
-int AbsAcomuladaEx3(Geral *ex2, int sum);
-float RelAcomuladaEx3(Geral *ex2, float sum);
-Geral *Ex3CalcularFreqRelEx3(Geral *dados, int totalDados);
-int buscarTotalAcumuladoEx3(Geral *ex2, int abs);
-float buscarTotalRelAcumuladaEx3(Geral *ex2, float rel);
+Geral *Ex3CalcularFreqRel(Geral *dadosEx3, int totalDados);
 /**
  *! Fim Exercicios 3
  */
@@ -132,6 +145,24 @@ Geral *Ex4CalcularMedia(Geral *dados);
 Geral* Ex4CalcularDp(Geral* dados);
 /**
  *! Fim Exercicios 4
+ */
+Geral *Ex4CalcularMedia(Geral *dados);
+Geral* Ex4CalcularDp(Geral* dados);
+/**
+ *! Exercicio 5
+*/
+void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total);
+/**
+ *! Fim Exercicios 5
+ */
+/**
+ *! Exercicio 6
+*/
+float Ex6_Quartil_1_2(Ex6 *ex6, int total);
+float Ex6_Quartil_2_2(Ex6 *ex6, int total);
+float Ex6_Quartil_3_2(Ex6 *ex6, int total);
+/**
+ *! Fim Exercicios 6
  */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -160,7 +191,7 @@ void ListarMorph(Morph *tree);
 /**
  *! Exercicio 2
 */
-void ListarEx2(Geral *ex2);
+void ListarE2(Geral *ex2);
 void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada);
 void RodapeEx2(int abs, float rel);
 /**
@@ -170,7 +201,7 @@ void RodapeEx2(int abs, float rel);
 /**
  *! Exercicio 3
 */
-void ListarEx3(Geral *ex3);
+void ListarE3(Geral *ex3);
 void ListarEx3Tree(Geral *ex3, int absAcomulada, float relAcomulada);
 void RodapeEx3(int abs, float rel);
 /**
@@ -182,10 +213,24 @@ void RodapeEx3(int abs, float rel);
 */
 void Ex4Cabecalho(char *nome);
 
-void ListarEx4(Geral *dados);
+void ListarE4(Geral *dados);
 
 /**
  *! Fim Exercicio 4
+*/
+
+
+/**
+ *! Exercicio 6
+*/
+void ListarE6(Ex6 *dados);
+void ListarE6List(Ex6 *dados);
+void ListarE6_2(Ex6 *ex6, int total);
+
+
+int pegaTotal(Ex6* ex6);
+/**
+ *! Fim Exercicio 6
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------

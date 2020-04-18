@@ -1061,9 +1061,9 @@ void ListarE6_1(Geral *ex3, int total)
     printf("|-------------------|-------------------|-------------------|-------------------|\n");
     printf("|%20.0f%20.0f%20.0f%20s\n", q1, q2, q3,"|");
 
-    printf("\n\n%d%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n",x,q1,z);
-    printf("%d%%%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n",y,q2,y);
-    printf("%d%%%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n",z,q3,x);
+    printf("\n\n%d %% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n",x,q1,z);
+    printf("%d %% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n",y,q2,y);
+    printf("%d %% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n",z,q3,x);
     getchar();
     
 }

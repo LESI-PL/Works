@@ -16,7 +16,13 @@ Chris chris NN 0.86066
 ! ! Fat 1
 
 Now now RB 0.998694
+Now now RB 0.998694
+Now now RB 0.998694
 there there RB 1
+there there RB 1
+there there RB 1
+is be VBZ 1
+is be VBZ 1
 is be VBZ 1
 a a DT 0.998827
 dreadful dreadful JJ 1

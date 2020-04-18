@@ -12,7 +12,9 @@
 #include <math.h>
 #include "structs.h"
 #include "functions.h"
-#define MAX 200
+#define MAX 100
+/*#define Texto "frase.txt"*/
+#define Texto "slate-tagged.txt"
 
 /**
  *!                                                 FUNCTIONS
@@ -25,12 +27,13 @@
 */
 Morph *CarregarDados()
 {
-    Morph *dados = NULL, *temp = NULL;
+    Morph *lista = NULL;
     FILE *f;
+    char a[MAX], b[MAX], c[MAX];
+    float d;
     int i = 0;
-    dados = (Morph *)malloc(sizeof(Morph));
 
-    f = fopen("frase.txt", "r");
+    f = fopen(Texto, "r");
     if (f == NULL)
     {
         printf("Erro na leitura do ficheiro!");
@@ -38,19 +41,18 @@ Morph *CarregarDados()
     else
     {
 
-        while (fscanf(f, "%s %s %s %f", dados->originWord, dados->wordRoot, dados->morphAnalise, &dados->rightProb) != EOF)
+        while (fscanf(f, "%s %s %s %f", a, b, c, &d) != EOF)
         {
-
-            if (checkWord(dados->originWord) == 1 && checkWord(dados->wordRoot) == 1 && checkWord(dados->morphAnalise) == 1)
+            if (checkWord(a) == 1 && checkWord(b) == 1 && checkWord(c) == 1)
             {
-                temp = InsertNode(temp, dados);
+                lista = HeadInsert(lista, a, b, c, d);
                 i++;
             }
         }
+        fclose(f);
     }
-    temp->total = i;
-    fclose(f);
-    return temp;
+    lista->total = i;
+    return lista;
 }
 /**
  *! Fim Exercicio 1
@@ -59,31 +61,22 @@ Morph *CarregarDados()
 /**
  *! Exercicio 2
 */
-Geral *Ex2Load(Morph *morph, Geral *dados)
+Geral *Ex2Load(Morph *morph)
 {
-    int i;
-    if (morph)
+    Morph *aux;
+    Geral *dados = NULL, *dadosOrg = NULL;
+    for (aux = morph; aux; aux = aux->right)
     {
-        dados = Ex2Load(morph->left, dados);
-        for (i = 0; i < morph->quantidade; i++)
-        {
-            dados = Ex2InsertNode(dados, morph);
-        }
-
-        dados = Ex2Load(morph->right, dados);
+        dados = Ex2InsertNode(dados, aux);
     }
-    return dados;
-}
-Geral *Ex2LoadTree(Geral *dados, Geral *dadosOrganizados)
-{
-    if (dados != NULL)
+    for (; dados; dados = dados->right)
     {
-        dadosOrganizados = Ex2LoadTree(dados->right, dadosOrganizados);
-
-        dadosOrganizados = Ex2OrganizarTree(dados, dadosOrganizados);
+        dadosOrg = Ex2InsertOrdenada(dadosOrg, dados);
     }
-    return dadosOrganizados;
+    dadosOrg = Ex2CalcularFreqRel(dadosOrg, morph->total);
+    return dadosOrg;
 }
+
 /**
  *! Fim Exercicio 2
 */
@@ -91,33 +84,51 @@ Geral *Ex2LoadTree(Geral *dados, Geral *dadosOrganizados)
 /**
  *! Exercicio 3
 */
-Geral *Ex3Load(Morph *morph, Geral *dados)
+Geral *Ex3Load(Morph *morph)
 {
-    int i;
-    if (morph)
+    Morph *aux;
+    Geral *dadosEx3 = NULL, *dadosEx3Org = NULL;
+    for (aux = morph; aux; aux = aux->right)
     {
-        dados = Ex3Load(morph->left, dados);
-        for (i = 0; i < morph->quantidade; i++)
-        {
-            dados = Ex3InsertNode(dados, morph);
-        }
-
-        dados = Ex3Load(morph->right, dados);
+        dadosEx3 = Ex3InsertNode(dadosEx3, aux);
     }
-    return dados;
-}
-Geral *Ex3LoadTree(Geral *dados, Geral *dadosOrganizados)
-{
-    if (dados != NULL)
+    for (; dadosEx3; dadosEx3 = dadosEx3->right)
     {
-        dadosOrganizados = Ex3LoadTree(dados->right, dadosOrganizados);
-
-        dadosOrganizados = Ex3OrganizarTree(dados, dadosOrganizados);
+        dadosEx3Org = Ex3InsertOrdenada(dadosEx3Org, dadosEx3);
     }
-    return dadosOrganizados;
+    dadosEx3Org = Ex3CalcularFreqRel(dadosEx3Org, morph->total);
+    return dadosEx3Org;
 }
+
 /**
  *! Fim Exercicio 3
+*/
+
+/**
+ *! Exercicio 6
+*/
+Ex6 *Ex6Load(Morph *morph)
+{
+    Morph *aux = morph;
+    Ex6 *ex6tree = NULL,*ex6Lista=NULL,*ex6Ordenada=NULL;
+    while (aux)
+    {
+        
+        ex6tree = Ex6InsertNode(ex6tree, aux->originWord);
+        aux = (aux->right ? aux->right : NULL);
+    }
+    ex6Lista = Ex6ContarAbs(ex6Lista,ex6tree);
+    for (; ex6Lista; ex6Lista = ex6Lista->right){
+        ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada,ex6Lista);
+    }
+    
+    ListarE6List(ex6Ordenada);
+    getchar();
+    return ex6Ordenada;
+}
+
+/**
+ *! Fim Exercicio 6
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -129,46 +140,20 @@ Geral *Ex3LoadTree(Geral *dados, Geral *dadosOrganizados)
 /**
  *! Exercicio 1
 */
-Morph *NewNode(Morph *dados)
+Morph *HeadInsert(Morph *lista, char a[], char b[], char c[], float d)
 {
-    Morph *temp = (Morph *)malloc(sizeof(Morph));
-    strcpy(temp->originWord, dados->originWord);
-    strcpy(temp->wordRoot, dados->wordRoot);
-    strcpy(temp->morphAnalise, dados->morphAnalise);
-    temp->rightProb = dados->rightProb;
-    temp->quantidade = 1;
-    temp->total = 0;
-    temp->right = NULL;
-    temp->left = NULL;
-    return temp;
-}
-Morph *InsertNode(Morph *temp, Morph *dados)
-{
-    char *aux = (char *)malloc((contWord(dados->originWord) + 1) * sizeof(char));
-    char *aux1;
-    aux = checkLetra(dados->originWord);
-    if (temp == NULL)
+    Morph *new = (Morph *)malloc(sizeof(Morph));
+    strcpy(new->originWord, a);
+    strcpy(new->wordRoot, b);
+    strcpy(new->morphAnalise, c);
+    new->rightProb = d;
+    new->right = lista;
+    if (new->right)
     {
-        return NewNode(dados);
+        new->right->left = new;
+        new->left = NULL;
     }
-    else
-    {
-        aux1 = (char *)malloc((contWord(temp->originWord) + 1) * sizeof(char));
-        aux1 = checkLetra(temp->originWord);
-        if (strcmp(aux1, aux) > 0)
-        {
-            temp->left = InsertNode(temp->left, dados);
-        }
-        if (strcmp(aux1, aux) < 0)
-        {
-            temp->right = InsertNode(temp->right, dados);
-        }
-        if (strcmp(aux1, aux) == 0)
-        {
-            temp->quantidade++;
-        }
-    }
-    return temp;
+    return new;
 }
 /**
  *! Fim Exercicio 1
@@ -177,11 +162,10 @@ Morph *InsertNode(Morph *temp, Morph *dados)
 /**
  *! Exercicio 2
 */
-Geral *Ex2NewNode(Morph *morph)/* Funcao Foi Alterada*/
+Geral *Ex2NewNode(Morph *morph) /* Funcao Foi Alterada*/
 {
     Geral *temp;
     temp = (Geral *)malloc(sizeof(Geral));
-    temp->nome = (char *)malloc((contWord(morph->morphAnalise) + 1) * sizeof(char));
     temp->valores = (float *)malloc(sizeof(float));
 
     strcpy(temp->nome, morph->morphAnalise);
@@ -190,13 +174,13 @@ Geral *Ex2NewNode(Morph *morph)/* Funcao Foi Alterada*/
     temp->valores[temp->qtdAbs - 1] = morph->rightProb;
     temp->medidaDeCerteza = morph->rightProb;
     temp->right = NULL;
-    temp->left = NULL;
     return temp;
 }
-Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados)/* Funcao Foi Alterada*/
+Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados) /* Funcao Foi Alterada*/
 {
     if (dadosEx2 == NULL)
     {
+
         return Ex2NewNode(dados);
     }
     else if (strcmp(dados->morphAnalise, dadosEx2->nome) == 0)
@@ -212,39 +196,31 @@ Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados)/* Funcao Foi Alterada*/
     }
     return dadosEx2;
 }
-Geral *Ex2InsertNewTree(Geral *dados)
+Geral *Ex2InsertOrdenada(Geral *lista, Geral *dados)
 {
-    Geral *temp = (Geral *)malloc(sizeof(Geral));
-    temp->nome = (char *)malloc((contWord(dados->nome) + 1) * sizeof(char));
+    Geral *new = (Geral *)malloc(sizeof(Geral));
+    strcpy(new->nome, dados->nome);
+    new->qtdAbs = dados->qtdAbs;
+    new->qtdRelativa = dados->qtdRelativa;
+    new->medidaDeCerteza = dados->medidaDeCerteza;
+    new->valores = dados->valores;
 
-    strcpy(temp->nome, dados->nome);
-    temp->qtdAbs = dados->qtdAbs;
-    temp->qtdRelativa = dados->qtdRelativa;
-    temp->left = NULL;
-    temp->right = NULL;
-    return temp;
-}
-Geral *Ex2OrganizarTree(Geral *dados, Geral *dadosOrganizados)
-{
-    if (dadosOrganizados == NULL)
+    if (!lista || new->qtdAbs < lista->qtdAbs)
     {
-        /*printf("Dados: %s\n",dados->nome);getchar();*/
-        return Ex2InsertNewTree(dados);
+        new->right = lista;
+        lista = new;
     }
     else
     {
-        if (dados->qtdAbs > dadosOrganizados->qtdAbs)
-        { /*Right*/
-            /*printf("Right   dados:%s %d  |  dadosOrg: %s  %d",dados->nome,dados->qtdAbs,dadosOrganizados->nome,dadosOrganizados->qtdAbs);getchar();*/
-            dadosOrganizados->right = Ex2OrganizarTree(dados, dadosOrganizados->right);
+        Geral *aux = lista;
+        while (aux->right && new->qtdAbs > aux->right->qtdAbs)
+        {
+            aux = aux->right;
         }
-        else if (dados->qtdAbs >= dadosOrganizados->qtdAbs)
-        { /*Left*/
-            /*printf("Left   dados:%s %d  |  dadosOrg: %s  %d",dados->nome,dados->qtdAbs,dadosOrganizados->nome,dadosOrganizados->qtdAbs);getchar();*/
-            dadosOrganizados->left = Ex2OrganizarTree(dados, dadosOrganizados->left);
-        }
+        new->right = aux->right;
+        aux->right = new;
     }
-    return dadosOrganizados;
+    return lista;
 }
 /**
  *! Fim Exercicio 2
@@ -253,7 +229,7 @@ Geral *Ex2OrganizarTree(Geral *dados, Geral *dadosOrganizados)
 /**
  *! Exercicio 3
 */
-Geral *Ex3NewNode(Morph *morph)
+Geral *Ex3NewNode(Morph *morph) /* Funcao Foi Alterada*/
 {
     Geral *temp;
     temp = (Geral *)malloc(sizeof(Geral));
@@ -261,31 +237,25 @@ Geral *Ex3NewNode(Morph *morph)
     temp->qtdAbs = 1;
     temp->qtdRelativa = 0;
     temp->right = NULL;
-    temp->left = NULL;
     return temp;
 }
-Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados)
+
+Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados) /* Funcao Foi Alterada*/
 {
-    int a;
+    int a = 0;
+    a = strlen(dados->originWord);
     if (dadosEx3 == NULL)
     {
+
         return Ex3NewNode(dados);
     }
     else
     {
-        a = strlen(dados->originWord);
-
         if (dadosEx3->lenght == a)
         {
-
             dadosEx3->qtdAbs++;
         }
-
-        if (dadosEx3->lenght > a)
-        {
-            dadosEx3->left = Ex3InsertNode(dadosEx3->left, dados);
-        }
-        if (dadosEx3->lenght < a)
+        else
         {
             dadosEx3->right = Ex3InsertNode(dadosEx3->right, dados);
         }
@@ -293,40 +263,138 @@ Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados)
     return dadosEx3;
 }
 
-Geral *Ex3InsertNewTree(Geral *dados)
+Geral *Ex3InsertOrdenada(Geral *dadosEx3Org, Geral *dadosEx3)
 {
-    Geral *temp = (Geral *)malloc(sizeof(Geral));
-    temp->lenght = dados->lenght;
-    temp->qtdAbs = dados->qtdAbs;
-    temp->qtdRelativa = dados->qtdRelativa;
-    temp->left = NULL;
-    temp->right = NULL;
-    return temp;
-}
-Geral *Ex3OrganizarTree(Geral *dados, Geral *dadosOrganizados)
-{
-    if (dadosOrganizados == NULL)
+    Geral *new = (Geral *)malloc(sizeof(Geral));
+    new->lenght = dadosEx3->lenght;
+    new->qtdAbs = dadosEx3->qtdAbs;
+    new->qtdRelativa = dadosEx3->qtdRelativa;
+    if (!dadosEx3Org || new->lenght < dadosEx3Org->lenght)
     {
-        /*printf("Dados: %s\n",dados->nome);getchar();*/
-        return Ex3InsertNewTree(dados);
+        new->right = dadosEx3Org;
+        dadosEx3Org = new;
     }
     else
     {
-        if (dados->qtdAbs > dadosOrganizados->qtdAbs)
-        { /*Right*/
-            /*printf("Right   dados:%s %d  |  dadosOrg: %s  %d",dados->nome,dados->qtdAbs,dadosOrganizados->nome,dadosOrganizados->qtdAbs);getchar();*/
-            dadosOrganizados->right = Ex3OrganizarTree(dados, dadosOrganizados->right);
+        Geral *aux = dadosEx3Org;
+        while (aux->right && new->lenght > aux->right->lenght)
+        {
+            aux = aux->right;
         }
-        else if (dados->qtdAbs >= dadosOrganizados->qtdAbs)
-        { /*Left*/
-            /*printf("Left   dados:%s %d  |  dadosOrg: %s  %d",dados->nome,dados->qtdAbs,dadosOrganizados->nome,dadosOrganizados->qtdAbs);getchar();*/
-            dadosOrganizados->left = Ex3OrganizarTree(dados, dadosOrganizados->left);
-        }
+        new->right = aux->right;
+        aux->right = new;
     }
-    return dadosOrganizados;
+    return dadosEx3Org;
 }
+
 /**
  *! Fim Exercicio 3
+*/
+
+/**
+ *! Exercicio 6
+*/
+Ex6 *Ex6NewNode(char *ori)
+{
+    Ex6 *new = (Ex6 *)malloc(sizeof(Ex6));
+    strcpy(new->nome, ori);
+    new->qtdAbs = 1;
+    new->left = NULL;
+    new->right = NULL;
+    return new;
+}
+Ex6 *Ex6InsertNode(Ex6 *bTree, char *ori)
+{
+    if (bTree == NULL)
+    {
+        return Ex6NewNode(ori);
+    }
+    else
+    {
+        if (strcmp(strupr(bTree->nome), strupr(ori)) == 0)
+        {
+           
+            bTree->qtdAbs++;
+        }
+        else if (strcmp(strupr(bTree->nome), strupr(ori)) < 0)
+        {
+            
+            bTree->left = Ex6InsertNode(bTree->left, ori);
+        }
+        else if (strcmp(strupr(bTree->nome), strupr(ori)) > 0)
+        {
+            
+            bTree->right = Ex6InsertNode(bTree->right, ori);
+        }
+    }
+    return bTree;
+}
+
+
+Ex6 *Ex6ListNewNode(Ex6 *dadosTree) 
+{
+    Ex6 *temp;
+    temp = (Ex6*)malloc(sizeof(Ex6));
+    temp->qtdAbs = dadosTree->qtdAbs;
+    temp->total = 1;
+    temp->right = NULL;
+    return temp;
+}
+
+Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree) 
+{
+    int a = 0;
+    if (dadoslist == NULL)
+    {
+
+        return Ex6ListNewNode(dadosTree);
+    }
+    else
+    {
+        if (dadoslist->qtdAbs == dadosTree->qtdAbs)
+        {
+            dadoslist->total++;
+        }
+        else
+        {
+            dadoslist->right = Ex6ListInsertNode(dadoslist->right, dadosTree);
+        }
+    }
+    return dadoslist;
+}
+Ex6 *Ex6ContarAbs(Ex6* lista,Ex6* dadosTree){
+    if(dadosTree){
+        lista = Ex6ContarAbs(lista,dadosTree->left);
+        lista = Ex6ListInsertNode(lista,dadosTree);
+        lista = Ex6ContarAbs(lista,dadosTree->right);
+    }
+    return lista;
+}
+
+Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6)
+{
+    Ex6 *new = (Ex6 *)malloc(sizeof(Ex6));
+    new->qtdAbs = dadosEx6->qtdAbs;
+    new->total = dadosEx6->total;
+    if (!dadosEx6Org || new->qtdAbs < dadosEx6Org->qtdAbs)
+    {
+        new->right = dadosEx6Org;
+        dadosEx6Org = new;
+    }
+    else
+    {
+        Ex6 *aux = dadosEx6Org;
+        while (aux->right && new->qtdAbs > aux->right->qtdAbs)
+        {
+            aux = aux->right;
+        }
+        new->right = aux->right;
+        aux->right = new;
+    }
+    return dadosEx6Org;
+}
+/**
+ *! Fim Exercicio 6
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -351,12 +419,12 @@ int checkWord(char palavra[])
 char *checkLetra(char *palavra)
 {
     char *aux, *aux2;
-    aux = (char *)malloc(20 * sizeof(char));
-    aux2 = (char *)malloc(20 * sizeof(char));
+    aux = (char *)malloc(100 * sizeof(char));
+    aux2 = (char *)malloc(100 * sizeof(char));
     strcpy(aux, palavra);
     strcpy(aux2, aux);
     aux2 = strupr(aux);
-  
+
     if (aux[0] >= 97 && aux[0] <= 122)
     {
         aux[0] = aux2[0];
@@ -386,53 +454,6 @@ int contWord(char *string)
 /**
  *! Exercicio 2
 */
-int AbsAcomulada(Geral *ex2, int sum)
-{
-    if (ex2)
-    {
-        sum = ex2->qtdAbs + AbsAcomulada(ex2->left, sum);
-    }
-    return sum;
-}
-int buscarTotalAcumulado(Geral *ex2, int total)
-{
-
-    if (ex2 != NULL)
-    {
-        buscarTotalAcumulado(ex2->left, total);
-        total = AbsAcomulada(ex2, total);
-        buscarTotalAcumulado(ex2->right, total);
-    }
-    else
-    {
-        return total;
-    }
-
-}
-float RelAcomulada(Geral *ex2, float sum)
-{
-    if (ex2)
-    {
-        sum = ex2->qtdRelativa + RelAcomulada(ex2->left, sum);
-    }
-    return sum;
-}
-float buscarTotalRelAcumulada(Geral *ex2, float total)
-{
-
-    if (ex2 != NULL)
-    {
-        buscarTotalRelAcumulada(ex2->left, total);
-        total = RelAcomulada(ex2, total);
-        buscarTotalRelAcumulada(ex2->right, total);
-    }
-    else
-    {
-        return total;
-    }
-    return total;
-    
-}
 Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados)
 {
     if (dados == NULL)
@@ -453,73 +474,22 @@ Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados)
 /**
  *! Exercicio 3
 */
-int AbsAcomuladaEx3(Geral *ex3, int sum)
+Geral *Ex3CalcularFreqRel(Geral *dadosEx3, int totalDados)
 {
-    if (ex3)
+    if (dadosEx3 == NULL)
     {
-        printf("\nantes sum %d",sum);
-        sum = ex3->qtdAbs + AbsAcomuladaEx3(ex3->left, sum);
-        printf("\ndepois sum %d",sum);getchar();
-    }
-    return sum;
-}
-int buscarTotalAcumuladoEx3(Geral *ex3, int total)
-{
-
-    if (ex3)
-    {
-        buscarTotalAcumuladoEx3(ex3->left, total);
-        total = AbsAcomuladaEx3(ex3, total);
-        buscarTotalAcumuladoEx3(ex3->right, total);
+        return dadosEx3;
     }
     else
     {
-        return total;
+        dadosEx3->right = Ex3CalcularFreqRel(dadosEx3->right, totalDados);
+        dadosEx3->qtdRelativa = dadosEx3->qtdAbs / (float)totalDados;
     }
-
-}
-float RelAcomuladaEx3(Geral *ex3, float sum)
-{
-    if (ex3)
-    {
-        sum = ex3->qtdRelativa + RelAcomuladaEx3(ex3->left, sum);
-    }
-    return sum;
-}
-float buscarTotalRelAcumuladaEx3(Geral *ex3, float total)
-{
-
-    if (ex3 != NULL)
-    {
-        buscarTotalRelAcumuladaEx3(ex3->left, total);
-        total = RelAcomuladaEx3(ex3, total);
-        buscarTotalRelAcumuladaEx3(ex3->right, total);
-    }
-    else
-    {
-        return total;
-    }
-   
-}
-
-Geral *Ex3CalcularFreqRelEx3(Geral *dados, int totalDados)
-{
-    if (dados == NULL)
-    {
-        return dados;
-    }
-    else
-    {
-        dados->right = Ex3CalcularFreqRelEx3(dados->right, totalDados);
-        dados->qtdRelativa = dados->qtdAbs / (float)totalDados;
-    }
-    return dados;
+    return dadosEx3;
 }
 /**
  *! Fim Exercicio 3
 */
-
-
 
 /**
  *! Exercicio 4
@@ -538,7 +508,8 @@ Geral *Ex4CalcularMedia(Geral *dados)
     return dados;
 }
 
-Geral* Ex4CalcularDp(Geral* dados){
+Geral *Ex4CalcularDp(Geral *dados)
+{
     Geral *temp = dados;
     int i = 0;
     float dp;
@@ -547,18 +518,317 @@ Geral* Ex4CalcularDp(Geral* dados){
         dp = 0;
         for (i = 0; i < dados->qtdAbs; i++)
         {
-            dp += pow(dados->valores[i] - dados->media,2);
+            dp += pow(dados->valores[i] - dados->media, 2);
         }
-        dp = dp/dados->qtdAbs;
+        dp = dp / dados->qtdAbs;
         dp = sqrt(dp);
         dados->desvioPadrao = dp;
         dados = (dados->right ? dados->right : NULL);
     }
     return temp;
 }
-
 /**
  *! Fim Exercicio 4
+*/
+
+/**
+ *! Exercicio 5
+*/
+void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
+{
+    Geral *aux = ex3, *aux1 = ex3, *aux2 = ex3, *aux3 = ex3, *aux4 = ex3;
+    float media = 0, variancia = 0, desvio = 0;
+    int classeXK = 0, classeXK1 = 0;
+    int i, k = 0, cpaux = 0, cpaux1 = 0, abs_acumulada = 0;
+    int mediana = 0, maior = 0, moda = 0;
+
+    for (; aux; aux = aux->right)
+    {
+        media += (aux->lenght * aux->qtdAbs);
+    }
+    media = (media / total);
+
+    if (total % 2 == 0)
+    {
+
+        k = (total / 2);
+        while (aux1 != NULL && abs_acumulada <= k)
+        {
+            abs_acumulada += aux1->qtdAbs;
+            cpaux = aux1->lenght;
+            if (abs_acumulada >= k)
+            {
+                classeXK = cpaux;
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+        abs_acumulada = 0;
+        while (aux2 != NULL && abs_acumulada <= k + 1)
+        {
+            abs_acumulada += aux2->qtdAbs;
+            cpaux1 = aux2->lenght;
+            if (abs_acumulada >= k)
+            {
+                classeXK1 = cpaux1;
+            }
+            aux2 = (aux2->right ? aux2->right : NULL);
+        }
+        mediana = (classeXK + classeXK1) / 2;
+    }
+    else
+    {
+        k = (total + 1) / 2;
+        while (aux1 != NULL && abs_acumulada <= k)
+        {
+
+            cpaux = aux1->lenght;
+            abs_acumulada += aux1->qtdAbs;
+            if (abs_acumulada >= k)
+            {
+                mediana = cpaux;
+                /* break;*/
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+    }
+    maior = aux3->qtdAbs;
+
+    while (aux3 != NULL)
+    {
+        if (aux3->qtdAbs > maior)
+        {
+            maior = aux3->qtdAbs;
+            moda = aux3->lenght;
+        }
+        aux3 = (aux3->right ? aux3->right : NULL);
+    }
+
+    while (aux4 != NULL)
+    {
+        variancia += aux4->qtdAbs * pow(aux4->lenght - media, 2);
+        aux4 = (aux4->right ? aux4->right : NULL);
+    }
+    variancia = (variancia / total);
+    desvio = sqrt(variancia);
+    system("cls");
+    printf("\t   MEDIDAS DE LOCALIZACAO DO COMPRIMENTO DAS PALAVRAS\n\n");
+    for (i = 0; i < 67; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("\n| %29s | %31s |\n", "Medidas de Tendencia Central", "Medida de Tendencia Nao Central");
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("%c", '|');
+    printf("\n| %10s | %6s | %6s | %31s |\n", "Media", "Mediana", "Moda", "Desvio Padrao");
+    printf("| %10s | %7s | %6s | %31s |\n", "", "Me", "Mo", "S");
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("%c", '|');
+    printf("\n| %10.6f | %5d   | %6d | %31.6f |\n", media, mediana, moda, desvio);
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("%c", '|');
+    printf("\n");
+    fflush(stdin);
+    getchar();
+}
+/**
+ *! Fim Exercicio 5
+*/
+
+/**
+ *! Exercicio 6
+*/
+float Ex6_Quartil_1_2(Ex6 *ex6, int total)
+{
+
+    Ex6 *aux = ex6, *aux1 = ex6;
+    int abs_acumulada = 0, xnp = 0, xnp1 = 0, posaux = 0, posaux1 = 0;
+    float q1 = 0.25, quartil = 0;
+    double fracionaria, inteira, np = 0;
+    np = (total * q1);
+    printf("%f\n",np);
+    fracionaria = modf(np, &inteira);
+
+    if (fracionaria > 0)
+    {
+        inteira += 1;
+        while (aux != NULL || abs_acumulada <= inteira)
+        {
+            posaux = aux->qtdAbs;
+            printf("ocorencias %d  inteira%f",posaux,inteira);getchar();
+            abs_acumulada += aux->total;
+            printf("\nabs acumulada %d    %d\n",abs_acumulada,aux->qtdAbs);
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+        quartil = xnp;
+        printf("quartil %f",quartil);
+    }
+    else
+    {
+
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+
+            posaux = aux->qtdAbs;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+
+        abs_acumulada = 0;
+        inteira++;
+        while (aux1 != NULL && abs_acumulada < inteira)
+        {
+            posaux1 = aux1->qtdAbs;
+            abs_acumulada += aux1->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp1 = posaux1;
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+
+        quartil = (float)(xnp + xnp1);
+        quartil = (quartil / 2);
+    }
+    return quartil;
+}
+float Ex6_Quartil_2_2(Ex6 *ex6, int total)
+{
+
+    Ex6 *aux = ex6, *aux1 = ex6;
+    int abs_acumulada = 0, xnp = 0, xnp1 = 0, posaux = 0, posaux1 = 0;
+    float q1 = 0.50, quartil = 0;
+    double fracionaria, inteira, np = 0;
+    np = (total * q1);
+    fracionaria = modf(np, &inteira);
+
+    if (fracionaria > 0)
+    {
+        inteira += 1;
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+            posaux = aux->qtdAbs;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+        quartil = xnp;
+    }
+    else
+    {
+
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+
+            posaux = aux->qtdAbs;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+
+        abs_acumulada = 0;
+        inteira++;
+        while (aux1 != NULL && abs_acumulada < inteira)
+        {
+            posaux1 = aux1->qtdAbs;
+            abs_acumulada += aux1->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp1 = posaux1;
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+
+        quartil = (float)(xnp + xnp1);
+        quartil = (quartil / 2);
+    }
+    return quartil;
+}
+float Ex6_Quartil_3_2(Ex6 *ex6, int total)
+{
+
+    Ex6 *aux = ex6, *aux1 = ex6;
+    int abs_acumulada = 0, xnp = 0, xnp1 = 0, posaux = 0, posaux1 = 0;
+    float q1 = 0.75, quartil = 0;
+    double fracionaria, inteira, np = 0;
+    np = (total * q1);
+    fracionaria = modf(np, &inteira);
+
+    if (fracionaria > 0)
+    {
+        inteira += 1;
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+            posaux = aux->qtdAbs;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+        quartil = xnp;
+    }
+    else
+    {
+
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+
+            posaux = aux->qtdAbs;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+
+        abs_acumulada = 0;
+        inteira++;
+        while (aux1 != NULL && abs_acumulada < inteira)
+        {
+            posaux1 = aux1->qtdAbs;
+            abs_acumulada += aux1->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp1 = posaux1;
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+
+        quartil = (float)(xnp + xnp1);
+        quartil = (quartil / 2);
+    }
+    return quartil;
+}
+/**
+ *! Fim Exercicio 6
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -589,23 +859,10 @@ char ShowMenu()
     op = getch();
     return op;
 }
-
-void ListarMorph(Morph *tree)
-{
-    int i;
-    if (tree)
-    {
-        ListarMorph(tree->left);
-        for (i = 0; i < tree->quantidade; i++)
-        {
-            printf("%s %s %s %f\n", tree->originWord, tree->wordRoot, tree->morphAnalise, tree->rightProb);
-        }
-        ListarMorph(tree->right);
-    }
-}
 /**
  *! Fim Exercicio 1
 */
+
 /**
  * ! Generico
 */
@@ -631,15 +888,36 @@ void Cabecalho(char *nome)
 /**
  *! Exercicio 2
 */
-void ListarEx2(Geral *ex2)
+void ListarE2(Geral *ex2)
 {
-    while (ex2)
+    Geral *aux;
+    int i = 0, absAcomulada = 0;
+    float relacomulada = 0;
+    system("cls");
+    printf("\t\t\t\t\t\tTabela de Frequencias Da Terceira Coluna\n");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n| %20s | %23s | %23s | %30s | %30s |\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Acumulada", "Frequencia Relativa Acumulada");
+    printf("| %20s | %23s | %23s | %30s | %30s |\n", "Analise Morfologica", "ni", "fi", "Ni ou Cum ni", "Fi ou Cum fi");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n");
+    for (aux = ex2; aux; aux = aux->right)
     {
-        printf("%s %d \n", ex2->nome, ex2->qtdAbs);
-        ex2 = (ex2->right ? ex2->right : NULL);
+        absAcomulada += aux->qtdAbs;
+        relacomulada += aux->qtdRelativa;
+        printf("| %20s | %23d | %23.10f | %30d | %30.10f |\n", aux->nome, aux->qtdAbs, aux->qtdRelativa, absAcomulada, relacomulada);
+        i += aux->qtdAbs;
     }
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n| %20s | %23d | %23.10f | %30s | %30s |\n", "Total", absAcomulada, relacomulada, "", "");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n");
+    fflush(stdin);
+    getchar();
 }
-
 void RodapeEx2(int abs, float rel)
 {
     int i;
@@ -655,18 +933,6 @@ void RodapeEx2(int abs, float rel)
     }
     printf("\n");
 }
-
-void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada)
-{
-    if (ex2)
-    {
-        ListarEx2Tree(ex2->left, absAcomulada, relAcomulada);
-        absAcomulada = AbsAcomulada(ex2, absAcomulada);
-        relAcomulada = RelAcomulada(ex2, relAcomulada);
-        printf("| %5s | %7d      |   %f   | %10d         |       %f     |\n", ex2->nome, ex2->qtdAbs, ex2->qtdRelativa, absAcomulada, relAcomulada);
-        ListarEx2Tree(ex2->right, absAcomulada, relAcomulada);
-    }
-}
 /**
  *! Fim Exercicio 2
 */
@@ -674,47 +940,39 @@ void ListarEx2Tree(Geral *ex2, int absAcomulada, float relAcomulada)
 /**
  *! Exercicio 3
 */
-void ListarEx3(Geral *ex3)
+void ListarE3(Geral *ex3)
 {
-    if(ex3)
-    {
-        ListarEx3(ex3->left);
-        printf("%d %d \n", ex3->lenght, ex3->qtdAbs);
-        ListarEx3(ex3->right);
-    }
-}
-
-void RodapeEx3(int abs, float rel)
-{
-    int i;
-    for (i = 0; i < 81; i++)
-    {
+    Geral *aux;
+    int i = 0, absAcomulada = 0;
+    float relacomulada = 0;
+    system("cls");
+    printf("\t\t\t\t\t\tTabela de Frequencias Do Comprimento das Palavras\n");
+    for (i = 0; i < 142; i++)
         printf("%c", '_');
-    }
-
-    printf("\n| %s | %10d | %10.f | %20s | %20s |\n", "Total", abs, rel, "", "");
-    for (i = 0; i < 81; i++)
-    {
+    printf("\n| %20s | %23s | %23s | %30s | %30s |\n", "Categoria", "Frequencia Absoluta", "Frequencia Relativa", "Frequencia Absoluta Acumulada", "Frequencia Relativa Acumulada");
+    printf("| %20s | %23s | %23s | %30s | %30s |\n", "Comprimento", "ni", "fi", "Ni ou Cum ni", "Fi ou Cum fi");
+    for (i = 0; i < 142; i++)
         printf("%c", '_');
-    }
     printf("\n");
-}
-
-void ListarEx3Tree(Geral *ex3, int absAcomulada, float relAcomulada)
-{
-    if (ex3)
+    for (aux = ex3; aux; aux = aux->right)
     {
-        ListarEx3Tree(ex3->left, absAcomulada, relAcomulada);
-        absAcomulada = AbsAcomuladaEx3(ex3, absAcomulada);
-        relAcomulada = RelAcomuladaEx3(ex3, relAcomulada);
-        printf("| %5d | %7d      |   %f   | %10d         |       %f     |\n", ex3->lenght, ex3->qtdAbs, ex3->qtdRelativa, absAcomulada, relAcomulada);
-        ListarEx3Tree(ex3->right, absAcomulada, relAcomulada);
+        absAcomulada += aux->qtdAbs;
+        relacomulada += aux->qtdRelativa;
+        printf("| %20d | %23d | %23.10f | %30d | %30.10f |\n", aux->lenght, aux->qtdAbs, aux->qtdRelativa, absAcomulada, relacomulada);
+        i += aux->qtdAbs;
     }
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n| %20s | %23d | %23.4f | %30s | %30s |\n", "Total", absAcomulada, relacomulada, "", "");
+    for (i = 0; i < 142; i++)
+        printf("%c", '_');
+    printf("\n");
+    fflush(stdin);
+    getchar();
 }
 /**
  *! Fim Exercicio 3
 */
-
 
 /**
  *! Exercicio 4
@@ -723,35 +981,79 @@ void Ex4Cabecalho(char *nome)
 {
     int i;
     printf("\t\t%s\n", nome);
-    for (i = 0; i < 65; i++)
+    for (i = 0; i < 44; i++)
     {
         printf("%c", '_');
     }
-    printf("\n| %5s | %s | %s | %s |\n", "Nome", "Medida de Certeza ", "Media Aritmetica", "Desvio Padrao");
-    for (i = 0; i < 65; i++)
+    printf("\n| %5s | %s | %s |\n", "Nome", "Media Aritmetica", "Desvio Padrao");
+    for (i = 0; i < 44; i++)
     {
         printf("%c", '_');
     }
     printf("\n");
 }
-void ListarEx4(Geral *dados)
+void ListarE4(Geral *dados)
 {
-    int i;
-    while (dados)
+    Geral *aux;
+    dados = Ex4CalcularMedia(dados);
+    dados = Ex4CalcularDp(dados);
+    system("cls");
+    Ex4Cabecalho("Tabela de Media e Desvio Padrao");
+    for (aux = dados; aux; aux = aux->right)
     {
-        printf("| %4s  |      %f      |     %f     |    %f   |\n", dados->nome,dados->medidaDeCerteza, dados->media, dados->desvioPadrao);
-        dados = (dados->right ? dados->right : NULL);
+        printf("| %4s  |     %.6f     |    %.6f   |\n", aux->nome, aux->media, aux->desvioPadrao);
     }
-    for (i = 0; i < 65; i++)
-    {
-        printf("%c", '_');
-    }
-    printf("\n");
+    getchar();
 }
-
 /**
  *! Fim Exercicio 4
 */
+
+void ListarE6(Ex6 *dados)
+{
+    if (dados)
+    {
+        ListarE6(dados->right);
+        printf("%s %d\n", dados->nome, dados->qtdAbs);
+        ListarE6(dados->left);
+    }
+}
+void ListarE6List(Ex6 *dados){
+    while(dados){
+        printf("Ocorrencias:%d   Total:%d\n",dados->qtdAbs,dados->total);
+        dados = (dados->right ? dados->right:NULL);
+    }
+}
+int pegaTotal(Ex6* ex6){
+    int total=0;
+    while(ex6){
+        total += ex6->total;
+        ex6 = (ex6->right ? ex6->right:NULL);
+    }
+    return total;
+}
+void ListarE6_2(Ex6 *ex6, int total)
+{
+    Ex6 *aux = ex6, *aux1 = ex6, *aux2 = ex6;
+    int x = 25, y = 50, z = 75;
+    float q1 = 0, q2 = 0, q3 = 0;
+    total = pegaTotal(ex6);
+    printf("A:%d\n",total);getchar();
+    q1 = Ex6_Quartil_1_2(aux, total);
+    q2 = Ex6_Quartil_2_2(aux1, total);
+    q3 = Ex6_Quartil_3_2(aux2, total);
+    system("cls");
+    printf("\t\t\tQuartis dos Comprmentos das Palavras\n\n\n");
+    printf("|                  Q 1                 Q 2                 Q 3                  |\n");
+    printf("|-------------------|-------------------|-------------------|-------------------|\n");
+    printf("|%20.0f%20.0f%20.0f%20s\n", q1, q2, q3,"|");
+
+    printf("\n\n%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais.\n",x,q1,z);
+    printf("%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais.\n",y,q2,y);
+    printf("%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais.\n",z,q3,x);
+    getchar();
+    
+}
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */

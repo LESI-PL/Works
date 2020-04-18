@@ -6,7 +6,7 @@
 */
 #ifndef STRUCTS_H_
 #define STRUCTS_H_
-#define MAX 200
+#define MAX 100
 
 /**
  *!                                                 STRUCTS
@@ -26,7 +26,7 @@ typedef struct LineMorph
 
 typedef struct _Geral  /* Struct Foi Alterada*/
 {
-    char *nome;
+    char nome[MAX];
     float medidaDeCerteza;
     float media;
     float desvioPadrao;
@@ -39,6 +39,22 @@ typedef struct _Geral  /* Struct Foi Alterada*/
     struct _Geral *left;
 
 } Geral;
+
+typedef struct _Ex6
+{
+    char nome[MAX];
+    int qtdAbs;
+    int total;
+    struct _Ex6 *left;
+    struct _Ex6 *right; 
+}Ex6;
+typedef struct _Quartis
+{
+    int Q1;
+    int Q2;
+    int Q3;
+}Quartil;
+
 /**
  *!                                              END OF STRUCTS
 */
