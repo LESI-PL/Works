@@ -657,18 +657,15 @@ float Ex6_Quartil_1_2(Ex6 *ex6, int total)
     float q1 = 0.25, quartil = 0;
     double fracionaria, inteira, np = 0;
     np = (total * q1);
-    printf("%f\n",np);
     fracionaria = modf(np, &inteira);
 
     if (fracionaria > 0)
     {
         inteira += 1;
-        while (aux != NULL || abs_acumulada <= inteira)
+        while (aux != NULL && abs_acumulada <= inteira)
         {
             posaux = aux->qtdAbs;
-            printf("ocorencias %d  inteira%f",posaux,inteira);getchar();
             abs_acumulada += aux->total;
-            printf("\nabs acumulada %d    %d\n",abs_acumulada,aux->qtdAbs);
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -676,7 +673,6 @@ float Ex6_Quartil_1_2(Ex6 *ex6, int total)
             aux = (aux->right ? aux->right : NULL);
         }
         quartil = xnp;
-        printf("quartil %f",quartil);
     }
     else
     {
@@ -685,7 +681,7 @@ float Ex6_Quartil_1_2(Ex6 *ex6, int total)
         {
 
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -698,7 +694,7 @@ float Ex6_Quartil_1_2(Ex6 *ex6, int total)
         while (aux1 != NULL && abs_acumulada < inteira)
         {
             posaux1 = aux1->qtdAbs;
-            abs_acumulada += aux1->qtdAbs;
+            abs_acumulada += aux1->total;
             if (abs_acumulada >= inteira)
             {
                 xnp1 = posaux1;
@@ -727,7 +723,7 @@ float Ex6_Quartil_2_2(Ex6 *ex6, int total)
         while (aux != NULL && abs_acumulada <= inteira)
         {
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -743,7 +739,7 @@ float Ex6_Quartil_2_2(Ex6 *ex6, int total)
         {
 
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -756,7 +752,7 @@ float Ex6_Quartil_2_2(Ex6 *ex6, int total)
         while (aux1 != NULL && abs_acumulada < inteira)
         {
             posaux1 = aux1->qtdAbs;
-            abs_acumulada += aux1->qtdAbs;
+            abs_acumulada += aux1->total;
             if (abs_acumulada >= inteira)
             {
                 xnp1 = posaux1;
@@ -785,7 +781,7 @@ float Ex6_Quartil_3_2(Ex6 *ex6, int total)
         while (aux != NULL && abs_acumulada <= inteira)
         {
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -801,7 +797,7 @@ float Ex6_Quartil_3_2(Ex6 *ex6, int total)
         {
 
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -814,7 +810,7 @@ float Ex6_Quartil_3_2(Ex6 *ex6, int total)
         while (aux1 != NULL && abs_acumulada < inteira)
         {
             posaux1 = aux1->qtdAbs;
-            abs_acumulada += aux1->qtdAbs;
+            abs_acumulada += aux1->total;
             if (abs_acumulada >= inteira)
             {
                 xnp1 = posaux1;
@@ -827,6 +823,12 @@ float Ex6_Quartil_3_2(Ex6 *ex6, int total)
     }
     return quartil;
 }
+
+/*bool Existe_palvra(Ex)
+
+void Ver_quartil_Palavra(Ex6 *ex6){
+
+}*/
 /**
  *! Fim Exercicio 6
 */
