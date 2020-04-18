@@ -20,6 +20,7 @@ int main()
 {
     int totalListaDL;
     char op;
+    float quartil;
 
     Morph *listaDL = NULL;
     Geral *ex2 = NULL, *ex3 = NULL, *ex6=NULL; /*Struct para coluna 3 com sua qtd absoluta*/
@@ -31,6 +32,8 @@ int main()
     listaDL = CarregarDados();
     totalListaDL = listaDL->total;
     printf("Done! %d\n", totalListaDL);
+    printf("Ficheiro Carregado\n");
+    
     /**
      * ! Fim Exercicio 1
     */
@@ -56,9 +59,9 @@ int main()
     /**
      *! Exercicio 6
     */
-   ex6 = Ex6Load(listaDL);
+   /*ex6 = Ex6Load(listaDL);
    ListarE6(ex6);
-   /*CalcularQuartis(ex6);*/
+   CalcularQuartis(ex6);*/
     /**
      *! Fim Exercicio 6
     */
@@ -89,12 +92,10 @@ int main()
             ListarE4(ex2);
             break;
         case '5': /*Exercicio 5*/
-            Ex5CalcularMedidas_de_Centrais(ex3,totalListaDL);
+            ListarE5(ex3,totalListaDL);
             break;
-        case '6':
-            system("cls");
-
-            getchar();
+        case '6': /*Exercicio  - Comprimento*/
+            ListarE6_1(ex3,totalListaDL);
             break;
         default:
             break;
