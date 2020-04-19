@@ -16,6 +16,7 @@
 /**
  *!                                                     Main
  * */
+
 int main()
 {
     int totalListaDL;
@@ -24,6 +25,7 @@ int main()
     Morph *listaDL = NULL;
     Geral *ex2 = NULL, *ex3 = NULL; /*Struct para coluna 3 com sua qtd absoluta*/
     Ex6 *ex6 = NULL, *ex6Ordenada = NULL;
+    Ex7 *ex7 = NULL;
     /**
      * ! Exercicio 1
     */
@@ -61,41 +63,49 @@ int main()
     ex6 = Ex6Load(listaDL);
     ex6Ordenada = Ex6Load_Ordenada(ex6);
     printf("Ex6 Carregada!\n");
-    getchar();
     /**
      *! Fim Exercicio 6
+    */
+
+    /**
+     *! Exercicio 7
+    */
+    ex7 = Ex7Load(listaDL);
+    printf("Ex7 Carregada!\n");
+    /**
+     *! Fim Exercicio 7
     */
     do
     {
 
         /*Mostra o menu e retorna a escolha do utilizador*/
         op = ShowMenu();
+        /**
+         * !        Listagem dos dados
+        */
 
         switch (op)
         {
         case '1': /*Exercicio 1*/
-            /**
-             * !          Ex1)  listagem dos dados
-            */
-            system("cls");
-            Ex6_Palavra_Inserida(ex6,ex6Ordenada);
-            getchar();
-
-            break;
-        case '2': /*Exercicio 2*/
             ListarE2(ex2);
             break;
-        case '3': /*Exercicio 3*/
+        case '2': /*Exercicio 2*/
             ListarE3(ex3);
             break;
-        case '4': /*Exercicio 4*/
+        case '3': /*Exercicio 3*/
             ListarE4(ex2);
             break;
-        case '5': /*Exercicio 5*/
+        case '4': /*Exercicio 4*/
             ListarE5(ex3, totalListaDL);
+            break;
+        case '5': /*Exercicio 5*/
+            Ex6_Palavra_Inserida(ex6, ex6Ordenada);
             break;
         case '6': /*Exercicio  - Comprimento*/
             ListarE6_1(ex3, totalListaDL);
+            break;
+        case '7':
+            Histograma(ex7);
             break;
         default:
             break;

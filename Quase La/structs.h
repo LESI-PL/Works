@@ -51,12 +51,13 @@ typedef struct _Ex6
     struct _Ex6 *right; 
 }Ex6;
 
-typedef struct _Quartis
+typedef struct _Ex7
 {
-    int Q1;
-    int Q2;
-    int Q3;
-}Quartil;
+    float rigthProb;
+    int qtdAbs;
+    struct _Ex7 *left;
+    struct _Ex7 *right; 
+}Ex7;
 
 /**
  *!                                              END OF STRUCTS

@@ -13,8 +13,8 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 100
-/*#define Texto "frase.txt"*/
-#define Texto "slate-tagged.txt"
+#define Texto "frase.txt"
+/*#define Texto "slate-tagged.txt"*/
 
 /**
  *!                                                 FUNCTIONS
@@ -30,7 +30,7 @@ Morph *CarregarDados()
     Morph *lista = NULL;
     FILE *f;
     char a[MAX], b[MAX], c[MAX];
-    float d, max = 0;
+    float d, max = 0, min = 0;
     int i = 0;
 
     f = fopen(Texto, "r");
@@ -45,8 +45,6 @@ Morph *CarregarDados()
         {
             if (checkWord(a) == 1 && checkWord(b) == 1 && checkWord(c) == 1)
             {
-                /*max=IntervaloDaCerteza(d);
-                printf("max %f", max);*/
                 lista = HeadInsert(lista, a, b, c, d);
                 i++;
             }
@@ -126,7 +124,7 @@ Ex6 *Ex6Load(Morph *morph)
     /*ListarE6List(ex6Lista);*/
     /*ListarE6List(ex6Ordenada);*/
 
-    return  ex6Lista;
+    return ex6Lista;
 }
 
 Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
@@ -141,6 +139,38 @@ Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
 
 /**
  *! Fim Exercicio 6
+*/
+
+/**
+ *! Exercicio 7
+*/
+Ex7 *Ex7Load(Morph *morph)
+{
+    Morph *aux = morph;
+    Ex7 *ex7tree = NULL, *dadosEx7Org = NULL, *ex6Ordenada = NULL;
+    while (aux)
+    {
+        ex7tree = Ex7InsertNode(ex7tree, aux->rightProb);
+        aux = (aux->right ? aux->right : NULL);
+    }
+    printf("TREE\n");
+    ListarE7tree(ex7tree);
+    
+    dadosEx7Org = Ex7CriarLista(dadosEx7Org, ex7tree);
+    ListarE7List(dadosEx7Org);
+    getchar();
+    /*ex6Lista = Ex6ContarAbs(ex6Lista, ex6tree);*/
+    /*for (; ex6Lista; ex6Lista = ex6Lista->right){
+        ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada,ex6Lista);
+    }*/
+    /*ListarE6List(ex6Lista);*/
+    /*ListarE6List(ex6Ordenada);*/
+
+    return dadosEx7Org;
+}
+
+/**
+ *! Fim Exercicio 7
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -355,7 +385,6 @@ Ex6 *Ex6ListNewNode(Ex6 *dadosTree)
 
 Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree)
 {
-    int a = 0;
     if (dadoslist == NULL)
     {
 
@@ -409,6 +438,110 @@ Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6)
 }
 /**
  *! Fim Exercicio 6
+*/
+
+/**
+ *! Exercicio 7
+*/
+Ex7 *Ex7NewNode(float prob)
+{
+    Ex7 *new = (Ex7 *)malloc(sizeof(Ex7));
+    new->rigthProb = prob;
+    new->qtdAbs = 1;
+    new->left = NULL;
+    new->right = NULL;
+    return new;
+}
+Ex7 *Ex7InsertNode(Ex7 *lista, float prob)
+{
+    if (lista == NULL)
+    {
+        return Ex7NewNode(prob);
+    }
+    else
+    {
+        if (lista->rigthProb == prob)
+        {
+
+            lista->qtdAbs++;
+        }
+        else if (lista->rigthProb < prob)
+        {
+
+            lista->right = Ex7InsertNode(lista->right, prob);
+        }
+        else if (lista->rigthProb > prob)
+        {
+
+            lista->left = Ex7InsertNode(lista->left, prob);
+        }
+    }
+    return lista;
+}
+Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7)
+{
+    Ex7 *new = (Ex7 *)malloc(sizeof(Ex7));
+    new->rigthProb = dadosEx7->rigthProb;
+    new->qtdAbs = dadosEx7->qtdAbs;
+    if (!dadosEx7Org || new->rigthProb < dadosEx7Org->rigthProb)
+    {
+        new->right = dadosEx7Org;
+        dadosEx7Org = new;
+    }
+    else
+    {
+        Ex7 *aux = dadosEx7Org;
+        while (aux->right && new->rigthProb > aux->right->rigthProb)
+        {
+            aux = aux->right;
+        }
+        new->right = aux->right;
+        aux->right = new;
+    }
+    return dadosEx7Org;
+}
+Ex7 *Ex7CriarLista(Ex7 *lista, Ex7 *dadosTree)
+{
+    if (dadosTree)
+    {
+        lista = Ex7CriarLista(lista, dadosTree->left);
+        lista = Ex7ListInsertNode(lista, dadosTree);
+        lista = Ex7CriarLista(lista, dadosTree->right);
+    }
+    return lista;
+}
+Ex7 *Ex7ListNewNode(Ex7 *dadosTree)
+{
+    Ex7 *temp;
+    temp = (Ex7 *)malloc(sizeof(Ex6));
+    temp->rigthProb = dadosTree->rigthProb;
+    temp->qtdAbs = 1;
+    temp->right = NULL;
+    return temp;
+}
+
+Ex7 *Ex7ListInsertNode(Ex7 *dadoslist, Ex7 *dadosTree)
+{
+    if (dadoslist == NULL)
+    {
+
+        return Ex7ListNewNode(dadosTree);
+    }
+    else
+    {
+        if (dadoslist->rigthProb == dadosTree->rigthProb)
+        {
+            dadoslist->qtdAbs++;
+        }
+        else
+        {
+            dadoslist->right = Ex7ListInsertNode(dadoslist->right, dadosTree);
+        }
+    }
+    return dadoslist;
+}
+/**
+ *! Fim Exercicio 7
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -1050,54 +1183,7 @@ int Ex6_Numero_Ocorrencias(Ex6 *ex6, char *palavra)
     }
     return aux->qtdAbs;
 }
-void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada)
-{
-    Ex6 *aux = ex6, *aux1 = ex6, *aux2 = ex6, *aux3 = ex6, *aux4= ex6;
-    Ex6 *ord1=ordenada,*ord2=ordenada,*ord3=ordenada;
-    char palavra[MAX], palavra2[MAX];
-    int ocorrencias = 0,numero_total=0, total = 0, q1 = 0, q2 = 0, q3 = 0;
-    if(ex6==NULL){
-        printf("fodeu");
-    }
-    total = pegaTotal(aux);
-    do
-    {
-        system("cls");
-        printf("Por favor digite a sua Palavra.\n");
-        scanf("%s", palavra);
-       
-        strcpy(palavra2, strupr(palavra));
-       
-        if (Existe_Palavra(aux2, palavra2) == 0)
-        {
-            printf("Palavra nao Existe\n");
-            fflush(stdin);
-            getchar();
-        }
-    } while (Existe_Palavra(aux3, palavra2) == 0);
-    ocorrencias=Ex6_Numero_Ocorrencias(aux4, palavra2);
-    numero_total = Ex6_Total_Ocorrencias(aux1, palavra2);
-    q1 = Ex6_Quartil_1_2(ord1 ,total);
-    q2 = Ex6_Quartil_2_2(ord2, total);
-    q3 = Ex6_Quartil_3_2(ord3, total);
-    if (ocorrencias < q1)
-    {
-        printf("\nA palavra pertence ao Primeiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias,numero_total);
-    }
-    else if (ocorrencias > q1 && ocorrencias < q2)
-    {
-        printf("\nA palavra pertence ao Segundo quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias,numero_total);
-    }
-    else if (ocorrencias > q1 && ocorrencias > q2 && ocorrencias < q3)
-    {
-        printf("\nA palavra pertence ao Terceiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias,numero_total);
-    }
-    else
-    {
-        printf("\nA palavra pertence ao Quarto quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias,numero_total);
-    }
-    getchar();
-}
+
 /**
  *! Fim Exercicio 6 - ocorrencia de palavra
 */
@@ -1106,24 +1192,55 @@ void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada)
  *! Exercicio 7
 */
 
-/*float IntervaloDaCerteza(Geral *ex2)
+float Max_IntervaloDaCerteza(Ex7 *ex7)
 {
-    float xmax = 0;  
-    xmax=ex2->;
-    if(numero>xmax){
-        xmax=numero;
+    Ex7 *aux = ex7;
+    float xmax = 0;
+    xmax = aux->rigthProb;
+    for (; aux; aux = aux->right)
+    {
+        if (aux->rigthProb > xmax)
+        {
+            xmax = aux->rigthProb;
+        }
     }
     return xmax;
-}*/
+}
+float Min_IntervaloDaCerteza(Ex7 *ex7)
+{
+    Ex7 *aux = ex7;
+    float xmin = 0;
+    xmin = aux->rigthProb;
+    for (; aux; aux = aux->right)
+    {
+        if (aux->rigthProb < xmin)
+        {
+            xmin = aux->rigthProb;
+        }
+    }
+    return xmin;
+}
 float NumeroClasses(int total)
 {
-    float constante = 3.3;
-    return 1 + (constante * log10(total));
+    float classes=0, constante = 3.3;
+    printf("total %.2f   onstante %.2f\n",total,constante);
+    classes= (1 + (constante * log10(total)));
+    return classes;
 }
-
-float Amplitude(float intervalo, int numclasses)
+int Total(Ex7 *ex7)
 {
-    float amplitude = 0;
+    int total = 0;
+    while (ex7)
+    {
+        total += ex7->qtdAbs;
+        ex7 = (ex7->right ? ex7->right : NULL);
+    }
+    return total;
+}
+float Amplitude(float max, float min, int numclasses)
+{           
+    float amplitude = 0, intervalo = 0;
+    intervalo = (max - min);
     amplitude = intervalo / numclasses;
     return amplitude;
 }
@@ -1146,14 +1263,15 @@ char ShowMenu()
     char op;
     system("cls");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 1) Exercicio 1 - Carregar Ficheiro          | 2) Exercicio 2 - Categoria Gramatical Ordenada        |");
+    printf("\n| 1) Exercicio 1 - Categoria Gramatical Ordenada  | 2) Exercicio 2 - Comprimento das palavras         |");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 3) Exercicio 3 - Comprimento das palavras   | 4) Exercicio 4 - Coluna 3 e 4 Media e Desvio          |");
+    printf("\n| 3) Exercicio 3- Coluna 3 e 4 Media e Desvio     | 4) Exercicio 4 - Comprimento das palavras         |");
+    printf("\n|                                                 |    Medidas de Localizacao e Dispersao             |");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 5) Exercicio 5 - Comprimento das palavras   | 6) exercicio 6 - Frequencia de palavras               |");
-    printf("\n|        Medidas de Localizacao e Dispersao   |    Mostrar o quartil que a palavra pertence           |");
+    printf("\n| 5) Exercicio 5 - Frequencia de palavras         | 6) Exercicio 6 - Comprimento das Palavras         |");
+    printf("\n|    Mostrar o quartil que a palavra pertence     | Quartis em relacao ao comprimento                 |");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 7) Construir histograma das probabilidades  |                                                       |");
+    printf("\n| 7) Construir histograma das probabilidades      |                                                   |");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
     printf("\n|                                          s)Sair                                                     |");
     printf("\n|-----------------------------------------------------------------------------------------------------|\n\n");
@@ -1381,9 +1499,60 @@ void ListarE6_1(Geral *ex3, int total)
     printf("|-------------------|-------------------|-------------------|-------------------|\n");
     printf("|%20.0f%20.0f%20.0f%20s\n", q1, q2, q3, "|");
 
-    printf("\n\n%d%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n", x, q1, z);
-    printf("%d%%%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n", y, q2, y);
-    printf("%d%%%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n", z, q3, x);
+    printf("\n\n%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais do que %.0f letras.\n", x, q1, z, q1);
+    printf("%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais do que %.0f letras.\n", y, q2, y, q2);
+    printf("%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais do que %.0f letras.\n", z, q3, x, q3);
+    getchar();
+}
+
+void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada)
+{
+    Ex6 *aux = ex6, *aux1 = ex6, *aux2 = ex6, *aux3 = ex6, *aux4 = ex6;
+    Ex6 *ord1 = ordenada, *ord2 = ordenada, *ord3 = ordenada;
+    char palavra[MAX], palavra2[MAX];
+    int ocorrencias = 0, numero_total = 0, total = 0, q1 = 0, q2 = 0, q3 = 0;
+    if (ex6 == NULL)
+    {
+        printf("fodeu");
+    }
+    total = pegaTotal(aux);
+    do
+    {
+        system("cls");
+        printf("Por favor digite a sua Palavra.\n");
+        scanf("%s", palavra);
+
+        strcpy(palavra2, strupr(palavra));
+
+        if (Existe_Palavra(aux2, palavra2) == 0)
+        {
+            printf("Palavra nao Existe\n");
+            fflush(stdin);
+            getchar();
+        }
+    } while (Existe_Palavra(aux3, palavra2) == 0);
+    ocorrencias = Ex6_Numero_Ocorrencias(aux4, palavra2);
+    numero_total = Ex6_Total_Ocorrencias(aux1, palavra2);
+    q1 = Ex6_Quartil_1_2(ord1, total);
+    q2 = Ex6_Quartil_2_2(ord2, total);
+    q3 = Ex6_Quartil_3_2(ord3, total);
+    if (ocorrencias < q1)
+    {
+        printf("\nA palavra pertence ao Primeiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias, numero_total);
+    }
+    else if (ocorrencias > q1 && ocorrencias < q2)
+    {
+        printf("\nA palavra pertence ao Segundo quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias, numero_total);
+    }
+    else if (ocorrencias > q1 && ocorrencias > q2 && ocorrencias < q3)
+    {
+        printf("\nA palavra pertence ao Terceiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias, numero_total);
+    }
+    else
+    {
+        printf("\nA palavra pertence ao Quarto quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias, numero_total);
+    }
+    fflush(stdin);
     getchar();
 }
 
@@ -1399,6 +1568,45 @@ void ListarE6List(Ex6 *dados)
  *! Fim Exercicio 6
 */
 
+/**
+ *! Exercicio 7
+*/
+void ListarE7List(Ex7 *dados)
+{
+    while (dados)
+    {
+        printf("prob %f Total:%d\n", dados->rigthProb, dados->qtdAbs);
+        dados = (dados->right ? dados->right : NULL);
+    }
+}
+
+void ListarE7tree(Ex7 *dados)
+{
+    if (dados)
+    {
+        ListarE7tree(dados->left);
+        printf("prob %f Total:%d\n", dados->rigthProb, dados->qtdAbs);
+        ListarE7tree(dados->right);
+    }
+}
+
+void Histograma(Ex7 *ex7)
+{
+    Ex7 *aux = ex7, *aux1 = ex7, *aux2 = ex7;
+    float min = 0, max = 0, amplitude = 0;
+    int classes = 0, total = 0;
+    ListarE7List(ex7);
+    total = Total(aux2);
+    min = Min_IntervaloDaCerteza(aux);
+    max = Max_IntervaloDaCerteza(aux1);
+    classes = NumeroClasses(total);
+    amplitude = Amplitude(max, min, classes);
+    printf("total %d min %f  max %f    classes %f    amplitude %f\n",total, min, max, classes, amplitude);
+    getchar();
+}
+/**
+ *! Fim Exercicio 7
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */

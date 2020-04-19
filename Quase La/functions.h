@@ -51,6 +51,14 @@ Ex6 *Ex6Load_Ordenada(Ex6 *ex6);
 /**
  *! Fim Exercicio 6
 */
+
+/**
+ *! Exercicio 7
+*/
+Ex7 *Ex7Load(Morph *morph);
+/**
+ *! Fim Exercicio 7
+*/
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -99,6 +107,20 @@ Ex6 *Ex6ContarAbs(Ex6 *lista, Ex6 *dadosTree);
 Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6);
 /**
  *! Fim Exercicio 6
+*/
+
+/**
+ *!  Exercicio 7
+*/
+Ex7 *Ex7NewNode(float prob);
+Ex7 *Ex7InsertNode(Ex7 *lista, float prob);
+Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7);
+Ex7 *Ex7CriarLista(Ex7 *lista, Ex7 *dadosTree);
+Ex7 *Ex7ListNewNode(Ex7 *dadosTree);
+Ex7 *Ex7ListInsertNode(Ex7 *dadoslist, Ex7 *dadosTree);
+
+/**
+ *! Fim Exercicio 7
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -179,9 +201,11 @@ int Ex6_Numero_Ocorrencias(Ex6 *ex6, char *palavra);
 /**
  *! Exercicio 7
 */
-float IntervaloDaCerteza(float numero);
+float Max_IntervaloDaCerteza(Ex7 *ex7);
+float Min_IntervaloDaCerteza(Ex7 *ex7);
 float NumeroClasses(int total);
-float Amplitude(float intervalo, int numclasses);
+float Amplitude(float max, float min, int numclasses);
+int Total(Ex7 *ex7);
 
 /**
  *! Fim Exercicio 7
@@ -259,6 +283,17 @@ void ListarE6List(Ex6 *dados);
 
 /**
  *! Fim Exercicio 6
+*/
+
+/**
+ *! Exercicio 7
+*/
+void ListarE7List(Ex7 *dados);
+void ListarE7tree(Ex7 *dados);
+void Histograma(Ex7 *ex7);
+
+/**
+ *! Fim Exercicio 7
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
