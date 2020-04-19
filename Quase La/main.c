@@ -34,7 +34,7 @@ int main()
     listaDL = CarregarDados();
     totalListaDL = listaDL->total;
     printf("Done! %d\n", totalListaDL);
-    printf("Ficheiro Carregado\n");
+    printf("Exercicio 1) Ficheiro Carregado!!!\n");
 
     /**
      * ! Fim Exercicio 1
@@ -100,7 +100,8 @@ int main()
         case '4': /*Exercicio 4*/
             ListarE5(ex3, totalListaDL);
             break;
-        case '5': /*Exercicio 5*/  
+        case '5': /*Exercicio 5*/ 
+            /*Q1=usar "firstladyship"    Q2= usar "ola"      Q3= usar "camouflage"    Q4= usar "to"*/ 
             Ex6_Palavra_Inserida(ex6, ex6Ordenada);
             break;
         case '6': /*Exercicio  - Comprimento*/

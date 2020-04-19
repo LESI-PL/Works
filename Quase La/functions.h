@@ -57,6 +57,7 @@ Ex6 *Ex6Load_Ordenada(Ex6 *ex6);
  *! Exercicio 7
 */
 Ex7 *Ex7Load(Morph *morph);
+void list(Ex7* ex);
 /**
  *! Fim Exercicio 7
 */
@@ -122,9 +123,10 @@ Ex6* Ex6TreeToList(Ex6* lista, Ex6*tree);
 Ex7 *Ex7NewNode(float prob);
 Ex7 *Ex7InsertNode(Ex7 *lista, float prob);
 Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7);
-Ex7 *Ex7CriarLista(Ex7 *lista, Ex7 *dadosTree);
-Ex7 *Ex7ListNewNode(Ex7 *dadosTree);
-Ex7 *Ex7ListInsertNode(Ex7 *dadoslist, Ex7 *dadosTree);
+
+
+Ex7 *Ex7HeadInsert(Ex7 *lista, Ex7 *tree);
+Ex7 *Ex7TreeToList(Ex7 *dadoslist, Ex7 *dadosTree);
 
 /**
  *! Fim Exercicio 7

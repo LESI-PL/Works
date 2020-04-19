@@ -110,7 +110,7 @@ Geral *Ex3Load(Morph *morph)
 Ex6 *Ex6Load(Morph *morph)
 {
     Morph *aux = morph;
-    Ex6 *ex6tree = NULL, *ex6Lista = NULL, *ex6Ordenada = NULL;
+    Ex6 *ex6tree = NULL, *ex6Lista = NULL;
     char palavra[100];
     while (aux)
     {
@@ -144,26 +144,17 @@ Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
 Ex7 *Ex7Load(Morph *morph)
 {
     Morph *aux = morph;
-    Ex7 *ex7tree = NULL, *dadosEx7Org = NULL, *ex6Ordenada = NULL;
+    Ex7 *ex7tree = NULL, *ex7Lista = NULL;
     while (aux)
     {
         ex7tree = Ex7InsertNode(ex7tree, aux->rightProb);
         aux = (aux->right ? aux->right : NULL);
     }
-    /*printf("TREE\n");*/
-    /*ListarE7tree(ex7tree);*/
-
-    dadosEx7Org = Ex7CriarLista(dadosEx7Org, ex7tree);
-    /*ListarE7List(dadosEx7Org);
-    getchar();*/
-    /*ex6Lista = Ex6ContarAbs(ex6Lista, ex6tree);*/
-    /*for (; ex6Lista; ex6Lista = ex6Lista->right){
-        ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada,ex6Lista);
-    }*/
-    /*ListarE6List(ex6Lista);*/
-    /*ListarE6List(ex6Ordenada);*/
-
-    return dadosEx7Org;
+    
+    ex7Lista = Ex7TreeToList(ex7Lista, ex7tree);     /*Ate aqui funciona*/
+    /*Falta Ordenar*/
+    
+    return ex7tree;
 }
 
 /**
@@ -499,31 +490,31 @@ Ex7 *Ex7NewNode(float prob)
     new->right = NULL;
     return new;
 }
-Ex7 *Ex7InsertNode(Ex7 *lista, float prob)
+Ex7 *Ex7InsertNode(Ex7 *tree, float prob)
 {
-    if (lista == NULL)
+    if (tree == NULL)
     {
         return Ex7NewNode(prob);
     }
     else
     {
-        if (lista->rigthProb == prob)
+        if (tree->rigthProb == prob)
         {
-
-            lista->qtdAbs++;
+            tree->qtdAbs++;
         }
-        else if (lista->rigthProb < prob)
+        else
         {
-
-            lista->right = Ex7InsertNode(lista->right, prob);
-        }
-        else if (lista->rigthProb > prob)
-        {
-
-            lista->left = Ex7InsertNode(lista->left, prob);
+            if (tree->rigthProb < prob)
+            {
+                tree->right = Ex7InsertNode(tree->right, prob);
+            }
+            else if (tree->rigthProb > prob)
+            {
+                tree->left = Ex7InsertNode(tree->left, prob);
+            }
         }
     }
-    return lista;
+    return tree;
 }
 Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7)
 {
@@ -547,43 +538,28 @@ Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7)
     }
     return dadosEx7Org;
 }
-Ex7 *Ex7CriarLista(Ex7 *lista, Ex7 *dadosTree)
+
+Ex7 *Ex7HeadInsert(Ex7 *lista, Ex7 *tree)
+{
+    Ex7 *new = (Ex7 *)malloc(sizeof(Ex7));
+    new->rigthProb = tree->rigthProb;
+    new->qtdAbs = tree->qtdAbs;
+    new->right = lista;
+    if (new->right)
+    {
+        new->right->left = new;
+        new->left = NULL;
+    }
+    return new;
+}
+
+Ex7 *Ex7TreeToList(Ex7 *dadoslist, Ex7 *dadosTree)
 {
     if (dadosTree)
     {
-        lista = Ex7CriarLista(lista, dadosTree->left);
-        lista = Ex7ListInsertNode(lista, dadosTree);
-        lista = Ex7CriarLista(lista, dadosTree->right);
-    }
-    return lista;
-}
-Ex7 *Ex7ListNewNode(Ex7 *dadosTree)
-{
-    Ex7 *temp;
-    temp = (Ex7 *)malloc(sizeof(Ex6));
-    temp->rigthProb = dadosTree->rigthProb;
-    temp->qtdAbs = 1;
-    temp->right = NULL;
-    return temp;
-}
-
-Ex7 *Ex7ListInsertNode(Ex7 *dadoslist, Ex7 *dadosTree)
-{
-    if (dadoslist == NULL)
-    {
-
-        return Ex7ListNewNode(dadosTree);
-    }
-    else
-    {
-        if (dadoslist->rigthProb == dadosTree->rigthProb)
-        {
-            dadoslist->qtdAbs++;
-        }
-        else
-        {
-            dadoslist->right = Ex7ListInsertNode(dadoslist->right, dadosTree);
-        }
+        dadoslist = Ex7TreeToList(dadoslist, dadosTree->left);
+        dadoslist = Ex7HeadInsert(dadoslist, dadosTree);
+        dadoslist = Ex7TreeToList(dadoslist, dadosTree->right);
     }
     return dadoslist;
 }
@@ -1275,7 +1251,7 @@ float Min_IntervaloDaCerteza(Ex7 *ex7)
 float NumeroClasses(int total)
 {
     float classes = 0, constante = 3.3;
-    printf("total %.2f   onstante %.2f\n", total, constante);
+    printf("total %d   onstante %.2f\n", total, constante);
     classes = (1 + (constante * log10(total)));
     return classes;
 }
@@ -1315,13 +1291,13 @@ char ShowMenu()
     char op;
     system("cls");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 1) Exercicio 1 - Categoria Gramatical Ordenada  | 2) Exercicio 2 - Comprimento das palavras         |");
+    printf("\n| 1) Exercicio 2 - Categoria Gramatical Ordenada  | 2) Exercicio 3 - Comprimento das palavras         |");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 3) Exercicio 3- Coluna 3 e 4 Media e Desvio     | 4) Exercicio 4 - Comprimento das palavras         |");
+    printf("\n| 3) Exercicio 4- Coluna 3 e 4 Media e Desvio     | 4) Exercicio 5 - Comprimento das palavras         |");
     printf("\n|                                                 |    Medidas de Localizacao e Dispersao             |");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 5) Exercicio 5 - Frequencia de palavras         | 6) Exercicio 6 - Comprimento das Palavras         |");
-    printf("\n|    Mostrar o quartil que a palavra pertence     | Quartis em relacao ao comprimento                 |");
+    printf("\n| 5) Exercicio 6 (AED) - Frequencia de palavras   | 6) Exercicio 6 (Est.) - Comprimento das Palavras  |");
+    printf("\n|    Mostrar o quartil que a palavra pertence     |    Quartis em relacao ao comprimento              |");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
     printf("\n| 7) Construir histograma das probabilidades      |                                                   |");
     printf("\n|-----------------------------------------------------------------------------------------------------|");
@@ -1560,7 +1536,7 @@ void ListarE6_1(Geral *ex3, int total)
 void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada)
 {
     Ex6 *aux2 = ex6, *aux3 = ex6, *aux4 = ex6;
-    Ex6 *ord1 = ordenada, *ord2 = ordenada, *ord3 = ordenada, *aux = ordenada, *aux1=ordenada;
+    Ex6 *ord1 = ordenada, *ord2 = ordenada, *ord3 = ordenada, *aux = ordenada, *aux1 = ordenada;
     char palavra[MAX], palavra2[MAX];
     int ocorrencias = 0, numero_total = 0, total = 0, q1 = 0, q2 = 0, q3 = 0;
 
@@ -1594,15 +1570,15 @@ void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada)
     printf("|-------------------|-------------------|-------------------|-------------------|\n");
     printf("|%20.0d%20.0d%20.0d%20s\n", q1, q2, q3, "|");
 
-    if (ocorrencias < q1)
+    if (ocorrencias <= q1)
     {
         printf("\nA palavra pertence ao Primeiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d.\n", ocorrencias, numero_total);
     }
-    else if (ocorrencias > q1 && ocorrencias < q2)
+    else if (ocorrencias > q1 && ocorrencias <= q2)
     {
         printf("\nA palavra pertence ao Segundo quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d.\n", ocorrencias, numero_total);
     }
-    else if (ocorrencias > q1 && ocorrencias > q2 && ocorrencias < q3)
+    else if (ocorrencias > q1 && ocorrencias > q2 && ocorrencias <= q3)
     {
         printf("\nA palavra pertence ao Terceiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d.\n", ocorrencias, numero_total);
     }
@@ -1662,6 +1638,7 @@ void Histograma(Ex7 *ex7)
     printf("total %d min %f  max %f    classes %f    amplitude %f\n", total, min, max, classes, amplitude);
     getchar();
 }
+
 /**
  *! Fim Exercicio 7
 */
