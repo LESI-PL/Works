@@ -118,16 +118,15 @@ Ex6 *Ex6Load(Morph *morph)
         ex6tree = Ex6InsertNode(ex6tree, aux->originWord);
         aux = (aux->right ? aux->right : NULL);
     }
-    ex6Lista = Ex6TreeToList(ex6Lista,ex6tree);
-    
+    ex6Lista = Ex6TreeToList(ex6Lista, ex6tree);
+
     return ex6Lista;
 }
 
-
 Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
 {
-    Ex6 *ex6Lista=NULL, *ex6Ordenada = NULL;
-    ex6Lista = Ex6ContarAbs(ex6Lista,ex6);
+    Ex6 *ex6Lista = NULL, *ex6Ordenada = NULL;
+    ex6Lista = Ex6ContarAbs(ex6Lista, ex6);
     for (; ex6Lista; ex6Lista = ex6Lista->right)
     {
         ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada, ex6Lista);
@@ -138,7 +137,6 @@ Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
 /**
  *! Fim Exercicio 6
 */
-
 
 /**
  *! Exercicio 7
@@ -406,27 +404,35 @@ Ex6 *Ex6ContarAbs(Ex6 *lista, Ex6 *dados)
 {
     while (dados)
     {
-        lista = insertPorAbs(lista,dados);
+        lista = insertPorAbs(lista, dados);
 
-        dados = (dados->right ? dados->right:NULL);
+        dados = (dados->right ? dados->right : NULL);
     }
     return lista;
 }
-Ex6* insertNewPorAbs(Ex6* dados){
-    Ex6* temp = (Ex6*)malloc(sizeof(Ex6));
+Ex6 *insertNewPorAbs(Ex6 *dados)
+{
+    Ex6 *temp = (Ex6 *)malloc(sizeof(Ex6));
     temp->qtdAbs = dados->qtdAbs;
-    temp ->total = 1;
+    temp->total = 1;
     temp->right = NULL;
     return temp;
 }
-Ex6* insertPorAbs(Ex6* lista, Ex6*dados){
-    if(lista==NULL){
+Ex6 *insertPorAbs(Ex6 *lista, Ex6 *dados)
+{
+    if (lista == NULL)
+    {
         return insertNewPorAbs(dados);
-    }else{
-        if(lista->qtdAbs == dados->qtdAbs){
+    }
+    else
+    {
+        if (lista->qtdAbs == dados->qtdAbs)
+        {
             lista->total++;
-        }else{
-            lista->right = insertPorAbs(lista->right,dados);
+        }
+        else
+        {
+            lista->right = insertPorAbs(lista->right, dados);
         }
     }
     return lista;
@@ -454,7 +460,8 @@ Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6)
     }
     return dadosEx6Org;
 }
-Ex6* Ex6HeadInsert(Ex6* lista,Ex6* tree){
+Ex6 *Ex6HeadInsert(Ex6 *lista, Ex6 *tree)
+{
     Ex6 *new = (Ex6 *)malloc(sizeof(Ex6));
     strcpy(new->nome, tree->nome);
     new->qtdAbs = tree->qtdAbs;
@@ -466,11 +473,13 @@ Ex6* Ex6HeadInsert(Ex6* lista,Ex6* tree){
     }
     return new;
 }
-Ex6* Ex6TreeToList(Ex6* lista, Ex6*tree){
-    if(tree){
-        lista = Ex6TreeToList(lista,tree->left);
-        lista = Ex6HeadInsert(lista,tree);
-        lista = Ex6TreeToList(lista,tree->right);
+Ex6 *Ex6TreeToList(Ex6 *lista, Ex6 *tree)
+{
+    if (tree)
+    {
+        lista = Ex6TreeToList(lista, tree->left);
+        lista = Ex6HeadInsert(lista, tree);
+        lista = Ex6TreeToList(lista, tree->right);
     }
     return lista;
 }
@@ -1200,23 +1209,31 @@ int pegaTotal(Ex6 *ex6)
     }
     return total;
 }
-int Ex6_Total_Ocorrencias(Ex6 *ex6, char *palavra)
+int Ex6_Total_Ocorrencias(Ex6 *ex6, int numero)
 {
     Ex6 *aux = ex6;
-    while (aux != NULL && strcmp(aux->nome, palavra) != 0)
+    while (aux != NULL)
     {
+        if (aux->qtdAbs == numero)
+        {
+            return aux->total;
+        }
         aux = (aux->right ? aux->right : NULL);
     }
-    return aux->total;
+    return -1;
 }
 int Ex6_Numero_Ocorrencias(Ex6 *ex6, char *palavra)
 {
     Ex6 *aux = ex6;
-    while (aux != NULL && strcmp(aux->nome, palavra) != 0)
+    while (aux != NULL)
     {
+        if (strcmp(aux->nome, palavra) == 0)
+        {
+            return aux->qtdAbs;
+        }
         aux = (aux->right ? aux->right : NULL);
     }
-    return aux->qtdAbs;
+    return -1;
 }
 
 /**
@@ -1542,15 +1559,13 @@ void ListarE6_1(Geral *ex3, int total)
 
 void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada)
 {
-    Ex6 *aux = ex6, *aux1 = ex6, *aux2 = ex6, *aux3 = ex6, *aux4 = ex6;
-    Ex6 *ord1 = ordenada, *ord2 = ordenada, *ord3 = ordenada;
+    Ex6 *aux2 = ex6, *aux3 = ex6, *aux4 = ex6;
+    Ex6 *ord1 = ordenada, *ord2 = ordenada, *ord3 = ordenada, *aux = ordenada, *aux1=ordenada;
     char palavra[MAX], palavra2[MAX];
     int ocorrencias = 0, numero_total = 0, total = 0, q1 = 0, q2 = 0, q3 = 0;
-    if (ex6 == NULL)
-    {
-        printf("fodeu");
-    }
+
     total = pegaTotal(aux);
+
     do
     {
         system("cls");
@@ -1566,26 +1581,34 @@ void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada)
             getchar();
         }
     } while (Existe_Palavra(aux3, palavra2) == 0);
+
     ocorrencias = Ex6_Numero_Ocorrencias(aux4, palavra2);
-    numero_total = Ex6_Total_Ocorrencias(aux1, palavra2);
+
+    numero_total = Ex6_Total_Ocorrencias(aux1, ocorrencias);
+
     q1 = Ex6_Quartil_1_2(ord1, total);
     q2 = Ex6_Quartil_2_2(ord2, total);
     q3 = Ex6_Quartil_3_2(ord3, total);
+
+    printf("\n|                  Q 1                 Q 2                 Q 3                  |\n");
+    printf("|-------------------|-------------------|-------------------|-------------------|\n");
+    printf("|%20.0d%20.0d%20.0d%20s\n", q1, q2, q3, "|");
+
     if (ocorrencias < q1)
     {
-        printf("\nA palavra pertence ao Primeiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias, numero_total);
+        printf("\nA palavra pertence ao Primeiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d.\n", ocorrencias, numero_total);
     }
     else if (ocorrencias > q1 && ocorrencias < q2)
     {
-        printf("\nA palavra pertence ao Segundo quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias, numero_total);
+        printf("\nA palavra pertence ao Segundo quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d.\n", ocorrencias, numero_total);
     }
     else if (ocorrencias > q1 && ocorrencias > q2 && ocorrencias < q3)
     {
-        printf("\nA palavra pertence ao Terceiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias, numero_total);
+        printf("\nA palavra pertence ao Terceiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d.\n", ocorrencias, numero_total);
     }
     else
     {
-        printf("\nA palavra pertence ao Quarto quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias, numero_total);
+        printf("\nA palavra pertence ao Quarto quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d.\n", ocorrencias, numero_total);
     }
     fflush(stdin);
     getchar();
@@ -1595,7 +1618,7 @@ void ListarE6List(Ex6 *dados)
 {
     while (dados)
     {
-        printf("Palavra: %s  Ocorrencias:%d   Total:%d\n", dados->nome, dados->qtdAbs, dados->total);
+        printf("  Ocorrencias:%d   Total:%d\n", dados->qtdAbs, dados->total);
         dados = (dados->right ? dados->right : NULL);
     }
 }

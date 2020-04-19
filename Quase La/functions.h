@@ -198,7 +198,7 @@ float Ex6_Quartil_2_2(Ex6 *ex6, int total);
 float Ex6_Quartil_3_2(Ex6 *ex6, int total);
 int Existe_Palavra(Ex6 *ex6, char *palavra);
 int pegaTotal(Ex6 *ex6);
-int Ex6_Total_Ocorrencias(Ex6 *ex6, char *palavra);
+int Ex6_Total_Ocorrencias(Ex6 *ex6, int numero);
 void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada);
 int Ex6_Numero_Ocorrencias(Ex6 *ex6, char *palavra);
 

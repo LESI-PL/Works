@@ -64,6 +64,7 @@ int main()
     ex6 = Ex6Load(listaDL);
     ex6Ordenada = Ex6Load_Ordenada(ex6);
     printf("Ex6 Carregada!\n");
+    /*ListarE6List(ex6Ordenada);*/
     /**
      *! Fim Exercicio 6
     */
@@ -99,8 +100,7 @@ int main()
         case '4': /*Exercicio 4*/
             ListarE5(ex3, totalListaDL);
             break;
-        case '5': /*Exercicio 5*/
-            
+        case '5': /*Exercicio 5*/  
             Ex6_Palavra_Inserida(ex6, ex6Ordenada);
             break;
         case '6': /*Exercicio  - Comprimento*/
