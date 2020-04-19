@@ -13,8 +13,8 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 100
-#define Texto "frase.txt"
-/*#define Texto "slate-tagged.txt"*/
+/*#define Texto "frase.txt"*/
+#define Texto "slate-tagged.txt"
 
 /**
  *!                                                 FUNCTIONS
@@ -111,25 +111,23 @@ Ex6 *Ex6Load(Morph *morph)
 {
     Morph *aux = morph;
     Ex6 *ex6tree = NULL, *ex6Lista = NULL, *ex6Ordenada = NULL;
+    char palavra[100];
     while (aux)
     {
 
         ex6tree = Ex6InsertNode(ex6tree, aux->originWord);
         aux = (aux->right ? aux->right : NULL);
     }
-    ex6Lista = Ex6ContarAbs(ex6Lista, ex6tree);
-    /*for (; ex6Lista; ex6Lista = ex6Lista->right){
-        ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada,ex6Lista);
-    }*/
-    /*ListarE6List(ex6Lista);*/
-    /*ListarE6List(ex6Ordenada);*/
-
+    ex6Lista = Ex6TreeToList(ex6Lista,ex6tree);
+    
     return ex6Lista;
 }
 
+
 Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
 {
-    Ex6 *ex6Lista = ex6, *ex6Ordenada = NULL;
+    Ex6 *ex6Lista=NULL, *ex6Ordenada = NULL;
+    ex6Lista = Ex6ContarAbs(ex6Lista,ex6);
     for (; ex6Lista; ex6Lista = ex6Lista->right)
     {
         ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada, ex6Lista);
@@ -140,6 +138,7 @@ Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
 /**
  *! Fim Exercicio 6
 */
+
 
 /**
  *! Exercicio 7
@@ -153,12 +152,12 @@ Ex7 *Ex7Load(Morph *morph)
         ex7tree = Ex7InsertNode(ex7tree, aux->rightProb);
         aux = (aux->right ? aux->right : NULL);
     }
-    printf("TREE\n");
-    ListarE7tree(ex7tree);
-    
+    /*printf("TREE\n");*/
+    /*ListarE7tree(ex7tree);*/
+
     dadosEx7Org = Ex7CriarLista(dadosEx7Org, ex7tree);
-    ListarE7List(dadosEx7Org);
-    getchar();
+    /*ListarE7List(dadosEx7Org);
+    getchar();*/
     /*ex6Lista = Ex6ContarAbs(ex6Lista, ex6tree);*/
     /*for (; ex6Lista; ex6Lista = ex6Lista->right){
         ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada,ex6Lista);
@@ -403,13 +402,32 @@ Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree)
     }
     return dadoslist;
 }
-Ex6 *Ex6ContarAbs(Ex6 *lista, Ex6 *dadosTree)
+Ex6 *Ex6ContarAbs(Ex6 *lista, Ex6 *dados)
 {
-    if (dadosTree)
+    while (dados)
     {
-        lista = Ex6ContarAbs(lista, dadosTree->left);
-        lista = Ex6ListInsertNode(lista, dadosTree);
-        lista = Ex6ContarAbs(lista, dadosTree->right);
+        lista = insertPorAbs(lista,dados);
+
+        dados = (dados->right ? dados->right:NULL);
+    }
+    return lista;
+}
+Ex6* insertNewPorAbs(Ex6* dados){
+    Ex6* temp = (Ex6*)malloc(sizeof(Ex6));
+    temp->qtdAbs = dados->qtdAbs;
+    temp ->total = 1;
+    temp->right = NULL;
+    return temp;
+}
+Ex6* insertPorAbs(Ex6* lista, Ex6*dados){
+    if(lista==NULL){
+        return insertNewPorAbs(dados);
+    }else{
+        if(lista->qtdAbs == dados->qtdAbs){
+            lista->total++;
+        }else{
+            lista->right = insertPorAbs(lista->right,dados);
+        }
     }
     return lista;
 }
@@ -435,6 +453,26 @@ Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6)
         aux->right = new;
     }
     return dadosEx6Org;
+}
+Ex6* Ex6HeadInsert(Ex6* lista,Ex6* tree){
+    Ex6 *new = (Ex6 *)malloc(sizeof(Ex6));
+    strcpy(new->nome, tree->nome);
+    new->qtdAbs = tree->qtdAbs;
+    new->right = lista;
+    if (new->right)
+    {
+        new->right->left = new;
+        new->left = NULL;
+    }
+    return new;
+}
+Ex6* Ex6TreeToList(Ex6* lista, Ex6*tree){
+    if(tree){
+        lista = Ex6TreeToList(lista,tree->left);
+        lista = Ex6HeadInsert(lista,tree);
+        lista = Ex6TreeToList(lista,tree->right);
+    }
+    return lista;
 }
 /**
  *! Fim Exercicio 6
@@ -1150,10 +1188,7 @@ int Existe_Palavra(Ex6 *ex6, char *palavra)
     {
         return 0;
     }
-    else
-    {
-        return 1;
-    }
+    return 1;
 }
 int pegaTotal(Ex6 *ex6)
 {
@@ -1222,9 +1257,9 @@ float Min_IntervaloDaCerteza(Ex7 *ex7)
 }
 float NumeroClasses(int total)
 {
-    float classes=0, constante = 3.3;
-    printf("total %.2f   onstante %.2f\n",total,constante);
-    classes= (1 + (constante * log10(total)));
+    float classes = 0, constante = 3.3;
+    printf("total %.2f   onstante %.2f\n", total, constante);
+    classes = (1 + (constante * log10(total)));
     return classes;
 }
 int Total(Ex7 *ex7)
@@ -1238,7 +1273,7 @@ int Total(Ex7 *ex7)
     return total;
 }
 float Amplitude(float max, float min, int numclasses)
-{           
+{
     float amplitude = 0, intervalo = 0;
     intervalo = (max - min);
     amplitude = intervalo / numclasses;
@@ -1601,7 +1636,7 @@ void Histograma(Ex7 *ex7)
     max = Max_IntervaloDaCerteza(aux1);
     classes = NumeroClasses(total);
     amplitude = Amplitude(max, min, classes);
-    printf("total %d min %f  max %f    classes %f    amplitude %f\n",total, min, max, classes, amplitude);
+    printf("total %d min %f  max %f    classes %f    amplitude %f\n", total, min, max, classes, amplitude);
     getchar();
 }
 /**

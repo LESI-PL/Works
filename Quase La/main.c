@@ -21,6 +21,7 @@ int main()
 {
     int totalListaDL;
     char op;
+    
 
     Morph *listaDL = NULL;
     Geral *ex2 = NULL, *ex3 = NULL; /*Struct para coluna 3 com sua qtd absoluta*/
@@ -99,6 +100,7 @@ int main()
             ListarE5(ex3, totalListaDL);
             break;
         case '5': /*Exercicio 5*/
+            
             Ex6_Palavra_Inserida(ex6, ex6Ordenada);
             break;
         case '6': /*Exercicio  - Comprimento*/

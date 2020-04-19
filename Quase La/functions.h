@@ -48,6 +48,7 @@ Geral *Ex3Load(Morph *morphs);
 */
 Ex6 *Ex6Load(Morph *morph);
 Ex6 *Ex6Load_Ordenada(Ex6 *ex6);
+
 /**
  *! Fim Exercicio 6
 */
@@ -104,7 +105,13 @@ Ex6 *Ex6InsertNode(Ex6 *bTree, char *ori);
 Ex6 *Ex6ListNewNode(Ex6 *dadosTree);
 Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree);
 Ex6 *Ex6ContarAbs(Ex6 *lista, Ex6 *dadosTree);
+Ex6* insertNewPorAbs(Ex6* dados);
+Ex6* insertPorAbs(Ex6* lista, Ex6*dados);
 Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6);
+
+
+Ex6* Ex6HeadInsert(Ex6* lista,Ex6* tree);
+Ex6* Ex6TreeToList(Ex6* lista, Ex6*tree);
 /**
  *! Fim Exercicio 6
 */
@@ -194,6 +201,9 @@ int pegaTotal(Ex6 *ex6);
 int Ex6_Total_Ocorrencias(Ex6 *ex6, char *palavra);
 void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada);
 int Ex6_Numero_Ocorrencias(Ex6 *ex6, char *palavra);
+
+
+int ExistePalavra(Ex6 *ex6, char* palavra, FILE * f);
 /**
  *! Fim Exercicios 6
  */
