@@ -19,6 +19,8 @@ typedef struct LineMorph
     float rightProb;
     int quantidade;
     int total;
+    float minimo;
+    float maximo;
     struct LineMorph *right;
     struct LineMorph *left;
 }Morph;
@@ -48,6 +50,7 @@ typedef struct _Ex6
     struct _Ex6 *left;
     struct _Ex6 *right; 
 }Ex6;
+
 typedef struct _Quartis
 {
     int Q1;

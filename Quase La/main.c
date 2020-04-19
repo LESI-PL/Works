@@ -23,8 +23,7 @@ int main()
 
     Morph *listaDL = NULL;
     Geral *ex2 = NULL, *ex3 = NULL; /*Struct para coluna 3 com sua qtd absoluta*/
-    Ex6 *ex6 = NULL,*ex62=NULL;
-
+    Ex6 *ex6 = NULL, *ex6Ordenada = NULL;
     /**
      * ! Exercicio 1
     */
@@ -32,6 +31,8 @@ int main()
     listaDL = CarregarDados();
     totalListaDL = listaDL->total;
     printf("Done! %d\n", totalListaDL);
+    printf("Ficheiro Carregado\n");
+
     /**
      * ! Fim Exercicio 1
     */
@@ -39,7 +40,6 @@ int main()
     /**
      *! Exercicio 2
     */
-
     ex2 = Ex2Load(listaDL);
     printf("Ex2 Carregada!\n");
 
@@ -59,9 +59,8 @@ int main()
      *! Exercicio 6
     */
     ex6 = Ex6Load(listaDL);
+    ex6Ordenada = Ex6Load_Ordenada(ex6);
     printf("Ex6 Carregada!\n");
-    ListarE6_2(ex6,totalListaDL);
-    fflush(stdin);
     getchar();
     /**
      *! Fim Exercicio 6
@@ -79,7 +78,7 @@ int main()
              * !          Ex1)  listagem dos dados
             */
             system("cls");
-
+            Ex6_Palavra_Inserida(ex6,ex6Ordenada);
             getchar();
 
             break;
@@ -93,12 +92,10 @@ int main()
             ListarE4(ex2);
             break;
         case '5': /*Exercicio 5*/
-            Ex5CalcularMedidas_de_Centrais(ex3, totalListaDL);
+            ListarE5(ex3, totalListaDL);
             break;
-        case '6':
-            system("cls");
-
-            getchar();
+        case '6': /*Exercicio  - Comprimento*/
+            ListarE6_1(ex3, totalListaDL);
             break;
         default:
             break;

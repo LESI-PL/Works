@@ -30,13 +30,13 @@ Morph *CarregarDados()
     Morph *lista = NULL;
     FILE *f;
     char a[MAX], b[MAX], c[MAX];
-    float d;
+    float d, max = 0;
     int i = 0;
 
     f = fopen(Texto, "r");
     if (f == NULL)
     {
-        printf("Erro na leitura do ficheiro!");
+        printf("Erro na leitura do ficheiro!\n");
     }
     else
     {
@@ -45,6 +45,8 @@ Morph *CarregarDados()
         {
             if (checkWord(a) == 1 && checkWord(b) == 1 && checkWord(c) == 1)
             {
+                /*max=IntervaloDaCerteza(d);
+                printf("max %f", max);*/
                 lista = HeadInsert(lista, a, b, c, d);
                 i++;
             }
@@ -110,20 +112,30 @@ Geral *Ex3Load(Morph *morph)
 Ex6 *Ex6Load(Morph *morph)
 {
     Morph *aux = morph;
-    Ex6 *ex6tree = NULL,*ex6Lista=NULL,*ex6Ordenada=NULL;
+    Ex6 *ex6tree = NULL, *ex6Lista = NULL, *ex6Ordenada = NULL;
     while (aux)
     {
-        
+
         ex6tree = Ex6InsertNode(ex6tree, aux->originWord);
         aux = (aux->right ? aux->right : NULL);
     }
-    ex6Lista = Ex6ContarAbs(ex6Lista,ex6tree);
+    ex6Lista = Ex6ContarAbs(ex6Lista, ex6tree);
     /*for (; ex6Lista; ex6Lista = ex6Lista->right){
         ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada,ex6Lista);
     }*/
-    ListarE6List(ex6Lista);
+    /*ListarE6List(ex6Lista);*/
     /*ListarE6List(ex6Ordenada);*/
-    getchar();
+
+    return  ex6Lista;
+}
+
+Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
+{
+    Ex6 *ex6Lista = ex6, *ex6Ordenada = NULL;
+    for (; ex6Lista; ex6Lista = ex6Lista->right)
+    {
+        ex6Ordenada = Ex6InsertOrdenada(ex6Ordenada, ex6Lista);
+    }
     return ex6Ordenada;
 }
 
@@ -313,36 +325,35 @@ Ex6 *Ex6InsertNode(Ex6 *bTree, char *ori)
     {
         if (strcmp(strupr(bTree->nome), strupr(ori)) == 0)
         {
-           
+
             bTree->qtdAbs++;
         }
         else if (strcmp(strupr(bTree->nome), strupr(ori)) < 0)
         {
-            
+
             bTree->left = Ex6InsertNode(bTree->left, ori);
         }
         else if (strcmp(strupr(bTree->nome), strupr(ori)) > 0)
         {
-            
+
             bTree->right = Ex6InsertNode(bTree->right, ori);
         }
     }
     return bTree;
 }
 
-
-Ex6 *Ex6ListNewNode(Ex6 *dadosTree) 
+Ex6 *Ex6ListNewNode(Ex6 *dadosTree)
 {
     Ex6 *temp;
-    temp = (Ex6*)malloc(sizeof(Ex6));
-    strcpy(temp->nome,dadosTree->nome);
+    temp = (Ex6 *)malloc(sizeof(Ex6));
+    strcpy(temp->nome, dadosTree->nome);
     temp->qtdAbs = dadosTree->qtdAbs;
     temp->total = 1;
     temp->right = NULL;
     return temp;
 }
 
-Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree) 
+Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree)
 {
     int a = 0;
     if (dadoslist == NULL)
@@ -363,11 +374,13 @@ Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree)
     }
     return dadoslist;
 }
-Ex6 *Ex6ContarAbs(Ex6* lista,Ex6* dadosTree){
-    if(dadosTree){
-        lista = Ex6ContarAbs(lista,dadosTree->left);
-        lista = Ex6ListInsertNode(lista,dadosTree);
-        lista = Ex6ContarAbs(lista,dadosTree->right);
+Ex6 *Ex6ContarAbs(Ex6 *lista, Ex6 *dadosTree)
+{
+    if (dadosTree)
+    {
+        lista = Ex6ContarAbs(lista, dadosTree->left);
+        lista = Ex6ListInsertNode(lista, dadosTree);
+        lista = Ex6ContarAbs(lista, dadosTree->right);
     }
     return lista;
 }
@@ -535,20 +548,24 @@ Geral *Ex4CalcularDp(Geral *dados)
 /**
  *! Exercicio 5
 */
-void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
-{
-    Geral *aux = ex3, *aux1 = ex3, *aux2 = ex3, *aux3 = ex3, *aux4 = ex3;
-    float media = 0, variancia = 0, desvio = 0;
-    int classeXK = 0, classeXK1 = 0;
-    int i, k = 0, cpaux = 0, cpaux1 = 0, abs_acumulada = 0;
-    int mediana = 0, maior = 0, moda = 0;
 
+float Media_comprimento(Geral *ex3, int total)
+{
+    Geral *aux = ex3;
+    float media = 0;
     for (; aux; aux = aux->right)
     {
         media += (aux->lenght * aux->qtdAbs);
     }
     media = (media / total);
-
+    return media;
+}
+int Mediana_Comprimento(Geral *ex3, int total)
+{
+    Geral *aux1 = ex3, *aux2 = ex3;
+    int classeXK = 0, classeXK1 = 0;
+    int k = 0, cpaux = 0, cpaux1 = 0, abs_acumulada = 0;
+    int mediana = 0;
     if (total % 2 == 0)
     {
 
@@ -592,6 +609,13 @@ void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
             aux1 = (aux1->right ? aux1->right : NULL);
         }
     }
+    return mediana;
+}
+int Moda_comprimento(Geral *ex3)
+{
+
+    Geral *aux3 = ex3;
+    int maior = 0, moda = 0;
     maior = aux3->qtdAbs;
 
     while (aux3 != NULL)
@@ -603,7 +627,13 @@ void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
         }
         aux3 = (aux3->right ? aux3->right : NULL);
     }
+    return moda;
+}
 
+float Desvio_padrao_comprimento(Geral *ex3, int total, float media)
+{
+    Geral *aux4 = ex3;
+    float variancia = 0, desvio = 0;
     while (aux4 != NULL)
     {
         variancia += aux4->qtdAbs * pow(aux4->lenght - media, 2);
@@ -611,65 +641,30 @@ void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total)
     }
     variancia = (variancia / total);
     desvio = sqrt(variancia);
-    system("cls");
-    printf("\t   MEDIDAS DE LOCALIZACAO DO COMPRIMENTO DAS PALAVRAS\n\n");
-    for (i = 0; i < 67; i++)
-    {
-        printf("%c", '_');
-    }
-    printf("\n| %29s | %31s |\n", "Medidas de Tendencia Central", "Medida de Tendencia Nao Central");
-    printf("%c", '|');
-    for (i = 0; i < 65; i++)
-    {
-        printf("%c", '_');
-    }
-    printf("%c", '|');
-    printf("\n| %10s | %6s | %6s | %31s |\n", "Media", "Mediana", "Moda", "Desvio Padrao");
-    printf("| %10s | %7s | %6s | %31s |\n", "", "Me", "Mo", "S");
-    printf("%c", '|');
-    for (i = 0; i < 65; i++)
-    {
-        printf("%c", '_');
-    }
-    printf("%c", '|');
-    printf("\n| %10.6f | %5d   | %6d | %31.6f |\n", media, mediana, moda, desvio);
-    printf("%c", '|');
-    for (i = 0; i < 65; i++)
-    {
-        printf("%c", '_');
-    }
-    printf("%c", '|');
-    printf("\n");
-    fflush(stdin);
-    getchar();
+    return desvio;
 }
-/**
- *! Fim Exercicio 5
-*/
 
 /**
- *! Exercicio 6
+ *! Exercicio 6 Cpmprimento
 */
-float Ex6_Quartil_1_2(Ex6 *ex6, int total)
+
+float Ex6_Quartil_1(Geral *ex3, int total)
 {
 
-    Ex6 *aux = ex6, *aux1 = ex6;
+    Geral *aux = ex3, *aux1 = ex3;
     int abs_acumulada = 0, xnp = 0, xnp1 = 0, posaux = 0, posaux1 = 0;
     float q1 = 0.25, quartil = 0;
     double fracionaria, inteira, np = 0;
     np = (total * q1);
-    printf("%f\n",np);
     fracionaria = modf(np, &inteira);
 
     if (fracionaria > 0)
     {
         inteira += 1;
-        while (aux != NULL || abs_acumulada <= inteira)
+        while (aux != NULL && abs_acumulada <= inteira)
         {
-            posaux = aux->qtdAbs;
-            printf("ocorencias %d  inteira%f",posaux,inteira);getchar();
-            abs_acumulada += aux->total;
-            printf("\nabs acumulada %d    %d\n",abs_acumulada,aux->qtdAbs);
+            posaux = aux->lenght;
+            abs_acumulada += aux->qtdAbs;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -677,7 +672,6 @@ float Ex6_Quartil_1_2(Ex6 *ex6, int total)
             aux = (aux->right ? aux->right : NULL);
         }
         quartil = xnp;
-        printf("quartil %f",quartil);
     }
     else
     {
@@ -685,7 +679,7 @@ float Ex6_Quartil_1_2(Ex6 *ex6, int total)
         while (aux != NULL && abs_acumulada <= inteira)
         {
 
-            posaux = aux->qtdAbs;
+            posaux = aux->lenght;
             abs_acumulada += aux->qtdAbs;
             if (abs_acumulada >= inteira)
             {
@@ -698,8 +692,191 @@ float Ex6_Quartil_1_2(Ex6 *ex6, int total)
         inteira++;
         while (aux1 != NULL && abs_acumulada < inteira)
         {
-            posaux1 = aux1->qtdAbs;
+            posaux1 = aux1->lenght;
             abs_acumulada += aux1->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp1 = posaux1;
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+
+        quartil = (float)(xnp + xnp1);
+        quartil = (quartil / 2);
+    }
+    return quartil;
+}
+
+float Ex6_Quartil_2(Geral *ex3, int total)
+{
+
+    Geral *aux = ex3, *aux1 = ex3;
+    int abs_acumulada = 0, xnp = 0, xnp1 = 0, posaux = 0, posaux1 = 0;
+    float q1 = 0.50, quartil = 0;
+    double fracionaria, inteira, np = 0;
+    np = (total * q1);
+    fracionaria = modf(np, &inteira);
+
+    if (fracionaria > 0)
+    {
+        inteira += 1;
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+            posaux = aux->lenght;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+        quartil = xnp;
+    }
+    else
+    {
+
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+
+            posaux = aux->lenght;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+
+        abs_acumulada = 0;
+        inteira++;
+        while (aux1 != NULL && abs_acumulada < inteira)
+        {
+            posaux1 = aux1->lenght;
+            abs_acumulada += aux1->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp1 = posaux1;
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+
+        quartil = (float)(xnp + xnp1);
+        quartil = (quartil / 2);
+    }
+    return quartil;
+}
+
+float Ex6_Quartil_3(Geral *ex3, int total)
+{
+
+    Geral *aux = ex3, *aux1 = ex3;
+    int abs_acumulada = 0, xnp = 0, xnp1 = 0, posaux = 0, posaux1 = 0;
+    float q1 = 0.75, quartil = 0;
+    double fracionaria, inteira, np = 0;
+    np = (total * q1);
+    fracionaria = modf(np, &inteira);
+
+    if (fracionaria > 0)
+    {
+        inteira += 1;
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+            posaux = aux->lenght;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+        quartil = xnp;
+    }
+    else
+    {
+
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+
+            posaux = aux->lenght;
+            abs_acumulada += aux->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+
+        abs_acumulada = 0;
+        inteira++;
+        while (aux1 != NULL && abs_acumulada < inteira)
+        {
+            posaux1 = aux1->lenght;
+            abs_acumulada += aux1->qtdAbs;
+            if (abs_acumulada >= inteira)
+            {
+                xnp1 = posaux1;
+            }
+            aux1 = (aux1->right ? aux1->right : NULL);
+        }
+
+        quartil = (float)(xnp + xnp1);
+        quartil = (quartil / 2);
+    }
+    return quartil;
+}
+/**
+ *! Fim Exercicio 6 Comprimento
+*/
+
+/**
+ *! Exercicio 6 - ocorrencia de palavra
+*/
+float Ex6_Quartil_1_2(Ex6 *ex6, int total)
+{
+
+    Ex6 *aux = ex6, *aux1 = ex6;
+    int abs_acumulada = 0, xnp = 0, xnp1 = 0, posaux = 0, posaux1 = 0;
+    float q1 = 0.25, quartil = 0;
+    double fracionaria, inteira, np = 0;
+    np = (total * q1);
+    fracionaria = modf(np, &inteira);
+
+    if (fracionaria > 0)
+    {
+        inteira += 1;
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+            posaux = aux->qtdAbs;
+            abs_acumulada += aux->total;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+        quartil = xnp;
+    }
+    else
+    {
+
+        while (aux != NULL && abs_acumulada <= inteira)
+        {
+
+            posaux = aux->qtdAbs;
+            abs_acumulada += aux->total;
+            if (abs_acumulada >= inteira)
+            {
+                xnp = posaux;
+            }
+            aux = (aux->right ? aux->right : NULL);
+        }
+
+        abs_acumulada = 0;
+        inteira++;
+        while (aux1 != NULL && abs_acumulada < inteira)
+        {
+            posaux1 = aux1->qtdAbs;
+            abs_acumulada += aux1->total;
             if (abs_acumulada >= inteira)
             {
                 xnp1 = posaux1;
@@ -728,7 +905,7 @@ float Ex6_Quartil_2_2(Ex6 *ex6, int total)
         while (aux != NULL && abs_acumulada <= inteira)
         {
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -744,7 +921,7 @@ float Ex6_Quartil_2_2(Ex6 *ex6, int total)
         {
 
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -757,7 +934,7 @@ float Ex6_Quartil_2_2(Ex6 *ex6, int total)
         while (aux1 != NULL && abs_acumulada < inteira)
         {
             posaux1 = aux1->qtdAbs;
-            abs_acumulada += aux1->qtdAbs;
+            abs_acumulada += aux1->total;
             if (abs_acumulada >= inteira)
             {
                 xnp1 = posaux1;
@@ -786,7 +963,7 @@ float Ex6_Quartil_3_2(Ex6 *ex6, int total)
         while (aux != NULL && abs_acumulada <= inteira)
         {
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -802,7 +979,7 @@ float Ex6_Quartil_3_2(Ex6 *ex6, int total)
         {
 
             posaux = aux->qtdAbs;
-            abs_acumulada += aux->qtdAbs;
+            abs_acumulada += aux->total;
             if (abs_acumulada >= inteira)
             {
                 xnp = posaux;
@@ -815,7 +992,7 @@ float Ex6_Quartil_3_2(Ex6 *ex6, int total)
         while (aux1 != NULL && abs_acumulada < inteira)
         {
             posaux1 = aux1->qtdAbs;
-            abs_acumulada += aux1->qtdAbs;
+            abs_acumulada += aux1->total;
             if (abs_acumulada >= inteira)
             {
                 xnp1 = posaux1;
@@ -828,8 +1005,131 @@ float Ex6_Quartil_3_2(Ex6 *ex6, int total)
     }
     return quartil;
 }
+
+int Existe_Palavra(Ex6 *ex6, char *palavra)
+{
+    Ex6 *aux = ex6;
+    while (aux != NULL && strcmp(aux->nome, palavra) != 0)
+    {
+        aux = (aux->right ? aux->right : NULL);
+    }
+    if (aux == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
+int pegaTotal(Ex6 *ex6)
+{
+    int total = 0;
+    while (ex6)
+    {
+        total += ex6->total;
+        ex6 = (ex6->right ? ex6->right : NULL);
+    }
+    return total;
+}
+int Ex6_Total_Ocorrencias(Ex6 *ex6, char *palavra)
+{
+    Ex6 *aux = ex6;
+    while (aux != NULL && strcmp(aux->nome, palavra) != 0)
+    {
+        aux = (aux->right ? aux->right : NULL);
+    }
+    return aux->total;
+}
+int Ex6_Numero_Ocorrencias(Ex6 *ex6, char *palavra)
+{
+    Ex6 *aux = ex6;
+    while (aux != NULL && strcmp(aux->nome, palavra) != 0)
+    {
+        aux = (aux->right ? aux->right : NULL);
+    }
+    return aux->qtdAbs;
+}
+void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada)
+{
+    Ex6 *aux = ex6, *aux1 = ex6, *aux2 = ex6, *aux3 = ex6, *aux4= ex6;
+    Ex6 *ord1=ordenada,*ord2=ordenada,*ord3=ordenada;
+    char palavra[MAX], palavra2[MAX];
+    int ocorrencias = 0,numero_total=0, total = 0, q1 = 0, q2 = 0, q3 = 0;
+    if(ex6==NULL){
+        printf("fodeu");
+    }
+    total = pegaTotal(aux);
+    do
+    {
+        system("cls");
+        printf("Por favor digite a sua Palavra.\n");
+        scanf("%s", palavra);
+       
+        strcpy(palavra2, strupr(palavra));
+       
+        if (Existe_Palavra(aux2, palavra2) == 0)
+        {
+            printf("Palavra nao Existe\n");
+            fflush(stdin);
+            getchar();
+        }
+    } while (Existe_Palavra(aux3, palavra2) == 0);
+    ocorrencias=Ex6_Numero_Ocorrencias(aux4, palavra2);
+    numero_total = Ex6_Total_Ocorrencias(aux1, palavra2);
+    q1 = Ex6_Quartil_1_2(ord1 ,total);
+    q2 = Ex6_Quartil_2_2(ord2, total);
+    q3 = Ex6_Quartil_3_2(ord3, total);
+    if (ocorrencias < q1)
+    {
+        printf("\nA palavra pertence ao Primeiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias,numero_total);
+    }
+    else if (ocorrencias > q1 && ocorrencias < q2)
+    {
+        printf("\nA palavra pertence ao Segundo quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias,numero_total);
+    }
+    else if (ocorrencias > q1 && ocorrencias > q2 && ocorrencias < q3)
+    {
+        printf("\nA palavra pertence ao Terceiro quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias,numero_total);
+    }
+    else
+    {
+        printf("\nA palavra pertence ao Quarto quartil!\nOcorre %d vezes e o numero de palavras com a mesma ocorrencia e %d\n", ocorrencias,numero_total);
+    }
+    getchar();
+}
 /**
- *! Fim Exercicio 6
+ *! Fim Exercicio 6 - ocorrencia de palavra
+*/
+
+/**
+ *! Exercicio 7
+*/
+
+/*float IntervaloDaCerteza(Geral *ex2)
+{
+    float xmax = 0;  
+    xmax=ex2->;
+    if(numero>xmax){
+        xmax=numero;
+    }
+    return xmax;
+}*/
+float NumeroClasses(int total)
+{
+    float constante = 3.3;
+    return 1 + (constante * log10(total));
+}
+
+float Amplitude(float intervalo, int numclasses)
+{
+    float amplitude = 0;
+    amplitude = intervalo / numclasses;
+    return amplitude;
+}
+
+/**
+ *! Fim Exercicio 7
 */
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -1010,51 +1310,95 @@ void ListarE4(Geral *dados)
  *! Fim Exercicio 4
 */
 
-void ListarE6(Ex6 *dados)
+/**
+ *! Exercicio 5
+*/
+void ListarE5(Geral *ex3, int total)
 {
-    if (dados)
+    Geral *aux = ex3, *aux1 = ex3, *aux2 = ex3, *aux3 = ex3;
+    float media = 0, desvio = 0;
+    int i, mediana = 0, moda = 0;
+
+    media = Media_comprimento(aux, total);
+
+    moda = Moda_comprimento(aux1);
+
+    mediana = Mediana_Comprimento(aux2, total);
+
+    desvio = Desvio_padrao_comprimento(aux3, total, media);
+
+    system("cls");
+    printf("\t   MEDIDAS DE LOCALIZACAO DO COMPRIMENTO DAS PALAVRAS\n\n");
+    for (i = 0; i < 67; i++)
     {
-        ListarE6(dados->right);
-        printf("%s %d\n", dados->nome, dados->qtdAbs);
-        ListarE6(dados->left);
+        printf("%c", '_');
     }
-}
-void ListarE6List(Ex6 *dados){
-    while(dados){
-        printf("Palavra: %s  Ocorrencias:%d   Total:%d\n",dados->nome,dados->qtdAbs,dados->total);
-        dados = (dados->right ? dados->right:NULL);
+    printf("\n| %29s | %31s |\n", "Medidas de Tendencia Central", "Medida de Tendencia Nao Central");
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
     }
-}
-int pegaTotal(Ex6* ex6){
-    int total=0;
-    while(ex6){
-        total += ex6->total;
-        ex6 = (ex6->right ? ex6->right:NULL);
+    printf("%c", '|');
+    printf("\n| %10s | %6s | %6s | %31s |\n", "Media", "Mediana", "Moda", "Desvio Padrao");
+    printf("| %10s | %7s | %6s | %31s |\n", "", "Me", "Mo", "S");
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
     }
-    return total;
+    printf("%c", '|');
+    printf("\n| %10.6f | %5d   | %6d | %31.6f |\n", media, mediana, moda, desvio);
+    printf("%c", '|');
+    for (i = 0; i < 65; i++)
+    {
+        printf("%c", '_');
+    }
+    printf("%c", '|');
+    printf("\n");
+    fflush(stdin);
+    getchar();
 }
-void ListarE6_2(Ex6 *ex6, int total)
+
+/**
+ *! Fim Exercicio 5
+*/
+
+/**
+ *! Exercicio 6
+*/
+void ListarE6_1(Geral *ex3, int total)
 {
-    Ex6 *aux = ex6, *aux1 = ex6, *aux2 = ex6;
+    Geral *aux = ex3, *aux1 = ex3, *aux2 = ex3;
     int x = 25, y = 50, z = 75;
     float q1 = 0, q2 = 0, q3 = 0;
-    total = pegaTotal(ex6);
-    printf("A:%d\n",total);getchar();
-    q1 = Ex6_Quartil_1_2(aux, total);
-    q2 = Ex6_Quartil_2_2(aux1, total);
-    q3 = Ex6_Quartil_3_2(aux2, total);
+    q1 = Ex6_Quartil_1(aux, total);
+    q2 = Ex6_Quartil_2(aux1, total);
+    q3 = Ex6_Quartil_3(aux2, total);
     system("cls");
     printf("\t\t\tQuartis dos Comprmentos das Palavras\n\n\n");
     printf("|                  Q 1                 Q 2                 Q 3                  |\n");
     printf("|-------------------|-------------------|-------------------|-------------------|\n");
-    printf("|%20.0f%20.0f%20.0f%20s\n", q1, q2, q3,"|");
+    printf("|%20.0f%20.0f%20.0f%20s\n", q1, q2, q3, "|");
 
-    printf("\n\n%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais.\n",x,q1,z);
-    printf("%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais.\n",y,q2,y);
-    printf("%d %% das palavras tem %.0f letras de comprimento, e os restantes %d %% tem mais.\n",z,q3,x);
+    printf("\n\n%d%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n", x, q1, z);
+    printf("%d%%%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n", y, q2, y);
+    printf("%d%%%% das palavras tem %.0f letras de comprimento, e os restantes %d%% tem mais.\n", z, q3, x);
     getchar();
-    
 }
+
+void ListarE6List(Ex6 *dados)
+{
+    while (dados)
+    {
+        printf("Palavra: %s  Ocorrencias:%d   Total:%d\n", dados->nome, dados->qtdAbs, dados->total);
+        dados = (dados->right ? dados->right : NULL);
+    }
+}
+/**
+ *! Fim Exercicio 6
+*/
+
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */

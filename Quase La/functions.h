@@ -29,7 +29,7 @@ Morph *CarregarDados();
 */
 Geral *Ex2Load(Morph *morph);
 Geral *Ex2LoadTree(Geral *dados, Geral *dadosOrganizados);
-Geral *Ex2LoadToList(Geral *dados,Geral *destino);
+Geral *Ex2LoadToList(Geral *dados, Geral *destino);
 /**
  *! Fim Exercicio 2
 */
@@ -47,6 +47,7 @@ Geral *Ex3Load(Morph *morphs);
  *! Exercicio 6
 */
 Ex6 *Ex6Load(Morph *morph);
+Ex6 *Ex6Load_Ordenada(Ex6 *ex6);
 /**
  *! Fim Exercicio 6
 */
@@ -70,7 +71,7 @@ Morph *HeadInsert(Morph *lista, char a[], char b[], char c[], float d);
 */
 Geral *Ex2NewNode(Morph *morph);
 Geral *Ex2InsertNode(Geral *dadosEx2, Morph *dados);
-Geral* Ex2InsertOrdenada(Geral* lista, Geral* dados);
+Geral *Ex2InsertOrdenada(Geral *lista, Geral *dados);
 
 /**
  *! Fim Exercicio 2
@@ -80,8 +81,8 @@ Geral* Ex2InsertOrdenada(Geral* lista, Geral* dados);
  *! Exercicio 3
 */
 Geral *Ex3NewNode(Morph *morph);
-Geral *Ex3InsertNode(Geral *dadosEx3,Morph *dados);
-Geral *Ex3InsertOrdenada(Geral *dadosEx3Org,Geral *dadosEx3);
+Geral *Ex3InsertNode(Geral *dadosEx3, Morph *dados);
+Geral *Ex3InsertOrdenada(Geral *dadosEx3Org, Geral *dadosEx3);
 
 /**
  *! Fim Exercicio 3
@@ -90,12 +91,11 @@ Geral *Ex3InsertOrdenada(Geral *dadosEx3Org,Geral *dadosEx3);
 /**
  *! Exercicio 6
 */
-Ex6* Ex6NewNode(char* ori);
-Ex6* Ex6InsertNode(Ex6* bTree,char* ori);
-
+Ex6 *Ex6NewNode(char *ori);
+Ex6 *Ex6InsertNode(Ex6 *bTree, char *ori);
 Ex6 *Ex6ListNewNode(Ex6 *dadosTree);
 Ex6 *Ex6ListInsertNode(Ex6 *dadoslist, Ex6 *dadosTree);
-Ex6 *Ex6ContarAbs(Ex6* lista,Ex6* dadosTree);
+Ex6 *Ex6ContarAbs(Ex6 *lista, Ex6 *dadosTree);
 Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6);
 /**
  *! Fim Exercicio 6
@@ -109,7 +109,7 @@ Ex6 *Ex6InsertOrdenada(Ex6 *dadosEx6Org, Ex6 *dadosEx6);
 */
 
 int checkWord(char palavra[]);
-char* checkLetra(char *palavra);
+char *checkLetra(char *palavra);
 
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
@@ -129,7 +129,6 @@ Geral *Ex2CalcularFreqRel(Geral *dados, int totalDados);
  *! Fim Exercicios 2
  */
 
-
 /**
  *! Exercicio 3
 */
@@ -142,28 +141,52 @@ Geral *Ex3CalcularFreqRel(Geral *dadosEx3, int totalDados);
  *! Exercicio 4
 */
 Geral *Ex4CalcularMedia(Geral *dados);
-Geral* Ex4CalcularDp(Geral* dados);
+Geral *Ex4CalcularDp(Geral *dados);
 /**
  *! Fim Exercicios 4
  */
 Geral *Ex4CalcularMedia(Geral *dados);
-Geral* Ex4CalcularDp(Geral* dados);
+Geral *Ex4CalcularDp(Geral *dados);
 /**
  *! Exercicio 5
 */
-void Ex5CalcularMedidas_de_Centrais(Geral *ex3, int total);
+float Media_comprimento(Geral *ex3, int total);
+float Media_comprimento(Geral *ex3, int total);
+int Moda_comprimento(Geral *ex3);
+float Desvio_padrao_comprimento(Geral *ex3, int total, float media);
+
 /**
  *! Fim Exercicios 5
  */
 /**
  *! Exercicio 6
 */
+float Ex6_Quartil_1(Geral *ex3, int total);
+float Ex6_Quartil_2(Geral *ex3, int total);
+float Ex6_Quartil_3(Geral *ex3, int total);
 float Ex6_Quartil_1_2(Ex6 *ex6, int total);
 float Ex6_Quartil_2_2(Ex6 *ex6, int total);
 float Ex6_Quartil_3_2(Ex6 *ex6, int total);
+int Existe_Palavra(Ex6 *ex6, char *palavra);
+int pegaTotal(Ex6 *ex6);
+int Ex6_Total_Ocorrencias(Ex6 *ex6, char *palavra);
+void Ex6_Palavra_Inserida(Ex6 *ex6, Ex6 *ordenada);
+int Ex6_Numero_Ocorrencias(Ex6 *ex6, char *palavra);
 /**
  *! Fim Exercicios 6
  */
+
+/**
+ *! Exercicio 7
+*/
+float IntervaloDaCerteza(float numero);
+float NumeroClasses(int total);
+float Amplitude(float intervalo, int numclasses);
+
+/**
+ *! Fim Exercicio 7
+*/
+
 /**
  *?----------------------------------------------------Fim-----------------------------------------------------------------------------
 */
@@ -219,16 +242,21 @@ void ListarE4(Geral *dados);
  *! Fim Exercicio 4
 */
 
+/**
+ *! Exercicio 5
+*/
+void ListarE5(Geral *ex3, int total);
+/**
+ *! Fim Exercicio 5
+*/
 
 /**
  *! Exercicio 6
 */
-void ListarE6(Ex6 *dados);
+void ListarE6_1(Geral *ex3, int total);
+void ListarE6(Geral *dados);
 void ListarE6List(Ex6 *dados);
-void ListarE6_2(Ex6 *ex6, int total);
 
-
-int pegaTotal(Ex6* ex6);
 /**
  *! Fim Exercicio 6
 */
