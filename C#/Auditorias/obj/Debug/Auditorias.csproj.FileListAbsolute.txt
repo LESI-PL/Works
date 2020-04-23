@@ -4,3 +4,9 @@ C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias
 C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\obj\Debug\Auditorias.csprojAssemblyReference.cache
 C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\obj\Debug\Auditorias.exe
 C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\obj\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe.config
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.pdb

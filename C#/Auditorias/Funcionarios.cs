@@ -24,23 +24,43 @@ namespace Auditorias
 
         #region Atributos
 
-        Funcionario[] funcionarios;
-
+        List<Funcionario> funcionarios;
+        int qtdFuncionarios;
         #endregion
 
         #region Construtor
         public Funcionarios()
         {
-            funcionarios = new Funcionario[20];
+            funcionarios = new List<Funcionario>();
+            qtdFuncionarios = 0;
         }
         #endregion
 
         #region Propriedades
-
+        public int QtdFuncionario
+        {
+            get { return qtdFuncionarios; }
+            set { qtdFuncionarios = value; }
+        }
         #endregion
 
         #region Metodos
+        public bool InserirFuncionario(Funcionario funcionario)
+        {
+            qtdFuncionarios++;
+            funcionarios.Add(funcionario);
+            return true;
+        }
 
+        public override string ToString()
+        {
+            string txt = "";
+            for(int i = 0; i < qtdFuncionarios; i++)
+            {
+                txt += "Nome: " + funcionarios[i].Nome+"\n";
+            }
+            return txt;
+        }
         #endregion
 
     }

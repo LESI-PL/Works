@@ -10,22 +10,58 @@ namespace Auditorias
     {
         static void Main(string[] args)
         {
+            bool exit = false;
+            char op,opFuncionarios;
+            Menus menus = new Menus();
+            Funcionarios lista = new Funcionarios();
             
-            Funcionario f = new Funcionario("2534AE3", "Antonio Pereira", 24875986, 1, "Tecnico Informatica", new DateTime(2200, 8, 21));
-            Funcionario f2 = new Funcionario("564EZ64", "Pedrinho Pereira", 24875986, 1, "Engenheiro Informatico", new DateTime(2001, 12, 20));
-            Funcionarios fs = new Funcionarios();
-
-            Auditoria a = new Auditoria(1, new DateTime(2019, 8, 19),3);
-            
-            a.InserirFuncionario(f);
-            a.InserirFuncionario(f2);
-            a.InserirFuncionario(new Funcionario("fdtfd", "Malaquias", 23453, 123, "Paneleiro", new DateTime(2019, 9, 27)));
-            //Console.WriteLine("Qtd Auditores:" + a.QtdAuditores);
-            Console.WriteLine("" + a.ToString());
-
-            //Console.WriteLine("Nome:" + f.Nome +"\nB.I:"+f.Bi +"\nEstado:" + f.CheckEstado()+"\n");
-            Console.ReadKey();
-
+            while(exit == false)
+            {
+                menus.MenuPrincipal(); /*Mostra o menu principal*/
+                op = Console.ReadKey().KeyChar;
+                switch (op)
+                {
+                    case '1':
+                        /**/
+                        menus.MenuAuditoria(); // Mostra o menu de gestão de auditorias
+                        Console.ReadKey();
+                        break;
+                    case '2':
+                        /**/
+                        menus.MenuFuncionario(); // Mostra o menu de gestão de funcionarios
+                        opFuncionarios = Console.ReadKey().KeyChar;
+                        switch (opFuncionarios)
+                        {
+                            case '1':
+                                Console.Clear();
+                                Funcionario f = new Funcionario();
+                                Console.WriteLine("Insira o nome: ");
+                                f.Nome = Console.ReadLine();
+                                f.IdFuncionario = lista.QtdFuncionario + 1;
+                                lista.InserirFuncionario(f);
+                                break;
+                            case '4':
+                                Console.Clear();
+                                Console.WriteLine("" + lista.ToString());
+                                break;
+                        }
+                        Console.ReadKey();
+                        break;
+                    case '3':
+                        /**/
+                        break;
+                    case '4':
+                        /**/
+                        break;
+                    case 's':
+                    case 'S':
+                        exit = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
+
     }
 }

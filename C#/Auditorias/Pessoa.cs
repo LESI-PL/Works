@@ -21,7 +21,14 @@ namespace Auditorias
     /// </summary>
     class Pessoa
     {
-
+        /// <summary>
+        /// Os valores recebidos aqui são
+        /// *BI - Numero do bilhete de identidade
+        /// *Nome - Nome da pessoa
+        /// *nContribuinte - Nº Contribuinte
+        /// *morada - Morada da pessoa
+        /// *contacto - Contacto da pessoa
+        /// </summary>
         #region Atributos
         string bi;
         string nome;

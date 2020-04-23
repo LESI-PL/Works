@@ -21,12 +21,20 @@ namespace Auditorias
     /// </summary>
     class Auditoria
     {
-
+        /*
+         * Auditoria contém:
+         *          - Codigo da Auditoria
+         *          - Data da auditoria
+         *          - Funcionario que fez a auditoria
+         *          - Quantidade de vulnerabilidades
+         *          - Lista das vulnerabilidades
+         */
         #region Atributos
         int codigoAuditoria;
         DateTime data;
-        Funcionario[] auditores;
-        int qtdAuditores;
+        Funcionario auditor;
+        int qtdVulnerablidades;
+        List<Vulnerabilidade> vulnerabilidades;
 
 
         #endregion
@@ -37,12 +45,14 @@ namespace Auditorias
 
         }
 
-        public Auditoria(int codigo, DateTime dataAuditoria, int totalAuditores)
+        public Auditoria(int codigo, DateTime dataAuditoria, Funcionario funcionario)
         {
             codigoAuditoria = codigo;
             data = dataAuditoria;
-            auditores = new Funcionario[totalAuditores];
-            qtdAuditores = 0;
+            auditor = funcionario;
+            qtdVulnerablidades = 0;
+            vulnerabilidades = new List<Vulnerabilidade>();
+            
         }
         #endregion
 
@@ -59,38 +69,32 @@ namespace Auditorias
             set { data = value; }
         }
 
-        public int QtdAuditores
+        public Funcionario Auditor
         {
-            get { return qtdAuditores; }
+            get { return auditor; }
+            set { auditor = value; }
         }
+        
         #endregion
 
         #region Metodos
-        public bool InserirFuncionario(Funcionario funcionario)
+        public bool InserirVulnerabilidade(Vulnerabilidade vulnerabilidade)
         {
-            if(qtdAuditores == auditores.Length)
-            {
-                return false;
-            }
-            else
-            {
-                auditores[qtdAuditores] = funcionario;
-                if(qtdAuditores < auditores.Length)
-                {
-                    qtdAuditores++;
-                }
-                
-            }
+            qtdVulnerablidades++;
+            vulnerabilidades.Add(vulnerabilidade);
             return true;
         }
-
+        public bool InserirVulnerabilidades(List<Vulnerabilidade> vulnerabilidades)
+        {
+            qtdVulnerablidades += vulnerabilidades.Count;
+            this.vulnerabilidades = vulnerabilidades;
+            return true;
+        }
         public override string ToString()
         {
             string texto = "";
-            for(int i=0;i<qtdAuditores;i++)
-            {
-                texto += "Nome: " + auditores[i].Nome+"\nB.I: "+auditores[i].Bi+"\n\n";
-            }
+            texto += "Nome: " + auditor.Nome + "\nB.I: " + auditor.Bi + "\n\n"+vulnerabilidades[0].Descricao;
+
             return texto;
         }
         #endregion
