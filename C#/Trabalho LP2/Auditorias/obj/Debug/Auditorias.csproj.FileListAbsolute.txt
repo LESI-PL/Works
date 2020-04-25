@@ -51,3 +51,18 @@ C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Audi
 C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csproj.CopyComplete
 C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.exe
 C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe.config
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Pessoas.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Pessoas.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csproj.CopyComplete
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.pdb

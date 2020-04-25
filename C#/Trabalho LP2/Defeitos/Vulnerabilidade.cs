@@ -11,7 +11,7 @@
 namespace Defeitos
 {
     /// <summary>
-    /// 
+    /// Esta Classe representa uma instancia de Vulnerabilidade 
     /// </summary>
     public class Vulnerabilidade
     {
@@ -30,7 +30,7 @@ namespace Defeitos
         string nivelImpacto;
 
         #endregion
-       
+
         #region Construtor
 
         ///<summary>
@@ -40,12 +40,12 @@ namespace Defeitos
         {
 
         }
- 
-         ///<summary>Inicializa uma nova instancia de Vulnerabilidade</summary>
-        ///<param name="cod"><c>int</c> Codigo da Vulnerabilidade</param>
-        ///<param name="descr"><c>string</c> Descrição da Vulnerabilidade</param>
-        ///<param name="impacto"><c>string</c> Nivel de impacto da Vulnerabilidade</param>
 
+        ///<summary>Inicializa uma nova instancia de Vulnerabilidade
+        ///<code><param name="cod"><c>int</c> Codigo da Vulnerabilidade</param></code>
+        ///<code><param name="descr"><c>string</c> Descrição da Vulnerabilidade</param></code>
+        ///<code><param name="impacto"><c>string</c> Nivel de impacto da Vulnerabilidade</param></code>
+        ///</summary>
         public Vulnerabilidade(int cod, string descr, string impacto)
         {
             codigo = cod;
