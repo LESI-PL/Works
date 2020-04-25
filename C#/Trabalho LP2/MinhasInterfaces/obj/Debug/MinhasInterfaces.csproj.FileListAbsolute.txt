@@ -1,4 +1,0 @@
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\MinhasInterfaces\bin\Debug\MinhasInterfaces.dll
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\MinhasInterfaces\bin\Debug\MinhasInterfaces.pdb
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\MinhasInterfaces\obj\Debug\MinhasInterfaces.dll
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\MinhasInterfaces\obj\Debug\MinhasInterfaces.pdb
