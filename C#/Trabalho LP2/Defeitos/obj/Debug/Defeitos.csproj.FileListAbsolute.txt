@@ -1,0 +1,7 @@
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\bin\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\bin\Debug\Defeitos.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.csproj.CopyComplete
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.pdb
