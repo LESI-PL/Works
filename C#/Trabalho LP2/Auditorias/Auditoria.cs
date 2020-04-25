@@ -31,8 +31,9 @@ namespace Auditorias
         int codigoAuditoria;
         DateTime data;
         Funcionario auditor;
-        int qtdVulnerablidades;
+        int qtdEquipamentos;
         List<Vulnerabilidade> vulnerabilidades;
+        List<Equipamento> equipamentos;
 
 
         #endregion
@@ -43,13 +44,15 @@ namespace Auditorias
 
         }
 
-        public Auditoria(int codigo, DateTime dataAuditoria, Funcionario funcionario)
+        public Auditoria( DateTime dataAuditoria, Funcionario funcionario)
         {
-            codigoAuditoria = codigo;
+
             data = dataAuditoria;
             auditor = funcionario;
             qtdVulnerablidades = 0;
+            qtdEquipamentos = 0;
             vulnerabilidades = new List<Vulnerabilidade>();
+            equipamentos = new List<Equipamento>();
             
         }
         #endregion

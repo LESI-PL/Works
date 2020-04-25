@@ -9,70 +9,132 @@
 // <version>1.0</version>
 using MinhasInterfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Auditorias
 {
+
+    /// <summary>
+    /// Esta Classe representa uma instancia de Eqipamentos 
+    /// <code>Implementa: IMetodosGenericos</code>
+    /// </summary>
+
     class Equipamentos : IMetodosGenericos
     {
+
         #region Atributos
-        Equipamento[] equipamentos;
-        int totalEquipamento=0;
+        /// <summary>
+        /// Os valores recebidos aqui são:
+        /// *equipamentos - Criação de uma lista do tipo Equipamento
+        /// *qtdEquipamentos - Quantidade de equipamentos que existe na lista
+        /// </summary>
+        List<Equipamento> equipamentos;
+        int qtdEquipamentos;
         #endregion
 
+        /// <summary>
+        /// Cria 
+        /// </summary>
         #region Construtor
         public Equipamentos()
         {
-            equipamentos = new Equipamento[20];
+            equipamentos = new List<Equipamento>();
+            qtdEquipamentos = 0;
         }
 
-        public bool Editar(int id, Equipamento obj)
+
+        public bool Editar(int id, string modelo)
         {
-            throw new System.NotImplementedException();
+            for (int i = 0; i < qtdEquipamentos; i++)
+            {
+                if (equipamentos[i].Codigo == id)
+                {
+                    equipamentos[i].Modelo = modelo;
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public bool Editar(int id, string nome)
+        public bool EditarMarca(int id, string marca)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < qtdEquipamentos; i++)
+            {
+                if (equipamentos[i].Codigo == id)
+                {
+                    equipamentos[i].Marca = marca;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool Editar(int id, int numero)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < qtdEquipamentos; i++)
+            {
+                if (equipamentos[i].Codigo == id)
+                {
+                    equipamentos[i].Codigo = numero;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool Editar(int id, DateTime data)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < qtdEquipamentos; i++)
+            {
+                if (equipamentos[i].Codigo == id)
+                {
+                    equipamentos[i].Aquisicao = data;
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 
         #region Metodos
-        public bool InserirEquipamento(Equipamento equipamento)
-        {
-            if (totalEquipamento == equipamentos.Length)
-            {
-                return false;
-            }
-            else
-            {
-                equipamentos[totalEquipamento] = equipamento;
-                if (totalEquipamento < equipamentos.Length)
-                {
-                    totalEquipamento++;
-                }
-
-            }
-            return true;
-        }
 
         public int Procura(int id)
         {
-            throw new System.NotImplementedException();
+            for(int i = 0; i < qtdEquipamentos; i++)
+            {
+                if (equipamentos[i].Codigo == id)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         public bool Remove(int id)
         {
-            throw new System.NotImplementedException();
+            for (int i = 0; i < qtdEquipamentos; i++)
+            {
+                if (equipamentos[i].Codigo == id)
+                {
+                    equipamentos[i].Estado = false;
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        public bool InserirEquipamento(Equipamento equipamento)
+        {
+            int indice = Procura(equipamento.Codigo);
+            if (indice == -1)
+            {
+                qtdEquipamentos++;
+                equipamento.Codigo = qtdEquipamentos;
+                equipamentos.Add(equipamento);
+                return true;
+            }
+            return false;
         }
 
 

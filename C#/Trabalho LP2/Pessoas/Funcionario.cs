@@ -115,22 +115,6 @@ namespace Pessoas
 
         #region Metodos
 
-        public static Funcionario NovoFuncionario()
-        {
-            Funcionario f = new Funcionario();
-            Console.WriteLine("Nº B.I: ");
-            f.Bi = Console.ReadLine();
-            Console.WriteLine("Nome: ");
-            f.Nome = Console.ReadLine();
-            Console.WriteLine("Contribuinte: ");
-            f.NContribuinte = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Cargo: ");
-            f.Cargo = Console.ReadLine();
-            Console.WriteLine("Data Admissão (aaaa/mm/dd): ");
-            f.DataAdmissao = Convert.ToDateTime(Console.ReadLine());
-            f.Estado = true;
-            return f;
-        }
         public string CheckEstado()
         {
             if (estado) return "Ativo";

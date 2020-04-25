@@ -35,7 +35,7 @@ namespace Auditorias
             Funcionarios lista = new Funcionarios();
             //Inserção de funcionarios na lista
             lista.InserirFuncionario(f1);
-            lista.InserirFuncionario(f2);
+           
 
             while (exit)
             {
@@ -51,8 +51,7 @@ namespace Auditorias
                             {
                                 case '1'://Inserir Funcionario
                                     Console.Clear();
-                                    lista.InserirFuncionario(Funcionario.NovoFuncionario());
-                                    Console.ReadKey();
+                                    lista.InserirFuncionario(f2);
                                     break;
                                 case '2': // Remover Funcionario
                                     Console.Clear();

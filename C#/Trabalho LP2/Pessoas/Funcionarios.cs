@@ -47,8 +47,8 @@ namespace Pessoas
         /// Obtém ou ajusta o componente quantidade de Funcionarios
         /// <code>type: int</code>
         /// </summary>
-        
-        
+
+
         public int QtdFuncionario
         {
             get { return qtdFuncionarios; }
@@ -59,10 +59,15 @@ namespace Pessoas
         #region Metodos
         public bool InserirFuncionario(Funcionario funcionario)
         {
-            qtdFuncionarios++;
-            funcionario.IdFuncionario = qtdFuncionarios;
-            funcionarios.Add(funcionario);
-            return true;
+            int indice = Procura(funcionario.IdFuncionario);
+            if (indice == -1)
+            {
+                qtdFuncionarios++;
+                funcionario.IdFuncionario = qtdFuncionarios;
+                funcionarios.Add(funcionario);
+                return true;
+            }
+            return false;
         }
 
         public int Procura(int id)
@@ -86,7 +91,7 @@ namespace Pessoas
             return false;
         }
 
-        
+
 
         public bool Remove(int id)
         {

@@ -12,36 +12,50 @@ using System;
 
 namespace Auditorias
 {
+    /// <summary>
+    /// Esta Classe representa uma instancia de Equipamento 
+    /// </summary>
     class Equipamento
     {
         #region Atributos
-        int codigo;
+        /// <summary>
+        /// Os valores recebidos aqui são:
+        /// *codigoEqui - Numero de identificação do equipamento na empresa
+        /// *tipo - Qual a categoria do equipamento (Eg: Impressora, Portatil, etc...)
+        /// *marca - Qual a marca do equipamento da empresa
+        /// *modelo - Qual o modelo do equipamento
+        /// *aquisisao - Data de compra do equipamento pela Empresa
+        /// *estado - Qual a situação d o equipamento na empresa (se foi para o lixo)
+        /// </summary>
+    
+        int codigoEqui;
         string tipo;
         string marca;
         string modelo;
         DateTime aquisisao;
+        bool estado;
         #endregion
 
 
         #region Construtor
         /// <summary>
-        /// Construtor por padrao
+        /// Inicializa uma nova instancia de Equipamento
         /// </summary>
         public Equipamento()
         {
 
         }
         /// <summary>
-        /// Construtor por valores indicados
+        /// Inicializa uma nova instancia de Equipamento
         /// </summary>
-        /// <param codigo="numero"></param>
-        /// <param tipo="type"></param>
-        /// <param marca="brand"></param>
-        /// <param modelo="model"></param>
-        /// <param data de aquisicao="comprado"></param>
-        public Equipamento(int numero, string type, string brand, string model, DateTime comprado)
+        /// <param name="numero"><c>int</c> Numero do Equipamento na Empresa </param>
+        /// <param name="type"><c>string</c> Tipo do equipamento </param>
+        /// <param name="brand"><c>string</c> Marca do Equipamento </param>
+        /// <param name="model"><c>string</c> Modelo do Equipamento </param>
+        /// <param name="comprado"><c>DateTime</c> Data de aquisição do equipamento pela empresa </param>
+        public Equipamento( string type, string brand, string model, DateTime comprado)
         {
-            codigo = numero;
+        
             tipo = type;
             marca = brand;
             modelo = model;
@@ -52,13 +66,23 @@ namespace Auditorias
 
         #region Propriedades 
 
+        /// <summary>
+        /// Obtém ou ajusta o componente codigo do Equipamento
+        /// <code>type: int</code>
+        /// </summary>
         public int Codigo
         {
 
-            get { return codigo; }
-            set { codigo = value; }
+            get { return codigoEqui; }
+            set { codigoEqui = value; }
+       
         }
 
+
+        /// <summary>
+        /// Obtém ou ajusta o componente Tipo do Equipamento
+        /// <code>type: string </code>
+        /// </summary>
         public string Tipo
         {
             get { return tipo; }
@@ -66,29 +90,55 @@ namespace Auditorias
 
         }
 
+        /// <summary>
+        /// Obtém ou ajusta o componente Marca do Equipamento
+        /// <code>type: string </code>
+        /// </summary>
         public string Marca
         {
             get { return marca; }
             set { marca = value; }
 
         }
+        /// <summary>
+        /// Obtém ou ajusta o componente Modelo do Equipamento
+        /// <code>type: string </code>
+        /// </summary>
         public string Modelo
         {
             get { return modelo; }
             set { modelo = value; }
 
         }
+
+        /// <summary>
+        /// Obtém ou ajusta a componente data de aquisição do equipamento
+        /// <code>type: Datetime </code>
+        /// </summary>
         public DateTime Aquisicao
         {
             get { return aquisisao; }
             set { aquisisao = value; }
         }
 
+        /// <summary>
+        /// Obtém ou ajusta a componente estado do equipamento
+        /// <code>type: Datetime </code>
+        /// </summary>
+        public bool Estado
+        {
+            get { return estado; }
+            set { estado = value; }
+        }
+
         #endregion
 
 
         #region Metodos
-
+        /// <summary>
+        /// Override do to string para mostrar apenas um equipamento
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string txt = "";
