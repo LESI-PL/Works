@@ -1,5 +1,0 @@
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\bin\Debug\Pessoas.dll
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\bin\Debug\Pessoas.pdb
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\obj\Debug\Pessoas.csprojAssemblyReference.cache
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\obj\Debug\Pessoas.dll
-C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\obj\Debug\Pessoas.pdb
