@@ -34,7 +34,8 @@ namespace Pessoas
 
         #region Construtor
         ///<summary>
-        ///Inicializa uma nova instancia de Funcionarios</summary>
+        ///Inicializa uma nova instancia de Funcionarios
+        ///</summary>
         public Funcionarios()
         {
             funcionarios = new List<Funcionario>();
@@ -47,8 +48,6 @@ namespace Pessoas
         /// Obtém ou ajusta o componente quantidade de Funcionarios
         /// <code>type: int</code>
         /// </summary>
-
-
         public int QtdFuncionario
         {
             get { return qtdFuncionarios; }
@@ -57,6 +56,13 @@ namespace Pessoas
         #endregion
 
         #region Metodos
+
+        #region Metodos Inserção
+        /// <summary>
+        /// Insere um funcionario na lista
+        /// </summary>
+        /// <param name="funcionario"></param>
+        /// <returns></returns>
         public bool InserirFuncionario(Funcionario funcionario)
         {
             int indice = Procura(funcionario.IdFuncionario);
@@ -70,6 +76,14 @@ namespace Pessoas
             return false;
         }
 
+        #endregion
+
+        #region Metodos Busca
+        /// <summary>
+        /// Recebe um id de funcionario e devolve o seu indice no array
+        /// </summary>
+        /// <param name="id">id do funcionario</param>
+        /// <returns>int</returns>
         public int Procura(int id)
         {
             for (int i = 0; i < qtdFuncionarios; i++)
@@ -80,6 +94,15 @@ namespace Pessoas
             return -1;
         }
 
+        #endregion
+
+        #region Metodos Edicao
+        /// <summary>
+        /// Muda o nome do funcionario caso seja encontrado
+        /// </summary>
+        /// <param name="id">id do funcionario para procura</param>
+        /// <param name="nome">Novo nome</param>
+        /// <returns>bool</returns>
         public bool Editar(int id, string nome)
         {
             int indice = Procura(id);
@@ -90,9 +113,43 @@ namespace Pessoas
             }
             return false;
         }
-
-
-
+        /// <summary>
+        /// Muda a id do funcionario caso seja encontrado
+        /// </summary>
+        /// <param name="id">id do funcionario para procura</param>
+        /// <param name="newId">Novo id</param>
+        /// <returns></returns>
+        public bool Editar(int id, int newId)
+        {
+            int indice = Procura(id);
+            if (indice >= 0)
+            {
+                funcionarios[indice].IdFuncionario = newId;
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// Muda a data de admissão do funcionario na empresa caso seja encontrado
+        /// </summary>
+        /// <param name="id">id do funcionario para procura</param>
+        /// <param name="data">Nova data</param>
+        /// <returns>bool</returns>
+        public bool Editar(int id, DateTime data)
+        {
+            int indice = Procura(id);
+            if (indice >= 0)
+            {
+                funcionarios[indice].DataAdmissao = data;
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// Muda o estado do funcionario na empresa caso seja encontrado
+        /// </summary>
+        /// <param name="id">id do funcionario para procura</param>
+        /// <returns>bool</returns>
         public bool Remove(int id)
         {
             int indice = Procura(id);
@@ -104,6 +161,13 @@ namespace Pessoas
             return false;
         }
 
+        #endregion
+
+        #region Metodos Listagem
+        /// <summary>
+        /// Mostra todos os Funcionarios pertencentes a lista
+        /// </summary>
+        /// <returns>string</returns>
         public string ListarFuncionarios()
         {
             string txt = "";
@@ -115,27 +179,8 @@ namespace Pessoas
             return txt;
         }
 
-        public bool Editar(int id, int newId)
-        {
-            int indice = Procura(id);
-            if (indice >= 0)
-            {
-                funcionarios[indice].IdFuncionario = newId;
-                return true;
-            }
-            return false;
-        }
+        #endregion
 
-        public bool Editar(int id, DateTime data)
-        {
-            int indice = Procura(id);
-            if (indice >= 0)
-            {
-                funcionarios[indice].DataAdmissao = data;
-                return true;
-            }
-            return false;
-        }
         #endregion
 
     }

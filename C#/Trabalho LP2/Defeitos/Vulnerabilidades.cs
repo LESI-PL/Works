@@ -16,7 +16,7 @@ namespace Defeitos
     /// <summary>
     /// 
     /// </summary>
-    public class Vulnerabilidades: IMetodosGenericos
+    public class Vulnerabilidades : IMetodosGenericos
     {
 
         /*
@@ -45,17 +45,21 @@ namespace Defeitos
 
         public bool Editar(int id, string nome)
         {
-            throw new NotImplementedException();
+            // Para versão 2.0
+
+            return true;
         }
 
         public bool Editar(int id, int numero)
         {
-            throw new NotImplementedException();
+            // Para versão 2.0
+            return true;
         }
 
         public bool Editar(int id, DateTime data)
         {
-            throw new NotImplementedException();
+            // Para versão 2.0
+            return true;
         }
         #endregion
 

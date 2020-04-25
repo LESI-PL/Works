@@ -2,17 +2,12 @@
 // <copyright file="Program.cs" company="IPCA">
 // Copyright (c) IPCA. All rights reserved.</copyright>
 //-----------------------------------------------------------------------
-// <author>Yuri Lemos</author>
+// <author>Yuri Lemos </author>
+// <author>João Figueiredo</author>
 // <desc> This program do the basics of C#</desc>
 // <Date> 4 / 4 / 2020 </Date>
 // <version>1.0</version>
 //-----------------------------------------------------------------------
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Auditorias
 {
@@ -23,6 +18,12 @@ namespace Auditorias
     {
 
         #region Atributos
+        /// <summary>
+        /// Os valores recebidos aqui são:
+        /// *
+        /// *dataAdmissao - A data em que foi admitido na empresa
+        /// *estado - Estado da pessoa na empresa ( Se ainda trabalha para a empresa ou não)
+        /// </summary>
         int codAuditoria;
         int codVulnerabilidade;
         int codEquipamento;
