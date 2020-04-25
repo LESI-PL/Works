@@ -1,0 +1,24 @@
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\bin\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\bin\Debug\Defeitos.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.csproj.CopyComplete
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\obj\Debug\Defeitos.csprojAssemblyReference.cache
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\obj\Debug\Defeitos.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\obj\Debug\Defeitos.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\obj\Debug\Defeitos.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\bin\Debug\Defeitos.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\bin\Debug\Defeitos.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\bin\Debug\MinhasInterfaces.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Defeitos\obj\Debug\Defeitos.csproj.CopyComplete
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Defeitos\bin\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Defeitos\bin\Debug\Defeitos.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Defeitos\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Defeitos\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.csproj.CopyComplete
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Defeitos\obj\Debug\Defeitos.pdb

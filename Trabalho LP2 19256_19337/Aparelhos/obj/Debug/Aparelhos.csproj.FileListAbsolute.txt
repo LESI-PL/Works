@@ -1,0 +1,16 @@
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Aparelhos\bin\Debug\Aparelhos.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Aparelhos\bin\Debug\Aparelhos.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Aparelhos\obj\Debug\Aparelhos.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Aparelhos\obj\Debug\Aparelhos.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Aparelhos\obj\Debug\Aparelhos.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Aparelhos\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Aparelhos\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Aparelhos\obj\Debug\Aparelhos.csproj.CopyComplete
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Aparelhos\bin\Debug\Aparelhos.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Aparelhos\bin\Debug\Aparelhos.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Aparelhos\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Aparelhos\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Aparelhos\obj\Debug\Aparelhos.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Aparelhos\obj\Debug\Aparelhos.csproj.CopyComplete
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Aparelhos\obj\Debug\Aparelhos.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Aparelhos\obj\Debug\Aparelhos.pdb

@@ -1,0 +1,17 @@
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\bin\Debug\Pessoas.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\bin\Debug\Pessoas.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\obj\Debug\Pessoas.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\obj\Debug\Pessoas.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\obj\Debug\Pessoas.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Pessoas\obj\Debug\Pessoas.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\bin\Debug\Pessoas.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\bin\Debug\Pessoas.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\bin\Debug\MinhasInterfaces.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\obj\Debug\Pessoas.csprojAssemblyReference.cache
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\obj\Debug\Pessoas.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\obj\Debug\Pessoas.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\obj\Debug\Pessoas.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Pessoas\obj\Debug\Pessoas.pdb

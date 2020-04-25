@@ -1,0 +1,68 @@
+C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\bin\Debug\Auditorias.exe.config
+C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\bin\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\bin\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\obj\Debug\Auditorias.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\obj\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Desktop\C# Codes\Aulas C#\Trabalho LP1\Auditorias\Auditorias\obj\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe.config
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Pessoas.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Pessoas.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csproj.CopyComplete
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe.config
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Auditorias.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Pessoas.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Pessoas.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csprojAssemblyReference.cache
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\obj\Debug\Auditorias.exe
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\obj\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.pdb
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Defeitos.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Defeitos.pdb
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe.config
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.pdb
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.dll
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.dll
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.dll
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Pessoas.dll
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.pdb
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.pdb
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Pessoas.pdb
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csprojAssemblyReference.cache
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csproj.CopyComplete
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.exe
+C:\Users\Lenovo\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe.config
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Auditorias.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Pessoas.dll
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\MinhasInterfaces.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\bin\Debug\Pessoas.pdb
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.csproj.CopyComplete
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.exe
+C:\Users\Yuri Lemos\Documents\GitHub\Works\C#\Trabalho LP2\Auditorias\obj\Debug\Auditorias.pdb
