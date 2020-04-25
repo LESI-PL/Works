@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace Auditorias
 {
     /// <summary>
-    /// 
+    /// Esta classe representa uma instâcia de Auditorias
     /// </summary>
     class Auditoria
     {
