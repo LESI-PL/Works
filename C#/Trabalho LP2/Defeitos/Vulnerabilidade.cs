@@ -30,12 +30,22 @@ namespace Defeitos
         string nivelImpacto;
 
         #endregion
-
+       
         #region Construtor
+
+        ///<summary>
+        ///Inicializa uma nova instancia de Vulnerabilidade
+        ///</summary>
         public Vulnerabilidade()
         {
 
         }
+ 
+         ///<summary>Inicializa uma nova instancia de Vulnerabilidade</summary>
+        ///<param name="cod"><c>int</c> Codigo da Vulnerabilidade</param>
+        ///<param name="descr"><c>string</c> Descrição da Vulnerabilidade</param>
+        ///<param name="impacto"><c>string</c> Nivel de impacto da Vulnerabilidade</param>
+
         public Vulnerabilidade(int cod, string descr, string impacto)
         {
             codigo = cod;
@@ -45,16 +55,29 @@ namespace Defeitos
         #endregion
 
         #region Propriedades
+        /// <summary>
+        /// Obtém ou ajusta o componente codigo da vulnerabilidade
+        /// <code>type: int</code>
+        /// </summary>
         public int Codigo
         {
             get { return codigo; }
             set { codigo = value; }
         }
+        /// <summary>
+        /// Obtém ou ajusta o componente descricao da vulnerabilidade
+        /// <code>type: string</code>
+        /// </summary>
         public string Descricao
         {
             get { return descricao; }
             set { descricao = value; }
         }
+
+        /// <summary>
+        /// Obtém ou ajusta o componente nivel de impacto da vulnerabilidade
+        /// <code>type: string</code>
+        /// </summary>
         public string NivelImpacto
         {
             get { return nivelImpacto; }

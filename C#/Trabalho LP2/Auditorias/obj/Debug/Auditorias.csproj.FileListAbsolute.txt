@@ -31,3 +31,7 @@ C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditoria
 C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.pdb
 C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.dll
 C:\Users\Yuri Lemos\Desktop\Segundo Semestre\LP2\Aulas C#\Trabalho LP2\Auditorias\bin\Debug\Defeitos.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Defeitos.dll
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Aparelhos.pdb
+C:\Users\Lenovo\Desktop\c#3\Trabalho LP2\Auditorias\bin\Debug\Defeitos.pdb

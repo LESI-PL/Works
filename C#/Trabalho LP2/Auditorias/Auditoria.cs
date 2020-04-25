@@ -8,7 +8,9 @@
 // <Date> 4 / 4 / 2020 </Date>
 // <version>1.0</version>
 
+using Pessoas;
 using System;
+using System.Collections.Generic;
 
 namespace Auditorias
 {
@@ -17,17 +19,14 @@ namespace Auditorias
     /// </summary>
     class Auditoria
     {
-        /// <summary>
-        /// Auditoria contém:
-        ///          - Codigo da Auditoria
-        ///          - Data da auditoria
-        ///          - Id Auditor(Id Funcionario)
-        ///          - Nome Auditor(Nome Funcionario)
-        ///          - Funcionario que fez a auditoria
-        ///          - Quantidade de Ocorrencias
-        /// </summary>
         /*
-         * 
+         * Auditoria contém:
+         *          - Codigo da Auditoria
+         *          - Data da auditoria
+         *          - Id Auditor (Id Funcionario)
+         *          - Nome Auditor ( Nome Funcionario)
+         *          - Funcionario que fez a auditoria
+         *          - Quantidade de Ocorrencias
          */
         #region Atributos
         int codigoAuditoria;

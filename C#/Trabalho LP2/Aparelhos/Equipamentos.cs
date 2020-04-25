@@ -32,72 +32,17 @@ namespace Aparelhos
         int qtdEquipamentos;
         #endregion
 
-
-        #region Construtor
         /// <summary>
-        /// Cria uma instancia de equipamentos
+        /// Cria 
         /// </summary>
+        #region Construtor
         public Equipamentos()
         {
             equipamentos = new List<Equipamento>();
             qtdEquipamentos = 0;
         }
 
-
-        #endregion
-
-        #region Metodos
-
-        #region Insercao
-        /// <summary>
-        /// Insere um equipamento na lista
-        /// </summary>
-        /// <param name="equipamento"> equipamento</param>
-        /// <returns>bool</returns>
-        public bool InserirEquipamento(Equipamento equipamento)
-        {
-            int indice = Procura(equipamento.Codigo);
-            if (indice == -1)
-            {
-                qtdEquipamentos++;
-                equipamento.Codigo = qtdEquipamentos;
-                equipamentos.Add(equipamento);
-                return true;
-            }
-            return false;
-        }
-
-
-        #endregion
-
-        #region Busca
-        /// <summary>
-        /// Recebe o id do equipamento e devolve o seu indice no array
-        /// </summary>
-        /// <param name="id">id do equipamento</param>
-        /// <returns>int</returns>
-        public int Procura(int id)
-        {
-            for (int i = 0; i < qtdEquipamentos; i++)
-            {
-                if (equipamentos[i].Codigo == id)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-
-        #endregion
-
-        #region Edicao
-        /// <summary>
-        /// Muda o nome do modelo do equipamento caso seja encontrado
-        /// </summary>
-        /// <param name="id">id do equipamento</param>
-        /// <param name="modelo">Novo modelo</param>
-        /// <returns>bool</returns>
+        
         public bool Editar(int id, string modelo)
         {
             for (int i = 0; i < qtdEquipamentos; i++)
@@ -110,12 +55,7 @@ namespace Aparelhos
             }
             return false;
         }
-        /// <summary>
-        /// Muda a marca do equipamento caso seja encontrado
-        /// </summary>
-        /// <param name="id">id do equipamento</param>
-        /// <param name="marca">Nova marca</param>
-        /// <returns>bool</returns>
+        
         public bool EditarMarca(int id, string marca)
         {
             for (int i = 0; i < qtdEquipamentos; i++)
@@ -128,12 +68,7 @@ namespace Aparelhos
             }
             return false;
         }
-        /// <summary>
-        /// Muda o codigo do equipamento caso seja encontrado
-        /// </summary>
-        /// <param name="id">id do equipamento</param>
-        /// <param name="marca">Novo codigo</param>
-        /// <returns>bool</returns>
+        
         public bool Editar(int id, int numero)
         {
             for (int i = 0; i < qtdEquipamentos; i++)
@@ -146,12 +81,7 @@ namespace Aparelhos
             }
             return false;
         }
-        /// <summary>
-        /// Muda a data de aquisição do equipamento caso seja encontrado
-        /// </summary>
-        /// <param name="id">id do equipamento</param>
-        /// <param name="marca">Nova data</param>
-        /// <returns>bool</returns>
+
         public bool Editar(int id, DateTime data)
         {
             for (int i = 0; i < qtdEquipamentos; i++)
@@ -164,11 +94,22 @@ namespace Aparelhos
             }
             return false;
         }
-        /// <summary>
-        /// Muda o estado do quipamento caso seja encontrado
-        /// </summary>
-        /// <param name="id">id do equipamento</param>
-        /// <returns>bool</returns>
+        #endregion
+
+        #region Metodos
+
+        public int Procura(int id)
+        {
+            for(int i = 0; i < qtdEquipamentos; i++)
+            {
+                if (equipamentos[i].Codigo == id)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         public bool Remove(int id)
         {
             for (int i = 0; i < qtdEquipamentos; i++)
@@ -183,28 +124,29 @@ namespace Aparelhos
 
         }
 
-        #endregion
+        public bool InserirEquipamento(Equipamento equipamento)
+        {
+            int indice = Procura(equipamento.Codigo);
+            if (indice == -1)
+            {
+                qtdEquipamentos++;
+                equipamento.Codigo = qtdEquipamentos;
+                equipamentos.Add(equipamento);
+                return true;
+            }
+            return false;
+        }
 
-        #region Listagem
-        /// <summary>
-        /// Mostra todos os equipamentos pertencentes a lista
-        /// </summary>
-        /// <returns>string</returns>
         public string ListarEquipamentos()
         {
             string txt = "";
             for (int i = 0; i < qtdEquipamentos; i++)
             {
-                //if(funcionarios[i].Estado)
+               
                 txt += equipamentos[i].ToString() + "\n";
             }
             return txt;
         }
-
-
-        #endregion
-
-
         #endregion
 
 
