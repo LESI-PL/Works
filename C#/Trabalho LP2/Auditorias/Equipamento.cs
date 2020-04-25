@@ -1,8 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="IPCA">
+// Copyright (c) IPCA. All rights reserved.</copyright>
+//-----------------------------------------------------------------------
+// <author>Yuri Lemos</author>
+// <author>João Figueiredo</author>
+// <desc> This program do the basics of C#</desc>
+// <Date> 4 / 4 / 2020 </Date>
+// <version>1.0</version>
+
+using System;
 
 namespace Auditorias
 {
@@ -85,7 +91,11 @@ namespace Auditorias
 
         public override string ToString()
         {
-            return "Equipamento" + this.marca + this.modelo + this.tipo;
+            string txt = "";
+            txt += "Marca: "+ Marca +
+                   "\nModelo: "+ Modelo+
+                   "\nData: "+Aquisicao.ToShortDateString()+"\n";
+            return txt;
 
         }
 

@@ -3,10 +3,10 @@
 // Copyright (c) IPCA. All rights reserved.</copyright>
 //-----------------------------------------------------------------------
 // <author>Yuri Lemos</author>
+// <author>João Figueiredo</author>
 // <desc> This program do the basics of C#</desc>
 // <Date> 4 / 4 / 2020 </Date>
 // <version>1.0</version>
-//-----------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;

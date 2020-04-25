@@ -3,23 +3,20 @@
 // Copyright (c) IPCA. All rights reserved.</copyright>
 //-----------------------------------------------------------------------
 // <author>Yuri Lemos</author>
+// <author>João Figueiredo</author>
 // <desc> This program do the basics of C#</desc>
 // <Date> 4 / 4 / 2020 </Date>
 // <version>1.0</version>
-//-----------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using MinhasInterfaces;
 namespace Auditorias
 {
     /// <summary>
     /// 
     /// </summary>
-    class Vulnerabilidades
+    class Vulnerabilidades: IMetodosGenericos
     {
 
         /*
@@ -45,6 +42,21 @@ namespace Auditorias
         {
             get { return vulnerabilidades; }
         }
+
+        public bool Editar(int id, string nome)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Editar(int id, int numero)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Editar(int id, DateTime data)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Metodos
@@ -66,6 +78,16 @@ namespace Auditorias
 
 
             return texto;
+        }
+
+        public int Procura(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Remove(int id)
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
     }

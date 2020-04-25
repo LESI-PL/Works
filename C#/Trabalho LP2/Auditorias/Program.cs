@@ -1,9 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="IPCA">
+// Copyright (c) IPCA. All rights reserved.</copyright>
+//-----------------------------------------------------------------------
+// <author>Yuri Lemos</author>
+// <author>João Figueiredo</author>
+// <desc> This program do the basics of C#</desc>
+// <Date> 4 / 4 / 2020 </Date>
+// <version>1.0</version>
+
 using Pessoas; // Bliblioteca Externa
+using System;
 
 namespace Auditorias
 {
@@ -15,15 +21,17 @@ namespace Auditorias
             int id; // Id para procura de qualquer objeto
 
 
-            
+
 
 
             /**
              * Criação de instancias das classes Funcionario e Funcionarios
              */
-            
+
             Funcionario f1 = new Funcionario("Abf2886392", "José António", 123423, "Eng.Informático", new DateTime(2001, 08, 18));
             Funcionario f2 = new Funcionario("QUSD7282", "Pedro Henriques", 1878924, "Técnico Informático", new DateTime(2005, 07, 28));
+
+
             Funcionarios lista = new Funcionarios();
             //Inserção de funcionarios na lista
             lista.InserirFuncionario(f1);
@@ -67,7 +75,7 @@ namespace Auditorias
                                     id = Convert.ToInt32(Console.ReadLine());
                                     if (lista.Procura(id) >= 0)
                                     {
-                                        lista.Editar(id, Funcionario.NovoFuncionario());
+                                        lista.Editar(id, 4);
                                     }
                                     else
                                     {
@@ -76,7 +84,7 @@ namespace Auditorias
                                         Console.ReadKey();
                                     }
                                     break;
-                                case '4':
+                                case '4':// Listar
                                     Console.Clear();
                                     Console.WriteLine(lista.ListarFuncionarios());
                                     Console.ReadKey();

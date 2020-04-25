@@ -3,16 +3,14 @@
 // Copyright (c) IPCA. All rights reserved.</copyright>
 //-----------------------------------------------------------------------
 // <author>Yuri Lemos</author>
+// <author>João Figueiredo</author>
 // <desc> This program do the basics of C#</desc>
 // <Date> 4 / 4 / 2020 </Date>
 // <version>1.0</version>
-//-----------------------------------------------------------------------
 
+using MinhasInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pessoas
 {
@@ -49,6 +47,8 @@ namespace Pessoas
         /// Obtém ou ajusta o componente quantidade de Funcionarios
         /// <code>type: int</code>
         /// </summary>
+        
+        
         public int QtdFuncionario
         {
             get { return qtdFuncionarios; }
@@ -75,17 +75,18 @@ namespace Pessoas
             return -1;
         }
 
-        public bool Editar(int id, Funcionario func)
+        public bool Editar(int id, string nome)
         {
             int indice = Procura(id);
             if (indice >= 0)
             {
-                func.IdFuncionario = funcionarios[indice].IdFuncionario;
-                funcionarios[indice] = func;
+                funcionarios[indice].Nome = nome;
                 return true;
             }
             return false;
         }
+
+        
 
         public bool Remove(int id)
         {
@@ -107,6 +108,28 @@ namespace Pessoas
                 txt += funcionarios[i].MostraDados() + "\n";
             }
             return txt;
+        }
+
+        public bool Editar(int id, int newId)
+        {
+            int indice = Procura(id);
+            if (indice >= 0)
+            {
+                funcionarios[indice].IdFuncionario = newId;
+                return true;
+            }
+            return false;
+        }
+
+        public bool Editar(int id, DateTime data)
+        {
+            int indice = Procura(id);
+            if (indice >= 0)
+            {
+                funcionarios[indice].DataAdmissao = data;
+                return true;
+            }
+            return false;
         }
         #endregion
 
