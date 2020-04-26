@@ -30,7 +30,7 @@ Morph *CarregarDados()
     Morph *lista = NULL;
     FILE *f;
     char a[MAX], b[MAX], c[MAX];
-    float d, max = 0, min = 0;
+    float d = 0;
     int i = 0;
 
     f = fopen(Texto, "r");
@@ -111,7 +111,6 @@ Ex6 *Ex6Load(Morph *morph)
 {
     Morph *aux = morph;
     Ex6 *ex6tree = NULL, *ex6Lista = NULL;
-    char palavra[100];
     while (aux)
     {
 
@@ -144,17 +143,21 @@ Ex6 *Ex6Load_Ordenada(Ex6 *ex6)
 Ex7 *Ex7Load(Morph *morph)
 {
     Morph *aux = morph;
-    Ex7 *ex7tree = NULL, *ex7Lista = NULL;
+    Ex7 *ex7tree = NULL, *ex7Lista = NULL, *ex7ListaOrdenada = NULL;
     while (aux)
     {
         ex7tree = Ex7InsertNode(ex7tree, aux->rightProb);
         aux = (aux->right ? aux->right : NULL);
     }
-    
-    ex7Lista = Ex7TreeToList(ex7Lista, ex7tree);     /*Ate aqui funciona*/
+
+    ex7Lista = Ex7TreeToList(ex7Lista, ex7tree); /*Ate aqui funciona*/
     /*Falta Ordenar*/
-    
-    return ex7tree;
+    for (; ex7Lista; ex7Lista = ex7Lista->right)
+    {
+        ex7ListaOrdenada = Ex7InsertOrdenada(ex7ListaOrdenada, ex7Lista);
+    }
+
+    return ex7ListaOrdenada;
 }
 
 /**
@@ -516,6 +519,7 @@ Ex7 *Ex7InsertNode(Ex7 *tree, float prob)
     }
     return tree;
 }
+/*
 Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7)
 {
     Ex7 *new = (Ex7 *)malloc(sizeof(Ex7));
@@ -537,7 +541,7 @@ Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7)
         aux->right = new;
     }
     return dadosEx7Org;
-}
+}*/
 
 Ex7 *Ex7HeadInsert(Ex7 *lista, Ex7 *tree)
 {
@@ -562,6 +566,29 @@ Ex7 *Ex7TreeToList(Ex7 *dadoslist, Ex7 *dadosTree)
         dadoslist = Ex7TreeToList(dadoslist, dadosTree->right);
     }
     return dadoslist;
+}
+
+Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7)
+{
+    Ex7 *new = (Ex7 *)malloc(sizeof(Ex7));
+    new->qtdAbs = dadosEx7->qtdAbs;
+    new->rigthProb = dadosEx7->rigthProb;
+    if (!dadosEx7Org || new->rigthProb < dadosEx7Org->rigthProb)
+    {
+        new->right = dadosEx7Org;
+        dadosEx7Org = new;
+    }
+    else
+    {
+        Ex7 *aux = dadosEx7Org;
+        while (aux->right && new->rigthProb > aux->right->rigthProb)
+        {
+            aux = aux->right;
+        }
+        new->right = aux->right;
+        aux->right = new;
+    }
+    return dadosEx7Org;
 }
 /**
  *! Fim Exercicio 7
@@ -1250,9 +1277,8 @@ float Min_IntervaloDaCerteza(Ex7 *ex7)
 }
 float NumeroClasses(int total)
 {
-    float classes = 0, constante = 3.3;
-    printf("total %d   onstante %.2f\n", total, constante);
-    classes = (1 + (constante * log10(total)));
+    float classes = 0;
+    classes = (1 + (3.3 * log10(total)));
     return classes;
 }
 int Total(Ex7 *ex7)
@@ -1273,6 +1299,108 @@ float Amplitude(float max, float min, int numclasses)
     return amplitude;
 }
 
+int Conta_valoresE(Ex7 *dados)
+{
+    Ex7 *aux = dados, *aux1 = dados;
+    int i = 0;
+    for (; aux; aux = aux->right)
+    {
+        for (; aux1; aux1 = aux1->right)
+        {
+            if (aux1->rigthProb != aux->rigthProb)
+            {
+                i++;
+            }
+        }
+    }
+    return i;
+}
+float *ArrayValores(Ex7 *ex7, int total, float amplitude, int numclasses, float min, float max)
+{
+    Ex7 *aux = ex7;
+    int valores[50];
+    int i = 0, somavalores = 0;
+    float *fqReal, classes[50], soma = 0;
+    fqReal = (float *)malloc(numclasses * sizeof(float));
+    classes[0] = min + amplitude;
+    classes[1] = classes[0] + amplitude;
+    /*printf("min %f max %f  total %d  amplitude %f  classes %d\n", min, max, total, amplitude, numclasses);
+    getchar();
+    printf("array classes %f  %f\n", classes[0], classes[1]);
+    getchar();*/
+    for (i = 2; i < numclasses; i++)
+    {
+        if (i == (numclasses - 1))
+        {
+            classes[i] = max;
+        }
+        else
+        {
+            classes[i] = classes[i - 1] + amplitude;
+        }
+    }
+    /*printf("array classes %f  %f  %f  %f\n", classes[0], classes[1], classes[20], classes[21]);
+    getchar();*/
+    i = 0;
+    for (; aux; aux = aux->right)
+    {
+        if (aux->rigthProb <= classes[i])
+        {
+
+            /* printf("aux %f",aux->rigthProb);getchar();*/
+            soma += aux->qtdAbs;
+            valores[i] = soma;
+        }
+        else
+        {
+            i++;
+            soma = 0;
+            soma = aux->qtdAbs;
+        }
+    }
+
+    for (i = 0; i < numclasses; i++)
+    {
+
+        somavalores += valores[i];
+    
+    }
+    /*printf("soma valores %d\n", somavalores);
+    printf("%d %d  %d\n", valores[0], valores[1], valores[2]);
+    getchar();*/
+    for (i = 0; i < numclasses; i++)
+    {
+
+        fqReal[i] = ((float)valores[i] / total);
+        printf(" fre %f \n", fqReal[i]);
+        getchar();
+    }
+    soma = 0;
+    /*printf("%f %f   %f \n", fqReal[0], fqReal[1], fqReal[2]);
+    getchar();*/
+    for (i = 0; i < numclasses; i++)
+    {
+       
+        soma += fqReal[i];
+       
+    }
+    
+    return fqReal;
+}
+
+float ValorMaximoArray(float *valoresArray, int classes)
+{
+    int i;
+    float max = valoresArray[0];
+    for (i = 0; i < classes; i++)
+    {
+        if (valoresArray[i] > max)
+        {
+            max = valoresArray[i];
+        }
+    }
+    return max;
+}
 /**
  *! Fim Exercicio 7
 */
@@ -1607,11 +1735,15 @@ void ListarE6List(Ex6 *dados)
 */
 void ListarE7List(Ex7 *dados)
 {
+    int i = 0;
     while (dados)
     {
-        printf("prob %f Total:%d\n", dados->rigthProb, dados->qtdAbs);
+        i++;
+        printf(" lista prob %f Total:%d\n", dados->rigthProb, dados->qtdAbs);
+
         dados = (dados->right ? dados->right : NULL);
     }
+    printf("total valores da lista %d", i);
 }
 
 void ListarE7tree(Ex7 *dados)
@@ -1626,16 +1758,39 @@ void ListarE7tree(Ex7 *dados)
 
 void Histograma(Ex7 *ex7)
 {
-    Ex7 *aux = ex7, *aux1 = ex7, *aux2 = ex7;
-    float min = 0, max = 0, amplitude = 0;
-    int classes = 0, total = 0;
-    ListarE7List(ex7);
+    Ex7 *aux = ex7, *aux1 = ex7, *aux2 = ex7, *aux3 = ex7, *aux4 = ex7;
+    float *valoresArray;
+    float min = 0, max = 0, amplitude = 0, maxArray = 0,escala=0.025;
+    int maximografico=50;
+    int classes = 0, total = 0, valores = 0, i,j;
+    /*ListarE7List(ex7);*/
     total = Total(aux2);
     min = Min_IntervaloDaCerteza(aux);
     max = Max_IntervaloDaCerteza(aux1);
     classes = NumeroClasses(total);
+    /*valoresArray=(float*)malloc(classes*sizeof(float));*/
     amplitude = Amplitude(max, min, classes);
-    printf("total %d min %f  max %f    classes %f    amplitude %f\n", total, min, max, classes, amplitude);
+    
+    valores = Conta_valoresE(aux3);
+    valoresArray = ArrayValores(aux4, total, amplitude, classes, min, max);
+    maxArray = ValorMaximoArray(valoresArray, classes);
+    for (i = 0; i < maximografico; i++)
+    {
+        printf("%-3.2f|", (0.8 - (i * escala)));
+        for (j = 0; j < classes; j++)
+        {
+            valoresArray[j] >= (0.8 - (i * escala)) ? printf("%c%c%c%c", 178,178,178,178) : printf("    ");
+            /*(valores[n] >= (valorMaximo - (i * escala)) && valores[n] < (valorMaximo - (i * escala) + escala)) ? printf(". ") : printf("  ");*/
+        }
+
+        printf("\n");
+    }
+    printf("     |----------------------------------------------------------\n");
+	printf("      1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22\n");
+
+    printf("array  %f   %f    %f\n", valoresArray[0], valoresArray[1], valoresArray[21]);
+
+    printf("total %d min %f  max %f    classes  %d   valres %d amplitude %f\n", total, min, max, classes, valores, amplitude);
     getchar();
 }
 

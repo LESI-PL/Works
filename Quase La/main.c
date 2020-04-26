@@ -21,7 +21,6 @@ int main()
 {
     int totalListaDL;
     char op;
-    
 
     Morph *listaDL = NULL;
     Geral *ex2 = NULL, *ex3 = NULL; /*Struct para coluna 3 com sua qtd absoluta*/
@@ -100,8 +99,8 @@ int main()
         case '4': /*Exercicio 4*/
             ListarE5(ex3, totalListaDL);
             break;
-        case '5': /*Exercicio 5*/ 
-            /*Q1=usar "firstladyship"    Q2= usar "ola"      Q3= usar "camouflage"    Q4= usar "to"*/ 
+        case '5': /*Exercicio 5*/
+            /*Q1=usar "firstladyship"    Q2= usar "ola"      Q3= usar "camouflage"    Q4= usar "to"*/
             Ex6_Palavra_Inserida(ex6, ex6Ordenada);
             break;
         case '6': /*Exercicio  - Comprimento*/

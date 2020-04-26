@@ -57,6 +57,7 @@ Ex6 *Ex6Load_Ordenada(Ex6 *ex6);
  *! Exercicio 7
 */
 Ex7 *Ex7Load(Morph *morph);
+Ex7 *Ex7InsertOrdenada(Ex7 *dadosEx7Org, Ex7 *dadosEx7);
 void list(Ex7* ex);
 /**
  *! Fim Exercicio 7
@@ -218,6 +219,9 @@ float Min_IntervaloDaCerteza(Ex7 *ex7);
 float NumeroClasses(int total);
 float Amplitude(float max, float min, int numclasses);
 int Total(Ex7 *ex7);
+int Conta_valoresE(Ex7 *dados);
+float *ArrayValores(Ex7 *ex7, int total, float amplitude, int numclasses, float min, float max);
+float ValorMaximoArray(float *valoresArray, int classes);
 
 /**
  *! Fim Exercicio 7
