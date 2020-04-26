@@ -26,7 +26,7 @@ namespace Auditorias
 
 
 
-
+            
 
             /**
              * Criação de instancias das classes Funcionario e Funcionarios
@@ -139,13 +139,13 @@ namespace Auditorias
                                     else
                                     {
                                         Console.Clear();
-                                        Console.WriteLine("Este Equipamento não existe!");
+                                        Console.WriteLine("Este Funcionario não existe!");
                                         Console.ReadKey();
                                     }
                                     break;
                                 case '3':// Editar Funcionario
                                     Console.Clear();
-                                    Console.WriteLine("Codigo do Equipamento:");
+                                    Console.WriteLine("Id do funcionario:");
                                     id = Convert.ToInt32(Console.ReadLine());
                                     if (listaEquipamnetos.Procura(id) >= 0)
                                     {
@@ -154,7 +154,7 @@ namespace Auditorias
                                     else
                                     {
                                         Console.Clear();
-                                        Console.WriteLine("Este Equipamento não existe!");
+                                        Console.WriteLine("Este Funcionario não existe!");
                                         Console.ReadKey();
                                     }
                                     break;
@@ -187,7 +187,7 @@ namespace Auditorias
                                     break;
                                 case '2': // Remover Funcionario
                                     Console.Clear();
-                                    Console.WriteLine("Codigo da Vulnerabilidade:");
+                                    Console.WriteLine("Id do funcionario:");
                                     id = Convert.ToInt32(Console.ReadLine());
                                     if (listaVulnerabilidades.Procura(id) >= 0)
                                     {
@@ -196,13 +196,13 @@ namespace Auditorias
                                     else
                                     {
                                         Console.Clear();
-                                        Console.WriteLine("Esta Vulnerabilidade não existe!");
+                                        Console.WriteLine("Este Funcionario não existe!");
                                         Console.ReadKey();
                                     }
                                     break;
                                 case '3':// Editar Funcionario
                                     Console.Clear();
-                                    Console.WriteLine("Codigo da Vulnerabilidade:");
+                                    Console.WriteLine("Id do funcionario:");
                                     id = Convert.ToInt32(Console.ReadLine());
                                     if (listaVulnerabilidades.Procura(id) >= 0)
                                     {
@@ -211,7 +211,7 @@ namespace Auditorias
                                     else
                                     {
                                         Console.Clear();
-                                        Console.WriteLine("Esta Vulnerabilidade não existe!");
+                                        Console.WriteLine("Este Funcionario não existe!");
                                         Console.ReadKey();
                                     }
                                     break;
