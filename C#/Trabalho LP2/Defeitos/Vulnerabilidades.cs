@@ -14,10 +14,9 @@ using MinhasInterfaces;
 namespace Defeitos
 {
     /// <summary>
-    /// Esta Classe representa uma instancia de Vulnerabilidades 
-    /// <code>Implementa: IMetodosGenericos</code>
+    /// 
     /// </summary>
-    public class Vulnerabilidades: IMetodosGenericos
+    public class Vulnerabilidades : IMetodosGenericos
     {
 
         /*
@@ -31,10 +30,6 @@ namespace Defeitos
         #endregion
 
         #region Construtor
-        ///<summary>
-        ///Inicializa uma nova instancia de Vulnerabilidades
-        ///<return> Uma lista </return>
-        ///</summary>
         public Vulnerabilidades()
         {
             vulnerabilidades = new List<Vulnerabilidade>();
@@ -43,43 +38,45 @@ namespace Defeitos
         #endregion
 
         #region Propriedades
-        /// <summary>
-        /// Obtém ou ajusta o componente a lista de Vulnerabilidades
-        /// </summary>
         public List<Vulnerabilidade> ListaVulnerabilidades
         {
             get { return vulnerabilidades; }
         }
 
-        
-        
+        public bool Editar(int id, string nome)
+        {
+            // Para versão 2.0
+
+            return true;
+        }
+
+        public bool Editar(int id, int numero)
+        {
+            // Para versão 2.0
+            return true;
+        }
+
+        public bool Editar(int id, DateTime data)
+        {
+            // Para versão 2.0
+            return true;
+        }
         #endregion
 
         #region Metodos
-
-        #region Inserção
-        /// <summary>
-        /// Insere uma vulnerabildade na lista de vulnerabilidades
-        /// </summary>
         public bool InsereVulnerabilidade(Vulnerabilidade vulnerabilidade)
         {
             qtdVulnerabilidades++;
             vulnerabilidades.Add(vulnerabilidade);
             return true;
         }
-        #endregion
 
-        #region Listagem
-        /// <summary>
-        /// Mostra os dados referentes a uma lista de vulnerabildades
-        /// </summary>
         public string MostrarDados()
         {
             string texto = "";
             for (int i = 0; i < qtdVulnerabilidades; i++)
             {
-                texto += "Codigo: " + vulnerabilidades[i].Codigo + "Descrição: " +vulnerabilidades[i].Descricao +
-                    "Nivel de Impacto: "+vulnerabilidades[i].NivelImpacto + "\n\n";
+                texto += "Codigo: " + vulnerabilidades[i].Codigo + "\n\n";
 
             }
 
@@ -87,55 +84,15 @@ namespace Defeitos
             return texto;
         }
 
-        #endregion
-
-        #region Busca
-        /// <summary>
-        /// Procura uma vulnerabilidade numa lista de vulnerabilidades, recebe o id da Vulnerabilidade
-        /// </summary>
         public int Procura(int id)
         {
             throw new System.NotImplementedException();
         }
-        #endregion
 
-        #region Edição
-        /// <summary>
-        /// Edita uma vulnerabilidade numa lista de vulnerabilidades, recebe o id da Vulnerabilidade e muda a descrição da vulnerabilidade
-        /// </summary>
-        public bool Editar(int id, string descricao)
-        {
-            // Para fazer na versao 2.0
-            return true;
-        }
-
-        /// <summary>
-        /// Edita uma vulnerabilidade numa lista de vulnerabilidades, recebe o id da Vulnerabilidade e muda o codigo da vulnerabilidade
-        /// </summary>
-        public bool Editar(int id, int numero)
-        {
-            // Para fazer na versao 2.0
-            return true;
-        }
-         /// <summary>
-        /// Edita uma vulnerabilidade numa lista de vulnerabilidades, recebe o id da Vulnerabilidade e muda a data da vulnerabilidade
-        /// </summary>
-        public bool Editar(int id, DateTime data)
-        {
-            // Para fazer na versao 2.0
-            return true;
-        }
-
-        /// <summary>
-        /// Edita uma vulnerabilidade numa lista de vulnerabilidades, recebe o id da Vulnerabilidade e muda o estado da vulnerabildade
-        /// </summary>
         public bool Remove(int id)
         {
-            // Para fazer na versao 2.0
-            return true;
+            throw new System.NotImplementedException();
         }
-
-        #endregion
         #endregion
     }
 }

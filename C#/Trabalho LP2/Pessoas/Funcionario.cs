@@ -130,7 +130,8 @@ namespace Pessoas
                   + "\nCargo:" + Cargo
                   + "\nData Admissão: " + DataAdmissao.Day + "/" + DataAdmissao.Month + "/" + DataAdmissao.Year + "\n";
             txt += "Estado: " + CheckEstado() + "\n";
-            return txt; ;
+            return txt;
+            //return string.Format("Nome Colaborador: {0}\nNº Bi:{1}", Nome,Bi);
         }
 
         #endregion
