@@ -307,7 +307,7 @@ void ListarE6List(Ex6 *dados);
 void ListarE7List(Ex7 *dados);
 void ListarE7tree(Ex7 *dados);
 void Histograma(Ex7 *ex7);
-
+void Histograma2(Ex7 *ex7);
 /**
  *! Fim Exercicio 7
 */

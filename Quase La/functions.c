@@ -1372,8 +1372,7 @@ float *ArrayValores(Ex7 *ex7, int total, float amplitude, int numclasses, float 
     {
 
         fqReal[i] = ((float)valores[i] / total);
-        printf(" fre %f \n", fqReal[i]);
-        getchar();
+       
     }
     soma = 0;
     /*printf("%f %f   %f \n", fqReal[0], fqReal[1], fqReal[2]);
@@ -1791,6 +1790,49 @@ void Histograma(Ex7 *ex7)
     printf("array  %f   %f    %f\n", valoresArray[0], valoresArray[1], valoresArray[21]);
 
     printf("total %d min %f  max %f    classes  %d   valres %d amplitude %f\n", total, min, max, classes, valores, amplitude);
+    getchar();
+}
+
+void Histograma2(Ex7 *ex7)
+{
+    Ex7 *aux = ex7, *aux1 = ex7, *aux2 = ex7, *aux3 = ex7, *aux4 = ex7;
+    float *valoresArray;
+    float min = 0, max = 0, amplitude = 0, maxArray = 0,escala=0.025;
+    int minimografico=0;
+    int classes = 0, total = 0, valores = 0,j,i,p=0;
+    char percentagem[] ="PERCENTAGEM";
+    /*ListarE7List(ex7);*/
+    total = Total(aux2);
+    min = Min_IntervaloDaCerteza(aux);
+    max = Max_IntervaloDaCerteza(aux1);
+    classes = NumeroClasses(total);
+    /*valoresArray=(float*)malloc(classes*sizeof(float));*/
+    amplitude = Amplitude(max, min, classes);
+    
+    valores = Conta_valoresE(aux3);
+    valoresArray = ArrayValores(aux4, total, amplitude, classes, min, max);
+    maxArray = ValorMaximoArray(valoresArray, classes);
+
+    for (i = 80; i >= minimografico; i--)
+    {
+        if(i<19 && i>7){
+            printf("%c %5d|",percentagem[p],i);
+            p++;
+        }else{
+            printf("  %5d|",i);
+        }
+        for (j = 0; j < classes; j++)
+        {
+            /*printf("V: %f     Vx100: %f   I: %f\n",(valoresArray[j]),(valoresArray[j]*100),(float)i);getchar();*/
+            (valoresArray[j]*100) >= ((float)i) ? printf("%c%c%c ", 178,178,178,178) : printf("    ");
+            /*(valores[n] >= (valorMaximo - (i * escala)) && valores[n] < (valorMaximo - (i * escala) + escala)) ? printf(". ") : printf("  ");*/
+        }
+
+        printf("\n");
+    }
+
+    printf("     |-----------------------------------------------------------------------------------------\n");
+	printf("       1   2   3   4   5   6   7   8   9  10 11 12 13  14  15  16  17  18  19  20  21  22 \n");
     getchar();
 }
 

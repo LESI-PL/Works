@@ -107,7 +107,7 @@ int main()
             ListarE6_1(ex3, totalListaDL);
             break;
         case '7':
-            Histograma(ex7);
+            Histograma2(ex7);
             break;
         default:
             break;
