@@ -1266,7 +1266,15 @@ float Min_IntervaloDaCerteza(Ex7 *ex7)              /*Funcao que calcula o valor
 float NumeroClasses(int total)              /*Funcao que calcula o numero de classes para o Exercico 7*/
 {
     float classes = 0;
-    classes = (1 + (3.3 * log10(total)));
+    double numtotal =(double)total;
+    double fracionaria, inteira;
+    printf("total double %f\n",numtotal);
+    classes = (1 + (3.3 * log10(numtotal)));
+    printf("log10(numtotal)");
+    fracionaria = modf(classes, &inteira);
+    if(fracionaria>0){
+        classes+=1;
+    }
     return classes;
 }
 int Total(Ex7 *ex7)                 /*Funcao que calcula o numero total de amostras para o Exercico 7*/
@@ -1768,10 +1776,14 @@ void Histograma2(Ex7 *ex7)     /*Procedimento para listar o Exercicio 7*/
     char percentagem[] = "PERCENTAGEM";
     total = Total(aux2);
     min = Min_IntervaloDaCerteza(aux);
+    printf(" min %f\n", min);getchar();
     max = Max_IntervaloDaCerteza(aux1);
     classes = NumeroClasses(total);
+    printf("total %d",classes);
+    getchar();
 
     amplitude = Amplitude(max, min, classes);
+    printf(" %f amplitue", amplitude);getchar();
     classesArray = ArrayClasses(aux5, total, amplitude, classes, min, max);
     valores = Conta_valoresE(aux3);
     valoresArray = ArrayValores(aux4, total, amplitude, classes, min, max);
