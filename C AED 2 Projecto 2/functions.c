@@ -31,7 +31,7 @@ Actor* LoadFile()
     int i = 0;
     Actor *actor = NULL;
     FILE *ficheiro;
-    ficheiro = fopen("actorsBig.txt", "r");
+    ficheiro = fopen(Texto, "r");
     
     line = (char*)malloc(255*sizeof(char));    
     a = (char *)malloc(sizeof(char)*127);
@@ -266,14 +266,30 @@ void ShowHash(HashTreeActors* hash){
 */
 Actor *HashHeadInsertNode(Actor *actor, char *id, char *nome, char *sexo)
 {
+    Actor *new=NULL;
+    int a,b,c;
     if (actor == NULL)
     {
         return HashNewNode(id, nome, sexo);
     }
     else
     {
-        actor->next = HashHeadInsertNode(actor->next,id,nome,sexo);
+        /*printf("%s\n",actor->nome);getchar();*/
+        new = (Actor*)malloc(sizeof(Actor));
+        a = strlen(id)+1;
+        b = strlen(nome)+1;
+        c = strlen(sexo)+1;
+        new->id = (char*)malloc(sizeof(char)*a);
+        new->nome = (char*)malloc(sizeof(char)*b);
+        new->sexo = (char*)malloc(sizeof(char)*c);
+        strcpy(new->id,id);
+        strcpy(new->nome,nome);
+        strcpy(new->sexo,sexo);
+        new->next = actor;
+        
+        /*actor->next = HashHeadInsertNode(actor->next,id,nome,sexo);*/
     }
+    return new;
 }
 
 Actor *HashNewNode(char *id, char *nome, char *sexo)
