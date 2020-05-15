@@ -43,6 +43,8 @@ int FindActor(Actor* actors,char* id);
 
 Actor* InsertIncidence(Actor* actors,char* rootId, char* incidenceId);
 
+
+Actor* FindActorManual1(Actor* actors, char *id);
 /**
  *! Fim Exercicio 1
 */

@@ -14,8 +14,8 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 255
-#define TXTACTOR "actors.txt"
-#define TXTCOACTOR "co-actors.txt"
+#define TXTACTOR "actorsBig.txt"
+#define TXTCOACTOR "co-actorsBig.txt"
 
 /**
  *!                                                 FUNCTIONS
@@ -81,6 +81,7 @@ Actor *LoadFileCoActors(Actor *actor)
 
         while (fscanf(ficheiro, "%s %s", a, b) != EOF)
         {
+            /*printf("%d - ",++i);*/
             actor = InsertIncidence(actor, a, b);
             actor = InsertIncidence(actor, b, a);
         }
@@ -136,6 +137,12 @@ Actor *NewNode(char *id, char *nome, char *sexo)
 CoActor *InsertTreeNodeInc(CoActor *coActor, char *id)
 {
     CoActor *new = (CoActor *)malloc(sizeof(CoActor));
+
+    new->right = coActor;
+    new->id = (char*)malloc(sizeof(char)*strlen(id+1));
+    strcpy(new->id, id);
+    return new; 
+    /*
     if (coActor == NULL)
     {
 
@@ -154,7 +161,7 @@ CoActor *InsertTreeNodeInc(CoActor *coActor, char *id)
             coActor->right = InsertTreeNodeInc(coActor->right, id);
         }
     }
-    return coActor;
+    */
 }
 
 CoActor *NewNodeInc(char *id)
@@ -300,6 +307,31 @@ int FindActor(Actor *actors, char *id)
         return -1;
     }
 }
+Actor* FindActorManual1(Actor* actors, char *id)
+{
+    int key, code_tree;
+    if (actors == NULL)
+    {
+        return NULL;
+    }
+
+    code_tree = GetIdNumber(actors->id);
+    key = GetIdNumber(id);
+    printf("tree %d\n", code_tree);
+    printf("key %d\n", key);
+    if (key == code_tree)
+    {
+        return actors;
+    }
+    else if (key < code_tree)
+    {
+        actors->left = FindActorManual1(actors->left, id);
+    }
+    else
+    {
+        actors->right = FindActorManual1(actors->right, id);
+    }
+}
 
 Actor *InsertIncidence(Actor *actors, char *rootId, char *incidenceId)
 {
@@ -319,6 +351,7 @@ Actor *InsertIncidence(Actor *actors, char *rootId, char *incidenceId)
         {
 
             a->incidencia = InsertTreeNodeInc(a->incidencia, incidenceId);
+            /*printf("%s\n",incidenceId);*/
         }
     }
     else

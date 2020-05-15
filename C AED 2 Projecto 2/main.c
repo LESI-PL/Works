@@ -25,10 +25,10 @@ int main()
     char* idSearch = (char*)malloc(sizeof(char)*15);
 
     setlocale(LC_ALL, "Portuguese");
-    actors = LoadFileActors(actors);
+    actors = LoadFileActors(actors);getchar();
     actors = LoadFileCoActors(actors);
     printf("Passagem de dados concluida!\nAperte 's' para sair!");getchar();
-    ShowTree(actors);
+    /*FindActor(actors,"nm0865801");*/
     /*getchar();*/
     /*do
     {
