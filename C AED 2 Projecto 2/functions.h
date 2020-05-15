@@ -19,26 +19,29 @@
 /**
  *! Exercicio 1
 */
-Actor* LoadFile();
+Actor* LoadFileActors(Actor* actor);
+Actor* LoadFileCoActors(Actor* actor);
 
-Actor *HeadInsertNode(Actor *actor, char *id, char *nome, char *sexo);
+Actor *InsertTreeNode(Actor *actor, char *id, char *nome, char *sexo);
 Actor *NewNode(char *id, char *nome, char *sexo);
+
+CoActor *InsertTreeNodeInc(CoActor *coActor, char *id);
+CoActor *NewNodeInc(char *id);
 
 char *DevolveId(char line[]);
 char *DevolveName(char line[]);
 char *DevolveGender(char line[]);
 
-void MostraDados(Actor* actors);
+void ShowTree(Actor* actor);
+void ShowTreeCo(CoActor* coActor);
 
 int GetHighestId(Actor* actors);
 int GetIdNumber(char* idString);
 
-HashTreeActors* CreateHash(Actor* actors);
-void ShowHash(HashTreeActors* hash);
 
+int FindActor(Actor* actors,char* id);
 
-HashTreeActors* Add(HashTreeActors* hash,Actor* actors);
-HashTreeActors* insertInHash(HashTreeActors* hash,Actor* actors);
+Actor* InsertIncidence(Actor* actors,char* rootId, char* incidenceId);
 
 /**
  *! Fim Exercicio 1
@@ -47,8 +50,7 @@ HashTreeActors* insertInHash(HashTreeActors* hash,Actor* actors);
 /**
  *! Exercicio 2
 */
-Actor *HashHeadInsertNode(Actor *actor, char *id, char *nome, char *sexo);
-Actor *HashNewNode(char *id, char *nome, char *sexo);
+
 /**
  *! Fim Exercicio 2
 */

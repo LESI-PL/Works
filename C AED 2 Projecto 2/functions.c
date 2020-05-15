@@ -14,7 +14,8 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 255
-#define Texto "actorsBig.txt"
+#define TXTACTOR "actors.txt"
+#define TXTCOACTOR "co-actors.txt"
 
 /**
  *!                                                 FUNCTIONS
@@ -25,19 +26,20 @@
 /**
  *! Exercicio 1
 */
-Actor* LoadFile()
+Actor *LoadFileActors(Actor *actor)
 {
+    FILE *ficheiro;
     char *a, *b, *c, *line;
     int i = 0;
-    Actor *actor = NULL;
-    FILE *ficheiro;
-    ficheiro = fopen(Texto, "r");
-    
-    line = (char*)malloc(255*sizeof(char));    
-    a = (char *)malloc(sizeof(char)*127);
-    b = (char *)malloc(sizeof(char)*127);
-    c = (char *)malloc(sizeof(char)*127);
-    
+    actor = NULL;
+
+    ficheiro = fopen(TXTACTOR, "r");
+
+    line = (char *)malloc(255 * sizeof(char));
+    a = (char *)malloc(sizeof(char) * 127);
+    b = (char *)malloc(sizeof(char) * 127);
+    c = (char *)malloc(sizeof(char) * 127);
+
     if (ficheiro == NULL)
     {
         printf("Não foi possivel abrir o ficheiro para leitura!\n");
@@ -45,12 +47,12 @@ Actor* LoadFile()
     else
     {
         while (fgets(line, 255, ficheiro) != NULL)
-        {            
+        {
             a = DevolveId(line);
             c = DevolveGender(line);
-            b = DevolveName(line);            
-                       
-            actor = HeadInsertNode(actor, a, b, c);
+            b = DevolveName(line);
+
+            actor = InsertTreeNode(actor, a, b, c);
             i++;
         }
     }
@@ -58,32 +60,56 @@ Actor* LoadFile()
     printf("Total de Registros: %d\n", i);
     fclose(ficheiro);
     return actor;
-    
+}
+Actor *LoadFileCoActors(Actor *actor)
+{
+    FILE *ficheiro;
+    char *a, *b;
+    int i = 0;
+
+    ficheiro = fopen(TXTCOACTOR, "r");
+
+    a = (char *)malloc(sizeof(char));
+    b = (char *)malloc(sizeof(char));
+
+    if (ficheiro == NULL)
+    {
+        printf("Não foi possivel abrir o ficheiro para leitura!\n");
+    }
+    else
+    {
+
+        while (fscanf(ficheiro, "%s %s", a, b) != EOF)
+        {
+            actor = InsertIncidence(actor, a, b);
+            actor = InsertIncidence(actor, b, a);
+        }
+        
+    }
+
+    fclose(ficheiro);
+    return actor;
 }
 
-
-Actor *HeadInsertNode(Actor *actor, char *id, char *nome, char *sexo)
+Actor *InsertTreeNode(Actor *actor, char *id, char *nome, char *sexo)
 {
     Actor *new = (Actor *)malloc(sizeof(Actor));
-    int a, b, c;
     if (actor == NULL)
     {
         return NewNode(id, nome, sexo);
     }
     else
     {
-        a = strlen(id);
-        b = strlen(nome);
-        c = strlen(sexo);
-        new->id = (char *)malloc((a + 1) * (sizeof(char)));
-        new->nome = (char *)malloc((b + 1) * (sizeof(char)));
-        new->sexo = (char *)malloc((c + 1) * (sizeof(char)));
-        strcpy(new->id, id);
-        strcpy(new->nome, nome);
-        strcpy(new->sexo, sexo);
-        
-        new->next = actor;
-        return new;
+        if (GetIdNumber(id) < GetIdNumber(actor->id))
+        {
+
+            actor->right = InsertTreeNode(actor->right, id, nome, sexo);
+        }
+        else if (GetIdNumber(id) > GetIdNumber(actor->id))
+        {
+
+            actor->left = InsertTreeNode(actor->left, id, nome, sexo);
+        }
     }
 }
 
@@ -100,11 +126,48 @@ Actor *NewNode(char *id, char *nome, char *sexo)
     strcpy(new->id, id);
     strcpy(new->nome, nome);
     strcpy(new->sexo, sexo);
-    
-    new->next = NULL;
+
+    new->right = NULL;
+    new->left = NULL;
+    new->incidencia = NULL;
     return new;
 }
 
+CoActor *InsertTreeNodeInc(CoActor *coActor, char *id)
+{
+    CoActor *new = (CoActor *)malloc(sizeof(CoActor));
+    if (coActor == NULL)
+    {
+
+        return NewNodeInc(id);
+    }
+    else
+    {
+        if (GetIdNumber(id) < GetIdNumber(coActor->id))
+        {
+
+            coActor->left = InsertTreeNodeInc(coActor->left, id);
+        }
+        else if (GetIdNumber(id) > GetIdNumber(coActor->id))
+        {
+
+            coActor->right = InsertTreeNodeInc(coActor->right, id);
+        }
+    }
+    return coActor;
+}
+
+CoActor *NewNodeInc(char *id)
+{
+    CoActor *new = (CoActor *)malloc(sizeof(CoActor));
+    int a;
+    a = strlen(id);
+    new->id = (char *)malloc((a + 1) * (sizeof(char)));
+    strcpy(new->id, id);
+    new->right = NULL;
+    new->left = NULL;
+    return new;
+}
 
 char *DevolveId(char line[])
 {
@@ -122,7 +185,6 @@ char *DevolveId(char line[])
         aux[j] = line[j];
     }
     aux[j] = '\0';
-    
 
     return aux;
 }
@@ -131,7 +193,7 @@ char *DevolveName(char line[])
 {
     char *aux, *aux1;
 
-    int i = 0,j = 0;
+    int i = 0, j = 0;
     int a, b;
     a = strlen(line);
     aux1 = (char *)malloc((a + 1) * sizeof(char));
@@ -150,7 +212,7 @@ char *DevolveName(char line[])
     b = (a - i) + 1;
 
     aux = (char *)malloc(b * sizeof(char));
-    for(i; i < a-1; i++)
+    for (i; i < a - 1; i++)
     {
 
         aux[j] = aux1[i];
@@ -165,98 +227,107 @@ char *DevolveGender(char line[])
     char *aux = (char *)malloc(2 * sizeof(char));
     int a;
     a = strlen(line);
-    
+
     aux[0] = line[a - 2];
     aux[1] = '\0';
 
-   
     return aux;
 }
 
-void MostraDados(Actor* actors){
-    while(actors){
-        printf("|%s|\t|%s|\t\n",actors->id,actors->nome);
-        actors = (actors->next ? actors->next : NULL);
-    }
-}
-
-int GetIdNumber(char* idString){
-    int id,size,i=0,j=0;
+int GetIdNumber(char *idString)
+{
+    int id, size, i = 0, j = 0;
     char *aux;
     size = strlen(idString);
-    aux = (char*)malloc(sizeof(char)*size);
-    
-    for(i=2;i<size;i++){
-        
+    aux = (char *)malloc(sizeof(char) * size);
+
+    for (i = 2; i < size; i++)
+    {
+
         aux[j] = idString[i];
         j++;
     }
     id = atoi(aux);
-    
+
     return id;
 }
 
-int GetHighestId(Actor* actors){
-    int highest = GetIdNumber(actors->id),value;
 
-    while(actors){
-        value = GetIdNumber(actors->id);
-        if(value > highest)highest = value;
-        actors = (actors->next ? actors->next:NULL);
+void ShowTreeCo(CoActor *coActor)
+{
+    if (coActor)
+    {
+        ShowTreeCo(coActor->left);
+        printf("\nCoActor:%s", coActor->id);
+        ShowTreeCo(coActor->right);
     }
-    return highest;
 }
 
-HashTreeActors* CreateHash(Actor* actors){
-    HashTreeActors *hash=NULL;
-    int intervals,highestId,i,j=0,key=65,divisions=25;
-    highestId = GetHighestId(actors);
-    /*intervals = (int)(highestId/log10((double)highestId));*/
-    intervals = highestId / divisions;
-    
-    hash = (HashTreeActors*)malloc(sizeof(HashTreeActors)*(divisions+3));
-    for(i=0;i<highestId;i+=intervals){
-        
-        hash[j].idMin = i;
-        hash[j].idMax = i+intervals;
-        hash[j].key = key; 
-        hash[j].list = NULL;    
-        key++;
-        j++;
+void ShowTree(Actor *actor)
+{
+    if (actor)
+    {
+        ShowTree(actor->left);
+        printf("%s %s %s\n", actor->id, actor->nome, actor->sexo);
+        ShowTreeCo(actor->incidencia);getchar();
+        ShowTree(actor->right);
     }
-    hash[j].key = '\0';
-    return hash;
 }
-HashTreeActors* Add(HashTreeActors* hash,Actor* actors){
-    int id = GetIdNumber(actors->id),i=0;
-    while(hash[i].key != '\0'){
-        if(id > hash[i].idMin && id < hash[i].idMax){
-            /*printf("I: %d  id: %d  hash:%c   IDACTOR:%s  NOME:%s  SEXO:%s\n",i,id, hash[i].key,actors->id,actors->nome,actors->sexo);*/
-            hash[i].list = HashHeadInsertNode(hash[i].list,actors->id,actors->nome,actors->sexo);
-            
-            return hash;
+int FindActor(Actor *actors, char *id)
+{
+    int idSearch = GetIdNumber(id);
+    if (actors)
+    {
+        if (GetIdNumber(actors->id) < idSearch)
+        {
+            FindActor(actors->left, id);
         }
-        
-        i++;
+        else if (GetIdNumber(actors->id) > idSearch)
+        {
+            FindActor(actors->right, id);
+        }
+        else
+        {
+            printf("%s %s %s", actors->id, actors->nome, actors->sexo);
+            ShowTreeCo(actors->incidencia);
+            getchar();
+            return 1;
+        }
     }
-    return hash;
-}
-HashTreeActors* insertInHash(HashTreeActors* hash,Actor* actors){
-    
-    while(actors){
-        hash = Add(hash,actors);
-        actors = (actors->next ? actors->next : NULL);
-    }
-    
-    return hash;
-}
-void ShowHash(HashTreeActors* hash){
-    int i=0;
-    while(hash[i].key!='\0'){
-        printf("Key: %c   Interval:[%d  ;  %d]\n",hash[i].key,hash[i].idMin,hash[i].idMax);
-        i++;
+    else
+    {
+        printf("Not Found\n");
+        return -1;
     }
 }
+
+Actor *InsertIncidence(Actor *actors, char *rootId, char *incidenceId)
+{
+    Actor *a = actors;
+    int rootSearch = GetIdNumber(rootId), incId = GetIdNumber(incidenceId);
+    if (a)
+    {
+        if (GetIdNumber(a->id) < rootSearch)
+        {
+            InsertIncidence(a->left, rootId, incidenceId);
+        }
+        else if (GetIdNumber(a->id) > rootSearch)
+        {
+            InsertIncidence(a->right, rootId, incidenceId);
+        }
+        else
+        {
+
+            a->incidencia = InsertTreeNodeInc(a->incidencia, incidenceId);
+        }
+    }
+    else
+    {
+        return a;
+    }
+    return a;
+}
+
 /**
  *! Fim Exercicio 1
 */
@@ -264,51 +335,6 @@ void ShowHash(HashTreeActors* hash){
 /**
  *! Exercicio 2
 */
-Actor *HashHeadInsertNode(Actor *actor, char *id, char *nome, char *sexo)
-{
-    Actor *new=NULL;
-    int a,b,c;
-    if (actor == NULL)
-    {
-        return HashNewNode(id, nome, sexo);
-    }
-    else
-    {
-        /*printf("%s\n",actor->nome);getchar();*/
-        new = (Actor*)malloc(sizeof(Actor));
-        a = strlen(id)+1;
-        b = strlen(nome)+1;
-        c = strlen(sexo)+1;
-        new->id = (char*)malloc(sizeof(char)*a);
-        new->nome = (char*)malloc(sizeof(char)*b);
-        new->sexo = (char*)malloc(sizeof(char)*c);
-        strcpy(new->id,id);
-        strcpy(new->nome,nome);
-        strcpy(new->sexo,sexo);
-        new->next = actor;
-        
-        /*actor->next = HashHeadInsertNode(actor->next,id,nome,sexo);*/
-    }
-    return new;
-}
-
-Actor *HashNewNode(char *id, char *nome, char *sexo)
-{
-    Actor *new = (Actor *)malloc(sizeof(Actor));
-    int a, b, c;
-    a = strlen(id);
-    b = strlen(nome);
-    c = strlen(sexo);
-    new->id = (char *)malloc((a + 1) * (sizeof(char)));
-    new->nome = (char *)malloc((b + 1) * (sizeof(char)));
-    new->sexo = (char *)malloc((c + 1) * (sizeof(char)));
-    strcpy(new->id, id);
-    strcpy(new->nome, nome);
-    strcpy(new->sexo, sexo);
-    
-    new->next = NULL;
-    return new;
-}
 
 /**
  *! Fim Exercicio 2
@@ -318,7 +344,6 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
  *! Exercicio 3
 */
 
-
 /**
  *! Fim Exercicio 3
 */
@@ -327,7 +352,6 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
  *! Exercicio 6
 */
 
-
 /**
  *! Fim Exercicio 6
 */
@@ -335,7 +359,6 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
 /**
  *! Exercicio 7
 */
-
 
 /**
  *! Fim Exercicio 7
@@ -351,7 +374,6 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
  *! Exercicio 1
 */
 
-
 /**
  *! Fim Exercicio 1
 */
@@ -367,7 +389,6 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
 /**
  *! Exercicio 3
 */
-
 
 /**
  *! Fim Exercicio 3
@@ -407,7 +428,6 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
  *! Genericas
 */
 
-
 /**
  *! Exercicio 2
 */
@@ -428,8 +448,6 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
  *! Exercicio 4
 */
 
-
-
 /**
  *! Fim Exercicio 4
 */
@@ -438,12 +456,9 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
  *! Exercicio 5
 */
 
-
-
 /**
  *! Exercicio 6 Cpmprimento
 */
-
 
 /**
  *! Fim Exercicio 6 Comprimento
@@ -461,7 +476,6 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
  *! Exercicio 7
 */
 
-
 /**
  *! Fim Exercicio 7
 */
@@ -475,7 +489,7 @@ Actor *HashNewNode(char *id, char *nome, char *sexo)
 /**
  *! Exercicio 1
 */
-char ShowMenu()                         /*Menu principal*/
+char ShowMenu() /*Menu principal*/
 {
     char op;
     system("cls");
@@ -535,7 +549,6 @@ char ShowMenu()                         /*Menu principal*/
  *! Exercicio 5
 */
 
-
 /**
  *! Fim Exercicio 5
 */
@@ -551,7 +564,6 @@ char ShowMenu()                         /*Menu principal*/
 /**
  *! Exercicio 7
 */
-
 
 /**
  *! Fim Exercicio 7

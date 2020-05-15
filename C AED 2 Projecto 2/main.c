@@ -20,50 +20,18 @@
 
 int main()
 {
-    Actor *actors = NULL, *list;
-    HashTreeActors *hash = NULL;
+    Actor *actors, *list;
     int i, cont;
+    char* idSearch = (char*)malloc(sizeof(char)*15);
 
     setlocale(LC_ALL, "Portuguese");
-    actors = LoadFile();
-
-    /*MostraDados(actors);getchar();*/
-    hash = CreateHash(actors);
-    /*ShowHash(hash);*/
-    hash = insertInHash(hash, actors);
-    cont = 0;
-    /**
-     * ! NUNCA ESQUECER QUE A HASH É UM VETOR!!! PERCORRER ELE COMO SE PERCORRE UM VETOR
-     * ! CASO QUEIRA PERCORRER ESTE VETOR FAZER ---------- WHILE(HASH[POSICAO].KEY != '\0')  --------------------
-     * ! Consigo Pegar todos do sexo M dentro de um intervalo
-     * ! Consigo buscar uma pessoa com um id sem percorrer 80.072 dados 
-     * ! No indice zero percorro 27.500 dados evitando de passar em 65% dos dados gerais, portanto percorro 33% dos dados gerais
-     * ! O indice zero é o maior de todos, ou seja, no indice 1 contém 22.500 e estes valores vão diminuindo quanto maior o indice
-    */
-    /*i = 0;
-    while (hash[i].key != '\0')
-    {
-        printf("%c intervalo:[%d;%d]\n", hash[i].key, hash[i].idMin, hash[i].idMax);
-        list = hash[i].list;
-
-        while (list)
-        {
-
-            printf("%s %s %s\n", list->id, list->nome, list->sexo);
-            cont++;
-            list = (list->next ? list->next : NULL);
-        }
-        i++;
-    }
-
-    printf("Contador:%d\n", cont);*/
-    printf("Passagem de dados concluida!\nAperte 's' para sair!");
-
-    getchar();
+    actors = LoadFileActors(actors);
+    actors = LoadFileCoActors(actors);
+    printf("Passagem de dados concluida!\nAperte 's' para sair!");getchar();
+    ShowTree(actors);
+    /*getchar();*/
     /*do
     {
-
-        
         op = getch();
         
 

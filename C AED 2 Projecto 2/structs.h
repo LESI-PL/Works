@@ -1,3 +1,14 @@
+/*
+HM? 
+000 
+001
+010
+011
+100 
+101
+110
+111
+*/
 /**
 ** Author: Yuri Lemos E João Figueiredo
 ** Description: Este Programa faz leitura de uma fichero ".txt" e com estes dados recolhidos efetua calculos estatisticos
@@ -11,22 +22,21 @@
 /**
  *!                                                 STRUCTS
 */
+
 typedef struct _Actor{
     char *id;
     char *nome;
     char *sexo;
-    struct _Actor *next; 
+    struct _Actor *right;
+    struct _CoActor *incidencia;
+    struct _Actor *left; 
 }Actor;
 
-typedef struct _HashActors{
-    int idMin;
-    int idMax;
-    char key;
-    Actor *list;
-    struct _HashActors *next;
-
-}HashTreeActors;
-
+typedef struct _CoActor{
+    char *id;
+    struct _CoActor *right;
+    struct _CoActor *left;
+}CoActor;
 
 
 /**
