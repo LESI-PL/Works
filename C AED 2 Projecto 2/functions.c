@@ -14,8 +14,8 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 255
-#define TXTACTOR "actors.txt"
-#define TXTCOACTOR "co-actors.txt"
+#define TXTACTOR "actorsBig.txt"
+#define TXTCOACTOR "co-actorsBig.txt"
 
 /**
  *!                                                 FUNCTIONS
