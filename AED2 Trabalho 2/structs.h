@@ -27,6 +27,8 @@ typedef struct _Actor{
     char *id;
     char *nome;
     char *sexo;
+    int numElementos;
+    int temMulher;
     struct _Actor *right;
     struct _CoActor *incidencia;
     struct _Actor *left; 

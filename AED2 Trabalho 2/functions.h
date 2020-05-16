@@ -45,6 +45,10 @@ Actor* InsertIncidence(Actor* a,char* rootId, char* incidenceId);
 
 
 Actor* FindActorManual1(Actor* actors, char *id);
+
+void FreeAll(CoActor* coActor);
+
+void ShowListCo(CoActor* coActor);
 /**
  *! Fim Exercicio 1
 */

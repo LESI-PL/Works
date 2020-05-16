@@ -128,40 +128,48 @@ Actor *NewNode(char *id, char *nome, char *sexo)
     strcpy(new->id, id);
     strcpy(new->nome, nome);
     strcpy(new->sexo, sexo);
+    new->numElementos = 0;
+    new->temMulher = 0;
 
     new->right = NULL;
     new->left = NULL;
     new->incidencia = NULL;
     return new;
 }
-
-CoActor *InsertTreeNodeInc(CoActor *coActor, char *id)
-{
-    /*CoActor *new = (CoActor *)malloc(sizeof(CoActor));
-
-    new->right = coActor;
-    new->id = (char *)malloc(sizeof(char) * strlen(id + 1));
-    strcpy(new->id, id);
-    return new;*/
+void FreeAll(CoActor* coActor){
+    if(coActor){
+        
+        printf("A");
+        FreeAll(coActor->right);
+        free(coActor);   
+    }   
     
-    if (coActor == NULL)
-    {
+}
+CoActor *InsertTreeNodeInc(CoActor *coActor, char *id){
+    /*HEAD INSERT CODE*/
+        CoActor *new = (CoActor *)malloc(sizeof(CoActor));
 
-        return NewNodeInc(id);
-    }
-    else
-    {
+        new->right = coActor;
+        new->id = (char *)malloc(sizeof(char) * strlen(id + 1));
+        strcpy(new->id, id);
+        return new;
+    
+    /*if(coActor){
+        
         if (GetIdNumber(id) < GetIdNumber(coActor->id))
         {
-
             coActor->left = InsertTreeNodeInc(coActor->left, id);
         }
-        else if (GetIdNumber(id) > GetIdNumber(coActor->id))
+        if (GetIdNumber(id) > GetIdNumber(coActor->id))
         {
-
             coActor->right = InsertTreeNodeInc(coActor->right, id);
-        }
+        }          
+    }else{
+        
+        return NewNodeInc(id);
+         
     }
+    return coActor;*/
 }
 
 CoActor *NewNodeInc(char *id)
@@ -258,7 +266,12 @@ int GetIdNumber(char *idString)
 
     return id;
 }
-
+void ShowListCo(CoActor* coActor){
+    while(coActor){
+        printf("Id:%s\n",coActor->id);
+        coActor = (coActor->right ? coActor->right:NULL);
+    }
+}
 void ShowTreeCo(CoActor *coActor)
 {
     if (coActor)
@@ -296,7 +309,8 @@ int FindActor(Actor *actors, char *id)
         else
         {
             printf("%s %s %s\nCo-Actors:", actors->id, actors->nome, actors->sexo);
-            ShowTreeCo(actors->incidencia);
+            ShowListCo(actors->incidencia);
+            /*ShowTreeCo(actors->incidencia);*/
             getchar();
             return 1;
         }
@@ -329,9 +343,12 @@ Actor *FindActorManual1(Actor *actors, char *id)
         {          
             return actors;
         }
-    }else{
+    }
+    else
+    {
         return actors;
-    }    
+    }   
+
 }
 
 Actor *InsertIncidence(Actor *a, char *rootId, char *incidenceId)

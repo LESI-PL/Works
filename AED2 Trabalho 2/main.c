@@ -20,15 +20,14 @@
 
 int main()
 {
-    Actor *actors = NULL,*aux = NULL;
+    Actor *actors = NULL;
     getchar();
     setlocale(LC_ALL, "Portuguese");
     actors = LoadFileActors(actors);
     actors = LoadFileCoActors(actors);
     FindActor(actors,"nm0917715");
     printf("Passagem de dados concluida!\nAperte 's' para sair!");getchar();
-    /*FindActor(actors,"nm0865801");*/
-    /*getchar();*/
+    
     /*do
     {
         op = getch();
