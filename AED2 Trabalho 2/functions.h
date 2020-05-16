@@ -41,7 +41,7 @@ int GetIdNumber(char* idString);
 
 int FindActor(Actor* actors,char* id);
 
-Actor* InsertIncidence(Actor* actors,char* rootId, char* incidenceId);
+Actor* InsertIncidence(Actor* a,char* rootId, char* incidenceId);
 
 
 Actor* FindActorManual1(Actor* actors, char *id);

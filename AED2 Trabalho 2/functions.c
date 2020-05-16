@@ -13,9 +13,9 @@
 #include <locale.h>
 #include "structs.h"
 #include "functions.h"
-#define MAX 255
-#define TXTACTOR "actors.txt"
-#define TXTCOACTOR "co-actors.txt"
+#define MAX 64
+#define TXTACTOR "actorsBig.txt"
+#define TXTCOACTOR "co-actorsBig.txt"
 
 /**
  *!                                                 FUNCTIONS
@@ -35,10 +35,10 @@ Actor *LoadFileActors(Actor *actor)
 
     ficheiro = fopen(TXTACTOR, "r");
 
-    line = (char *)malloc(255 * sizeof(char));
-    a = (char *)malloc(sizeof(char) * 127);
-    b = (char *)malloc(sizeof(char) * 127);
-    c = (char *)malloc(sizeof(char) * 127);
+    line = (char *)malloc(MAX * sizeof(char));
+    a = (char *)malloc(sizeof(char));
+    b = (char *)malloc(sizeof(char));
+    c = (char *)malloc(sizeof(char));
 
     if (ficheiro == NULL)
     {
@@ -46,7 +46,7 @@ Actor *LoadFileActors(Actor *actor)
     }
     else
     {
-        while (fgets(line, 255, ficheiro) != NULL)
+        while (fgets(line, MAX, ficheiro) != NULL)
         {
             a = DevolveId(line);
             c = DevolveGender(line);
@@ -59,13 +59,14 @@ Actor *LoadFileActors(Actor *actor)
     system("cls");
     printf("Total de Registros: %d\n", i);
     fclose(ficheiro);
+    free(a);free(b);free(c);free(line);
     return actor;
 }
 Actor *LoadFileCoActors(Actor *actor)
 {
     FILE *ficheiro;
     char *a, *b;
-    int i = 0;
+    
 
     ficheiro = fopen(TXTCOACTOR, "r");
 
@@ -81,7 +82,7 @@ Actor *LoadFileCoActors(Actor *actor)
 
         while (fscanf(ficheiro, "%s %s", a, b) != EOF)
         {
-            /*printf("\n%d - ",++i);*/
+            
             actor = InsertIncidence(actor, a, b);
             actor = InsertIncidence(actor, b, a);
         }
@@ -93,7 +94,7 @@ Actor *LoadFileCoActors(Actor *actor)
 
 Actor *InsertTreeNode(Actor *actor, char *id, char *nome, char *sexo)
 {
-    Actor *new = (Actor *)malloc(sizeof(Actor));
+    
     if (actor == NULL)
     {
         return NewNode(id, nome, sexo);
@@ -111,6 +112,7 @@ Actor *InsertTreeNode(Actor *actor, char *id, char *nome, char *sexo)
             actor->right = InsertTreeNode(actor->right, id, nome, sexo);
         }
     }
+    return actor;
 }
 
 Actor *NewNode(char *id, char *nome, char *sexo)
@@ -135,13 +137,13 @@ Actor *NewNode(char *id, char *nome, char *sexo)
 
 CoActor *InsertTreeNodeInc(CoActor *coActor, char *id)
 {
-    CoActor *new = (CoActor *)malloc(sizeof(CoActor));
+    /*CoActor *new = (CoActor *)malloc(sizeof(CoActor));
 
     new->right = coActor;
     new->id = (char *)malloc(sizeof(char) * strlen(id + 1));
     strcpy(new->id, id);
-    return new;
-    /*
+    return new;*/
+    
     if (coActor == NULL)
     {
 
@@ -160,7 +162,6 @@ CoActor *InsertTreeNodeInc(CoActor *coActor, char *id)
             coActor->right = InsertTreeNodeInc(coActor->right, id);
         }
     }
-    */
 }
 
 CoActor *NewNodeInc(char *id)
@@ -218,7 +219,7 @@ char *DevolveName(char line[])
     b = (a - i) + 1;
 
     aux = (char *)malloc(b * sizeof(char));
-    for (i; i < a - 1; i++)
+    for (i=i; i < a - 1; i++)
     {
 
         aux[j] = aux1[i];
@@ -263,7 +264,7 @@ void ShowTreeCo(CoActor *coActor)
     if (coActor)
     {
         ShowTreeCo(coActor->left);
-        printf("\nCoActor:%s", coActor->id);
+        printf("\nID:%s", coActor->id);
         ShowTreeCo(coActor->right);
     }
 }
@@ -286,15 +287,15 @@ int FindActor(Actor *actors, char *id)
     {
         if (GetIdNumber(actors->id) < idSearch)
         {
-            FindActor(actors->left, id);
+            FindActor(actors->right, id);
         }
         else if (GetIdNumber(actors->id) > idSearch)
         {
-            FindActor(actors->right, id);
+            FindActor(actors->left, id);
         }
         else
         {
-            printf("%s %s %s", actors->id, actors->nome, actors->sexo);
+            printf("%s %s %s\nCo-Actors:", actors->id, actors->nome, actors->sexo);
             ShowTreeCo(actors->incidencia);
             getchar();
             return 1;
@@ -305,11 +306,11 @@ int FindActor(Actor *actors, char *id)
         printf("Not Found\n");
         return -1;
     }
+    return 1;
 }
 Actor *FindActorManual1(Actor *actors, char *id)
 {    
     int key, code_tree;
-    
     if (actors)
     {
         
@@ -325,47 +326,31 @@ Actor *FindActorManual1(Actor *actors, char *id)
             FindActorManual1(actors->right, id);
         }
         else
-        {            
+        {          
             return actors;
         }
-    }
-    else
-    {
-        
+    }else{
         return actors;
-    }
-
-    /*if (key == code_tree)
-    {
-        return actors;
-    }
-    else if (key < code_tree)
-    {
-        actors->left = FindActorManual1(actors->left, id);
-    }
-    else
-    {
-        actors->right = FindActorManual1(actors->right, id);
-    }*/
+    }    
 }
 
-Actor *InsertIncidence(Actor *actors, char *rootId, char *incidenceId)
+Actor *InsertIncidence(Actor *a, char *rootId, char *incidenceId)
 {
-    Actor *a = actors;
-    int rootSearch = GetIdNumber(rootId), incId = GetIdNumber(incidenceId);
+    
+    int rootSearch = GetIdNumber(rootId);
     if (a)
     {
         if (GetIdNumber(a->id) < rootSearch)
         {
-            InsertIncidence(a->left, rootId, incidenceId);
+            InsertIncidence(a->right, rootId, incidenceId);
         }
         else if (GetIdNumber(a->id) > rootSearch)
         {
-            InsertIncidence(a->right, rootId, incidenceId);
+            InsertIncidence(a->left, rootId, incidenceId);
         }
         else
         {
-
+            
             a->incidencia = InsertTreeNodeInc(a->incidencia, incidenceId);
         }
     }

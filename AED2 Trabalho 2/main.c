@@ -20,15 +20,12 @@
 
 int main()
 {
-    Actor *actors, *list,*aux;;
-    int i, cont;
-    char* idSearch = (char*)malloc(sizeof(char)*15);
-
+    Actor *actors = NULL,*aux = NULL;
+    getchar();
     setlocale(LC_ALL, "Portuguese");
     actors = LoadFileActors(actors);
     actors = LoadFileCoActors(actors);
-    aux = FindActorManual1(actors,"nm0875465");
-    printf("|| %s %s %s ||\n",aux->id,aux->nome,aux->sexo);
+    FindActor(actors,"nm0917715");
     printf("Passagem de dados concluida!\nAperte 's' para sair!");getchar();
     /*FindActor(actors,"nm0865801");*/
     /*getchar();*/
