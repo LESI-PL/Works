@@ -9,6 +9,8 @@
 // <version>1.0</version>
 using System;
 using System.Collections.Generic;
+using InterfacesAuditoria;
+using MinhasExceptionsLib;
 
 namespace Aparelhos
 {
@@ -18,7 +20,7 @@ namespace Aparelhos
     /// <code>Implementa: IMetodosGenericos</code>
     /// </summary>
 
-    public class Equipamentos
+    public class Equipamentos : IVerification, IProcura
     {
 
         #region Atributos
@@ -45,11 +47,18 @@ namespace Aparelhos
 
         #endregion
 
+        #region Propriedades
+        public int QtdEquipamentos
+        {
+            get { return qtdEquipamentos; }
+        }
+        #endregion
+
         #region Metodos
 
         #region Insercao
         /// <summary>
-        /// Insere um equipamento na lista
+        /// Insere um equipamento na lista, caso já exista retorna false
         /// </summary>
         /// <param name="equipamento"> equipamento</param>
         /// <returns>bool</returns>
@@ -90,14 +99,14 @@ namespace Aparelhos
 
         #endregion
 
-        #region Edicao
+        #region Edicão
         /// <summary>
         /// Muda o nome do modelo do equipamento caso seja encontrado
         /// </summary>
         /// <param name="id">id do equipamento</param>
         /// <param name="modelo">Novo modelo</param>
         /// <returns>bool</returns>
-        public bool Editar(int id, string modelo)
+        public bool EditarModelo(int id, string modelo)
         {
             for (int i = 0; i < qtdEquipamentos; i++)
             {
@@ -127,31 +136,14 @@ namespace Aparelhos
             }
             return false;
         }
-        /// <summary>
-        /// Muda o codigo do equipamento caso seja encontrado
-        /// </summary>
-        /// <param name="id">id do equipamento</param>
-        /// <param name="marca">Novo codigo</param>
-        /// <returns>bool</returns>
-        public bool Editar(int id, int numero)
-        {
-            for (int i = 0; i < qtdEquipamentos; i++)
-            {
-                if (equipamentos[i].Codigo == id)
-                {
-                    equipamentos[i].Codigo = numero;
-                    return true;
-                }
-            }
-            return false;
-        }
+       
         /// <summary>
         /// Muda a data de aquisição do equipamento caso seja encontrado
         /// </summary>
         /// <param name="id">id do equipamento</param>
         /// <param name="marca">Nova data</param>
         /// <returns>bool</returns>
-        public bool Editar(int id, DateTime data)
+        public bool EditarDataAquisicao(int id, DateTime data)
         {
             for (int i = 0; i < qtdEquipamentos; i++)
             {
@@ -170,13 +162,11 @@ namespace Aparelhos
         /// <returns>bool</returns>
         public bool Remove(int id)
         {
-            for (int i = 0; i < qtdEquipamentos; i++)
+            int indice = Procura(id);
+            if (indice >= 0)
             {
-                if (equipamentos[i].Codigo == id)
-                {
-                    equipamentos[i].Estado = false;
-                    return true;
-                }
+                equipamentos[indice].Estado = false;
+                return true;
             }
             return false;
 
@@ -192,15 +182,44 @@ namespace Aparelhos
         public string ListarEquipamentos()
         {
             string txt = "";
-            for (int i = 0; i < qtdEquipamentos; i++)
+            foreach(Equipamento e in equipamentos)
             {
-                //if(funcionarios[i].Estado)
-                txt += equipamentos[i].ToString() + "\n";
+                txt += e.MostraDados()+"\n";
             }
             return txt;
         }
 
+        public string ShowEquipment(int id)
+        {
+            string txt = "";
+            foreach(Equipamento e in equipamentos)
+            {
+                if (e.Codigo == id) 
+                txt = e.MostraDados();
+            }
+            return txt;
+        }
+                
+        #endregion
 
+        #region Verificaçao
+        public bool VerificaId(string codigo, out int id)
+        {
+            bool result = false;
+            try
+            {
+                result = Int32.TryParse(codigo, out id);
+            }
+            catch (ValoresExceptions e)
+            {
+                throw new ValoresExceptions("Erro: Valor errado", e);
+            }
+            catch(Exception ee)
+            {
+                throw new Exception("Erro:" + ee.Message);
+            }
+            return result;
+        }
         #endregion
 
 

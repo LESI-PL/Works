@@ -60,6 +60,7 @@ namespace Aparelhos
             marca = brand;
             modelo = model;
             aquisisao = comprado;
+            estado = true;
         }
 
         #endregion
@@ -139,12 +140,14 @@ namespace Aparelhos
         /// Override do to string para mostrar apenas um equipamento
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        public string MostraDados()
         {
             string txt = "";
-            txt += "Marca: "+ Marca +
+            txt += "Codigo:"+codigoEqui+
+                   "\nMarca: "+ Marca +
                    "\nModelo: "+ Modelo+
-                   "\nData: "+Aquisicao.ToShortDateString()+"\n";
+                   "\nData: "+Aquisicao.ToShortDateString()+
+                   "\nEstado: "+Estado+"\n\n";
             return txt;
 
         }

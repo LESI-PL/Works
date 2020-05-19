@@ -20,7 +20,7 @@ namespace Pessoas
     /// <code>Implementa: IMetodosGenericos</code>
     /// </summary>
 
-    public class Funcionarios : IVerification
+    public class Funcionarios : IVerification, IProcura
     {
 
         #region Atributos
@@ -112,7 +112,7 @@ namespace Pessoas
             return -1;
         }
 
-        public int ProcuraId(int id)
+        public int Procura(int id) // Método da Interface
         {
             for (int i = 0; i < qtdFuncionarios; i++)
             {
@@ -134,7 +134,7 @@ namespace Pessoas
         /// <returns>bool</returns>
         public bool Editar(int id, string nome)
         {
-            int indice = ProcuraId(id);
+            int indice = Procura(id);
             if (indice >= 0)
             {
                 funcionarios[indice].Nome = nome;
@@ -150,7 +150,7 @@ namespace Pessoas
         /// <returns></returns>
         public bool Editar(int id, int newId)
         {
-            int indice = ProcuraId(id);
+            int indice = Procura(id);
             if (indice >= 0)
             {
                 funcionarios[indice].IdFuncionario = newId;
@@ -166,7 +166,7 @@ namespace Pessoas
         /// <returns>bool</returns>
         public bool Editar(int id, DateTime data)
         {
-            int indice = ProcuraId(id);
+            int indice = Procura(id);
             if (indice >= 0)
             {
                 funcionarios[indice].DataAdmissao = data;
@@ -180,8 +180,9 @@ namespace Pessoas
         /// <param name="id">id do funcionario para procura</param>
         /// <returns>bool</returns>
         public bool Remove(int id)
-        {
-            int indice = ProcuraId(id);
+        {            
+            int indice = Procura(id);
+            
             if (indice >= 0)
             {
                 funcionarios[indice].Estado = false;
@@ -200,10 +201,54 @@ namespace Pessoas
         public string ListarFuncionarios()
         {
             string txt = "";
-            foreach(Funcionario f in funcionarios)
+            if (QtdFuncionario != 0)
             {
-                txt += f.MostraDados() + "\n";
+                
+                foreach (Funcionario f in funcionarios)
+                {
+                    txt += f.ShowDados() + "\n";
+                }
             }
+            else
+            {
+                txt += "A lista está vazia!";
+            }
+            
+            return txt;
+        }
+        public string ListarFuncionariosDadosPessoais()
+        {
+            string txt = "";
+            if(QtdFuncionario != 0)
+            {
+                foreach (Funcionario f in funcionarios)
+                {
+                    txt += f.ShowDadosPessoais() + "\n\n";
+                }
+            }
+            else
+            {
+                txt += "A lista está vazia!";
+            }
+
+            return txt;
+        }
+        public string ListarFuncionariosCompleto()
+        {
+            string txt = "";
+            if (QtdFuncionario != 0)
+            {
+                foreach (Funcionario f in funcionarios)
+                {
+                    txt += f.ShowDadosCompletos() + "\n";
+                }
+            }
+            else
+            {
+                txt += "A lista está vazia!";
+            }
+
+
             return txt;
         }
 

@@ -46,9 +46,8 @@ namespace Defeitos
         ///<code><param name="descr"><c>string</c> Descrição da Vulnerabilidade</param></code>
         ///<code><param name="impacto"><c>string</c> Nivel de impacto da Vulnerabilidade</param></code>
         ///</summary>
-        public Vulnerabilidade(int cod, string descr, string impacto)
+        public Vulnerabilidade(string descr, string impacto)
         {
-            codigo = cod;
             descricao = descr;
             nivelImpacto = impacto;
         }
@@ -87,6 +86,17 @@ namespace Defeitos
 
         #region Metodos
 
+     
+        
+        public string MostraVulnerabilidade()
+        {
+            string txt = "";
+            txt += "Id Vulnerabilidade: " + Codigo
+                  + "\nDescricao:" + Descricao
+                  + "\nNivel de Impacto:" + NivelImpacto + "\n";
+               
+            return txt;
+        }
         #endregion
 
     }

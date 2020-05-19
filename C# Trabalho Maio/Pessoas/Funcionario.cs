@@ -46,14 +46,14 @@ namespace Pessoas
 
         }
         ///<summary>Inicializa uma nova instancia de Funcionarios</summary>
-        ///<param name="numeroBi"><c>string</c> Numero do bilhete de identidade</param>
+        ///<param name="numeroBI"><c>string</c> Numero do bilhete de identidade</param>
         ///<param name="nome"><c>string</c> Nome da pessoa</param>
         ///<param name="contribuinte"><c>int</c> Numero de contribuinte</param>
         ///<param name="dataAdmissao"><c>DateTime</c> A data de admissão na empresa</param>
         ///<param name="cargo"><c>string</c> Qual o cargo que irá ocupar</param>
         public Funcionario(string numeroBi, string nome, int contribuinte, string cargo, DateTime dataAdmissao)
         {
-            base.Bi = numeroBi;
+            base.BI = numeroBi;
             base.Nome = nome;
             base.NContribuinte = contribuinte;
             this.cargo = cargo;
@@ -126,16 +126,31 @@ namespace Pessoas
             return "Não Ativo";
         }
 
-        public override string MostraDados()
+        public override string ShowDados()
         {
             string txt = "";
             txt += "Id Colaborador: " + IdFuncionario
-                  + "\nNome Colaborador:" + Nome
-                  + "\nNº B.I:" + Bi                  
+                  + "\nNome Colaborador:" + Nome                  
                   + "\nCargo:" + Cargo
                   + "\nData Admissão: " + DataAdmissao.Day + "/" + DataAdmissao.Month + "/" + DataAdmissao.Year + "\n";
             txt += "Estado: " + CheckEstado() + "\n";
-            return txt; ;
+            return txt;
+        }
+        public string ShowDadosPessoais()
+        {
+            string txt = "";
+            txt += base.ShowDados();
+            return txt;
+        }
+        public string ShowDadosCompletos()
+        {
+            string txt = "\nDados Pessoais:\n";
+            txt += base.ShowDados() + "\n" 
+                 + "\nDados Internos:"
+                 + "\nID Colaborador:" + IdFuncionario
+                 + "\nCargo:" + Cargo
+                 + "\nData Admissão:" + +DataAdmissao.Day + "/" + DataAdmissao.Month + "/" + DataAdmissao.Year + "\n";
+            return txt;
         }
 
         #endregion

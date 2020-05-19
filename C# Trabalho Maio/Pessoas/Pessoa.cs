@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace Pessoas
     /// Esta classe representa uma Pessoa
     /// <code>Type: Classe Abstrata</code>
     /// </summary>
-    public abstract class Pessoa
+    public abstract class Pessoa : IPessoa
     {
 
         #region Atributos
@@ -39,62 +40,29 @@ namespace Pessoas
         int contacto;
         #endregion
 
-        #region Propriedades
-        /// <summary>
-        /// Obtém ou ajusta o componente bilhete de identidade
-        /// <code>type: string</code>
-        /// </summary>
-        public string Bi
-        {
-            get { return bi; }
-            set { bi = value; }
-        }
-        /// <summary>
-        /// Obtém ou ajusta o componente nome
-        /// <code>type: string</code>
-        /// </summary>
-        public string Nome
-        {
-            get { return nome; }
-            set { nome = value; }
-        }
-        /// <summary>
-        /// Obtém ou ajusta o componente numero contribuinte
-        /// <code>type: int</code>
-        /// </summary>
-        public int NContribuinte
-        {
-            get { return nContribuinte; }
-            set { if(value >= 0) nContribuinte = value; }
-        }
-        /// <summary>
-        /// Obtém ou ajusta o componente morada
-        /// <code>type: string</code>
-        /// </summary>
-        public string Morada
-        {
-            get { return morada; }
-            set { morada = value; }
-        }
-        /// <summary>
-        /// Obtém ou ajusta o componente contacto
-        /// <code>type: int</code>
-        /// </summary>
-        public int Contacto
-        {
-            get { return contacto; }
-            set { contacto = value; }
-        }
+        #region Propriedades        
+        public string BI { get => bi; set => bi = value; }
 
+        public string Nome { get => nome; set => nome = value; }
+
+        public int NContribuinte { get => nContribuinte; set => nContribuinte = value; }
+
+        public string Morada { get => morada; set => morada = value; }
+
+        public int Contacto { get => contacto; set => contacto = value; }
         #endregion
 
-        #region Metodos
-        /// <summary>
-        /// <code> MostraDados </code>
-        /// Descricao: Este metodo mostra é abstrato, sua funcionalidade é para mostrar os dados de uma pessoa
-        /// <code>Return: string </code>
-        /// </summary>
-        public abstract string MostraDados();
+        #region Metodos        
+        public virtual string ShowDados()
+        {
+            string txt = "";
+            txt += "Nome:" + Nome
+                + "\nBI:" + BI
+                + "\nContribuinte:" + NContribuinte
+                + "\nMorada:" + Morada
+                + "\nContacto:" + Contacto;
+            return txt;
+        }
         #endregion
 
     }

@@ -22,10 +22,10 @@ namespace InterfacesAuditoria
     public interface IProcura
     {
         /// <summary>
-        /// Metodo de busca numa lista a posição do codigo inserido, caso nao exista retorna -1
+        /// Metodo que busca numa lista a posição do codigo inserido, caso nao exista retorna -1
         /// </summary>
         /// <param name="codigo"></param>
         /// <returns>indice posição ou -1</returns>
-        int Procura(int codigo);  
+        int Procura(int codigo);
     }
 }

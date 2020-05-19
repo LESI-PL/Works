@@ -28,6 +28,7 @@ namespace Defeitos
          */
         #region Atributos
         List<Vulnerabilidade> vulnerabilidades;
+        int id;
         int qtdVulnerabilidades;
         #endregion
 
@@ -40,6 +41,7 @@ namespace Defeitos
         {
             vulnerabilidades = new List<Vulnerabilidade>();
             qtdVulnerabilidades = 0;
+            id = 0;
         }
         #endregion
 
@@ -47,24 +49,26 @@ namespace Defeitos
         /// <summary>
         /// Obtém ou ajusta o componente a lista de Vulnerabilidades
         /// </summary>
-        public List<Vulnerabilidade> ListaVulnerabilidades
+        public int QtdVulnerabilidades
         {
-            get { return vulnerabilidades; }
+            get { return qtdVulnerabilidades; }
         }
 
-        
-        
+
+
         #endregion
 
-     #region Metodos
+        #region Metodos
 
         #region Inserção
         /// <summary>
         /// Insere uma vulnerabildade na lista de vulnerabilidades
         /// </summary>
-        public bool InsereVulnerabilidade(Vulnerabilidade vulnerabilidade)
+        public bool InserirVulnerabilidade(Vulnerabilidade vulnerabilidade)
         {
             qtdVulnerabilidades++;
+            id++;
+            vulnerabilidade.Codigo = id;
             vulnerabilidades.Add(vulnerabilidade);
             return true;
         }
@@ -74,18 +78,25 @@ namespace Defeitos
         /// <summary>
         /// Mostra os dados referentes a uma lista de vulnerabildades
         /// </summary>
-        public string MostrarDados()
+        public string MostrarDados(int id)
         {
-            string texto = "";
-            for (int i = 0; i < qtdVulnerabilidades; i++)
+            string txt = "";
+            foreach (Vulnerabilidade v in vulnerabilidades)
             {
-                texto += "Codigo: " + vulnerabilidades[i].Codigo + "Descrição: " +vulnerabilidades[i].Descricao +
-                    "Nivel de Impacto: "+vulnerabilidades[i].NivelImpacto + "\n\n";
-
+                if (v.Codigo == id)
+                    txt = v.MostraVulnerabilidade();
             }
+            return txt;
+        }
 
-
-            return texto;
+        public string ListarVulnerabilidades()
+        {
+            string txt = "";
+            foreach (Vulnerabilidade v in vulnerabilidades)
+            {
+                txt += v.MostraVulnerabilidade() + "\n";
+            }
+            return txt;
         }
 
         #endregion
@@ -96,7 +107,7 @@ namespace Defeitos
         /// </summary>
         public int Procura(int codigoVulnerabilidade)
         {
-            for(int i=0; i < qtdVulnerabilidades; i++)
+            for (int i = 0; i < qtdVulnerabilidades; i++)
             {
                 if (vulnerabilidades[i].Codigo == codigoVulnerabilidade) return i;
             }
@@ -108,27 +119,28 @@ namespace Defeitos
         /// <summary>
         /// Edita uma vulnerabilidade numa lista de vulnerabilidades, recebe o id da Vulnerabilidade e muda a descrição da vulnerabilidade
         /// </summary>
-        public bool Editar(int id, string descricao)
+        public bool EditarDescricao(int id, string descricao)
         {
-            // Para fazer na versao 2.0
-            return true;
-        }
+            int pos = Procura(id);
+            if (pos != -1)
+            {
+                vulnerabilidades[pos].Descricao = descricao;
+                return true;
+            }
+            return false;
+              
+        }        
+        
 
-        /// <summary>
-        /// Edita uma vulnerabilidade numa lista de vulnerabilidades, recebe o id da Vulnerabilidade e muda o codigo da vulnerabilidade
-        /// </summary>
-        public bool Editar(int id, int numero)
+        public bool EditarImpacto(int id, string impacto)
         {
-            // Para fazer na versao 2.0
-            return true;
-        }
-         /// <summary>
-        /// Edita uma vulnerabilidade numa lista de vulnerabilidades, recebe o id da Vulnerabilidade e muda a data da vulnerabilidade
-        /// </summary>
-        public bool Editar(int id, DateTime data)
-        {
-            // Para fazer na versao 2.0
-            return true;
+            int pos = Procura(id);
+            if (pos != -1)
+            {
+                vulnerabilidades[pos].NivelImpacto = impacto;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -136,12 +148,16 @@ namespace Defeitos
         /// </summary>
         public bool Remove(int id)
         {
-            // Para fazer na versao 2.0
-            return true;
-        }
+            int indice = Procura(id);
 
-
-
+            if (indice >= 0)
+            {
+                vulnerabilidades.RemoveAt(indice);
+                qtdVulnerabilidades--;
+                return true;
+            }
+            return false;
+        }        
         #endregion
 
         #region
