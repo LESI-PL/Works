@@ -39,13 +39,13 @@ namespace Auditorias
             Vulnerabilidade v1 = new Vulnerabilidade(1, "Virus", "Elevado");
             Vulnerabilidade v2 = new Vulnerabilidade(2, "Trojan", "Elevado");
             Funcionarios listaFuncionarios = new Funcionarios();
-            Equipamentos listaEquipamnetos = new Equipamentos();
+            Equipamentos listaEquipamentos = new Equipamentos();
             Vulnerabilidades listaVulnerabilidades = new Vulnerabilidades();
             #endregion
 
             #region Inserção de elementos nas respectivas listas
             listaFuncionarios.InserirFuncionario(f1);           // Insere 1 funcionario na lista de funcionarios
-            listaEquipamnetos.InserirEquipamento(e1);           // Insere 1 equipamento na lista de equipamentos
+            listaEquipamentos.InserirEquipamento(e1);           // Insere 1 equipamento na lista de equipamentos
             listaVulnerabilidades.InsereVulnerabilidade(v1);    // Insere 1 vulnerabilidade na lista de vulnerabilidades
             #endregion
 
@@ -53,6 +53,12 @@ namespace Auditorias
              * Tenta remover Funcionario se o Id estiver certo
              * Tenta inserir Funcionario se o Nº Contribuinte for diferente
              */
+            #region Insere Funcionario
+            //Console.WriteLine("\n\nAntes:\n\n" + listaFuncionarios.ListarFuncionarios()); Console.ReadKey();
+            //listaFuncionarios.InserirFuncionario(f2);
+            //Console.WriteLine("Depois:\n" + listaFuncionarios.ListarFuncionarios());
+            #endregion
+
             #region Remove Funcionario
             //Console.WriteLine("Digite um ID");
             //try
@@ -66,12 +72,6 @@ namespace Auditorias
             //{
             //    throw new Exception();
             //}
-            #endregion
-
-            #region Insere Funcionario
-            //Console.WriteLine("\n\nAntes:\n\n" + listaFuncionarios.ListarFuncionarios()); Console.ReadKey();
-            //listaFuncionarios.InserirFuncionario(f2);
-            //Console.WriteLine("Depois:\n" + listaFuncionarios.ListarFuncionarios());
             #endregion
 
             #region Edita Dados Funcionario
@@ -99,10 +99,15 @@ namespace Auditorias
 
 
             /**
-             * Tenta remover Funcionario se o Id estiver certo
-             * Tenta inserir Funcionario se o Nº Contribuinte for diferente
+             * Tenta remover um equipamento se o ID estiver certo
+             * Tenta inserir um equipamento se o ID for diferente
              */
-
+            #region Insere Equipamento
+            Console.WriteLine("\n\nAntes:\n\n" + listaFuncionarios.ListarFuncionarios()); Console.ReadKey();
+            if (listaEquipamentos.Procura(e2.Codigo) != -1) { listaEquipamentos.InserirEquipamento(e2); }
+            else { Console.WriteLine("Este equipamento já existe no sistema!"); }
+            
+            #endregion
             Console.ReadKey();
         }
 
