@@ -25,8 +25,8 @@ namespace Auditorias
          *          - Data da auditoria
          *          - Id Auditor (Id Funcionario)
          *          - Nome Auditor ( Nome Funcionario)
-         *          - Funcionario que fez a auditoria
          *          - Quantidade de Ocorrencias
+         *          - Lista de ocorrencias
          */
         #region Atributos
         int codigoAuditoria;
@@ -48,22 +48,28 @@ namespace Auditorias
 
         public Auditoria(DateTime dataAuditoria, int idAuditor, string nome)
         {
-            //ocorrencias = new Ocorrencias();
             data = dataAuditoria;
             this.idAuditor = idAuditor;
             nomeAuditor = nome;
             qtdOcorrencias = 0;
             ocorrencias = new List<Ocorrencia>();
-
-
+        }
+        public Auditoria(DateTime dataAuditoria, int idAuditor, string nome, List<Ocorrencia> ocorrencias)
+        {
+            data = dataAuditoria;
+            this.idAuditor = idAuditor;
+            nomeAuditor = nome;
+            qtdOcorrencias = ocorrencias.Count;
+            this.ocorrencias = new List<Ocorrencia>();
+            this.ocorrencias = ocorrencias;
         }
         #endregion
 
         #region Propriedades
+
         public int CodigoAuditoria
         {
-            get { return codigoAuditoria; }
-            set { codigoAuditoria = value; }
+            get { return codigoAuditoria; }            
         }
 
         public DateTime Data
@@ -89,7 +95,7 @@ namespace Auditorias
             get { return qtdOcorrencias; }
             set { qtdOcorrencias = value; }
         }
-        #endregion
+        
 
         public List<Ocorrencia> Ocorrencias
         {
@@ -97,19 +103,72 @@ namespace Auditorias
             set { ocorrencias = value; }
 
         }
-
+        #endregion
 
         #region Metodos
+        /// <summary>
+        /// Procura por um id, caso encontre devolve o indice e true, caso contrario devolve zero e false;
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="id2"></param>
+        /// <returns></returns>
+        public bool ProcuraOcorrencia(int id, out int id2)
+        {
+            for(int i = 0; i < qtdOcorrencias; i++)
+            {
+                if (id == ocorrencias[i].IdOcorrencia)
+                {
+                    id2 = i;
+                    return true;
+                }
+            }
+            id2 = 0;
+            return false;            
+        }
 
+        public bool InserirOcorrencia(Ocorrencia ocorrencia)
+        {
+            foreach(Ocorrencia o in ocorrencias)
+            {
+                if (!ocorrencia.Equals(o))
+                {
+                    ocorrencias.Add(ocorrencia);
+                    return true;
+                }                
+            }
+            return false;
+        }
+        public bool RemoveOcorrencia(int id)
+        {
+            int indice;
+            if(ProcuraOcorrencia(id,out indice))
+            {
+                ocorrencias[indice].Estado = false;
+                return true;
+            }
+            return false;
+        }
 
-        public override string ToString()
+        public string MostraDados()
         {
             string texto = "";
             texto += "Codigo Auditoria" + CodigoAuditoria
-                    + "Nome auditor:" + NomeAuditor
-                    + "Data:" + Data + "\n";
+                    + "\nNome auditor:" + NomeAuditor
+                    + "\nData:" + Data + "\n";
 
             return texto;
+        }
+        public string MostraOcorrencias()
+        {
+            string txt = "";
+            foreach(Ocorrencia o in ocorrencias)
+            {
+                txt += "Codigo Vulnerabilidade:"+o.CodVulnerabilidade
+                      +"\nCodigo Equipamento:"+ o.CodEquipamento
+                      +"\nEstado da Ocorrencia:"+o.Estado;                
+            }
+
+            return txt;
         }
         #endregion
 

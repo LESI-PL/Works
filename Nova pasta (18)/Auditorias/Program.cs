@@ -36,9 +36,15 @@ namespace Auditorias
             Equipamento e2 = new Equipamento("Laptop", "Lenovo", "IdeaPad", new DateTime(2019, 9, 20));
             Vulnerabilidade v1 = new Vulnerabilidade("Virus", "Elevado");
             Vulnerabilidade v2 = new Vulnerabilidade("Trojan", "Elevado");
+            Ocorrencia o1 = new Ocorrencia(v1.Codigo, e1.Codigo);
+            Ocorrencia o2 = new Ocorrencia(v2.Codigo, e2.Codigo);
+ 
+            Auditoria a1 = new Auditoria(new DateTime(2009, 8, 20), f1.IdFuncionario, f1.Nome);
+            Auditoria a2 = new Auditoria(new DateTime(2020, 5, 15), f2.IdFuncionario, f2.Nome);
             Funcionarios listaFuncionarios = new Funcionarios();
             Equipamentos listaEquipamentos = new Equipamentos();
             Vulnerabilidades listaVulnerabilidades = new Vulnerabilidades();
+
             #endregion
 
             #region Inserção de elementos nas respectivas listas
@@ -323,7 +329,9 @@ namespace Auditorias
 
             #endregion
 
+            #region AUDITORIAS
 
+            #endregion
 
             Console.WriteLine("\n\nFIM!");
             Console.ReadKey();

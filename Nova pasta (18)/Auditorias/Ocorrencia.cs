@@ -31,6 +31,7 @@ namespace Auditorias
         /// *estado - Estado da Vulnerabildade 
         /// </summary>
         //int codAuditoria;
+        int idOcorrencia;
         int codVulnerabilidade;
         int codEquipamento;
         bool estado;
@@ -47,9 +48,8 @@ namespace Auditorias
 
         ///<summary>
         ///Inicializa uma nova instancia de Ocorrencia com parametros</summary>
-        public Ocorrencia(int codAuditoria, int codVulnerabilidade, int codEquipamento)
+        public Ocorrencia(int codVulnerabilidade, int codEquipamento)
         {
-            //this.codAuditoria = codAuditoria;
             this.codVulnerabilidade = codVulnerabilidade;
             this.codEquipamento = codEquipamento;
             estado = true;
@@ -57,15 +57,10 @@ namespace Auditorias
         #endregion
 
         #region Propriedades
-        /// <summary>
-        /// Obtém ou ajusta o componente do codigo da auditoria
-        /// <code>type: int</code>
-        /// </summary>
-        //public int CodAuditoria
-        //{
-        //    get { return codAuditoria; }
-        //    set { codAuditoria = value; }
-        //}
+        public int IdOcorrencia
+        {
+            get { return idOcorrencia; }
+        }
         /// <summary>
         /// Obtém ou ajusta o componente do codigo da vulnerabilidade
         /// <code>type: int</code>
@@ -96,6 +91,8 @@ namespace Auditorias
         #endregion
 
         #region Metodos
+        
+
         /// <summary>
         /// Metodo para listar a  ocorrencias
         /// </summary>
@@ -104,6 +101,7 @@ namespace Auditorias
         {
             return base.ToString();
         }
+
         #endregion
 
     }

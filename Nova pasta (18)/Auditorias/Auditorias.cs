@@ -31,7 +31,6 @@ namespace Auditorias
         /// <param name="Code_colaborador"></param>
         public Auditorias(int Code_colaborador)
         {
-
             auditorias = new List<Auditoria>();
             qtdAuditorias = 0;
         }
@@ -48,7 +47,7 @@ namespace Auditorias
 
         #region Metodos
 
-        #region MEtodo de Insercao
+        #region Mtodo de Insercao
         /// <summary>
         /// Insere uma Auditoria na lista. 
         /// </summary>
@@ -57,10 +56,8 @@ namespace Auditorias
         public bool InserirAuditoria(Auditoria auditoria)
         {
             QtdAuditorias++;
-            auditoria.CodigoAuditoria = QtdAuditorias;
             auditorias.Add(auditoria);
             return true;
-
         }
         #endregion
 

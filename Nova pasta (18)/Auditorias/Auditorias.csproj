@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Auditoria.cs" />
     <Compile Include="Auditorias.cs" />
+    <Compile Include="Ocorrencias.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ocorrencia.cs" />
