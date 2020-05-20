@@ -1,0 +1,5 @@
+C:\Users\Yuri Lemos\Desktop\Trabalho LP2 19256_19337\MinhasExceptionsLib\bin\Debug\MinhasExceptionsLib.dll
+C:\Users\Yuri Lemos\Desktop\Trabalho LP2 19256_19337\MinhasExceptionsLib\bin\Debug\MinhasExceptionsLib.pdb
+C:\Users\Yuri Lemos\Desktop\Trabalho LP2 19256_19337\MinhasExceptionsLib\obj\Debug\MinhasExceptionsLib.csproj.CoreCompileInputs.cache
+C:\Users\Yuri Lemos\Desktop\Trabalho LP2 19256_19337\MinhasExceptionsLib\obj\Debug\MinhasExceptionsLib.dll
+C:\Users\Yuri Lemos\Desktop\Trabalho LP2 19256_19337\MinhasExceptionsLib\obj\Debug\MinhasExceptionsLib.pdb
