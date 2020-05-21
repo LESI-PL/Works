@@ -33,17 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aparelhos">
+    <Reference Include="Aparelhos, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Aparelhos\bin\Debug\Aparelhos.dll</HintPath>
     </Reference>
-    <Reference Include="Defeitos">
+    <Reference Include="Defeitos, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Defeitos\bin\Debug\Defeitos.dll</HintPath>
     </Reference>
-    <Reference Include="MinhasExceptionsLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Pessoas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MinhasExceptionsLib\bin\Debug\MinhasExceptionsLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Pessoas">
       <HintPath>..\Pessoas\bin\Debug\Pessoas.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -58,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Auditoria.cs" />
     <Compile Include="Auditorias.cs" />
+    <Compile Include="Controller\MeuController.cs" />
     <Compile Include="Ocorrencias.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

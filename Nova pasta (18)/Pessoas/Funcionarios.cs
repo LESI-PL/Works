@@ -122,7 +122,10 @@ namespace Pessoas
 
             return -1;
         }
-
+        public List<Funcionario> GetList()
+        {
+            return funcionarios;
+        }
         #endregion
 
         #region Metodos Edicao

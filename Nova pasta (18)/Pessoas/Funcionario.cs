@@ -61,6 +61,18 @@ namespace Pessoas
             estado = true;
 
         }
+        public Funcionario(string numeroBi, string nome, int contribuinte, string cargo, DateTime dataAdmissao, string morada,int contacto)
+        {
+            base.BI = numeroBi;
+            base.Nome = nome;
+            base.NContribuinte = contribuinte;
+            base.Morada = morada;
+            base.Contacto = contacto;
+            this.cargo = cargo;
+            this.dataAdmissao = dataAdmissao;
+            estado = true;
+
+        }
 
         #endregion
 

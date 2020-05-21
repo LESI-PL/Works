@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhasExceptionsLib", "Minh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfacesAuditoria", "InterfacesAuditoria\InterfacesAuditoria.csproj", "{F1B32763-8DD4-4FEB-B097-2AF1EFA09241}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWindow", "MyWindow\MyWindow.csproj", "{48CC9C20-60CB-4ACF-A9F6-C09FC17481E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F1B32763-8DD4-4FEB-B097-2AF1EFA09241}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1B32763-8DD4-4FEB-B097-2AF1EFA09241}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1B32763-8DD4-4FEB-B097-2AF1EFA09241}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48CC9C20-60CB-4ACF-A9F6-C09FC17481E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48CC9C20-60CB-4ACF-A9F6-C09FC17481E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48CC9C20-60CB-4ACF-A9F6-C09FC17481E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48CC9C20-60CB-4ACF-A9F6-C09FC17481E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

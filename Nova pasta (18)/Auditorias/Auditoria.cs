@@ -46,22 +46,20 @@ namespace Auditorias
 
         }
 
-        public Auditoria(DateTime dataAuditoria, int idAuditor, string nome)
+        public Auditoria(DateTime dataAuditoria, int idAuditor)
         {
             data = dataAuditoria;
             this.idAuditor = idAuditor;
-            nomeAuditor = nome;
             qtdOcorrencias = 0;
             ocorrencias = new List<Ocorrencia>();
         }
-        public Auditoria(DateTime dataAuditoria, int idAuditor, string nome, List<Ocorrencia> ocorrencias)
+        public Auditoria(DateTime dataAuditoria, int idAuditor, string nome, Ocorrencias ocorrencias)
         {
             data = dataAuditoria;
             this.idAuditor = idAuditor;
             nomeAuditor = nome;
-            qtdOcorrencias = ocorrencias.Count;
-            this.ocorrencias = new List<Ocorrencia>();
-            this.ocorrencias = ocorrencias;
+            qtdOcorrencias = ocorrencias.QtdOcorrencias;
+            this.ocorrencias = ocorrencias.ListOcorrencias;
         }
         #endregion
 

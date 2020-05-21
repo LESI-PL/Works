@@ -13,7 +13,6 @@ using System;
 using Pessoas; // Blibliotecas Externas
 using Aparelhos;
 using Defeitos;
-using MinhasExceptionsLib;
 
 
 namespace Auditorias
@@ -23,7 +22,8 @@ namespace Auditorias
         static void Main(string[] args)
         {
             int id=5; // Id para procura de qualquer objeto **TESTES**
-
+            string msg = "";
+            
             /**
              * Criação de instancias das classes Funcionario e Funcionarios
              */
@@ -38,12 +38,15 @@ namespace Auditorias
             Vulnerabilidade v2 = new Vulnerabilidade("Trojan", "Elevado");
             Ocorrencia o1 = new Ocorrencia(v1.Codigo, e1.Codigo);
             Ocorrencia o2 = new Ocorrencia(v2.Codigo, e2.Codigo);
- 
-            Auditoria a1 = new Auditoria(new DateTime(2009, 8, 20), f1.IdFuncionario, f1.Nome);
-            Auditoria a2 = new Auditoria(new DateTime(2020, 5, 15), f2.IdFuncionario, f2.Nome);
+            Ocorrencias os1 = new Ocorrencias();
+            os1.InsertOcorrencia(o1, out msg);
+            Console.WriteLine(msg);
+            Auditoria a1 = new Auditoria(new DateTime(2009, 8, 20), f1.IdFuncionario);
+  
             Funcionarios listaFuncionarios = new Funcionarios();
             Equipamentos listaEquipamentos = new Equipamentos();
             Vulnerabilidades listaVulnerabilidades = new Vulnerabilidades();
+            Auditoria a2 = new Auditoria(new DateTime(2020, 8, 9), f2.IdFuncionario);
 
             #endregion
 
