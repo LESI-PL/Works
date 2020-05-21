@@ -16,6 +16,8 @@ using Defeitos;
 using MinhasExceptionsLib;
 using Pessoas;
 using System.IO;
+using AuditoriaLib;
+using OcorrenciaLib;
 
 namespace MyWindow.Controller
 {
@@ -30,7 +32,8 @@ namespace MyWindow.Controller
         private Equipamentos es;
         private Vulnerabilidades vs;
         private Auditorias audis;
-        private Ocorrecias os;
+        private Ocorrencias os;
+       
 
         public MainController()
         {
@@ -84,7 +87,7 @@ namespace MyWindow.Controller
             {
                 if (fs.SaveFuncionarios() &&
                 es.SaveEquipamentos() &&
-                vs.SaveVulnerabilidades())
+                vs.SaveVulnerabilidades() && audis.SaveAuditorias() && os.SaveOcorrencias())
                 {
                     return true;
                 }
@@ -102,7 +105,7 @@ namespace MyWindow.Controller
         {
             try
             {
-                if (fs.LoadFuncionarios() && es.LoadEquipamentos() && vs.LoadVulnerabilidades())
+                if (fs.LoadFuncionarios() && es.LoadEquipamentos() && vs.LoadVulnerabilidades() && audis.LoadAuditorias() && os.LoadOcorrencias()) 
                 {
                     return true;
                 }

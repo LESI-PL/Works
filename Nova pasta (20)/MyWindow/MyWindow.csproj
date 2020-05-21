@@ -127,10 +127,18 @@
     <None Include="Images\computador-portatil.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Auditorias\Auditorias.csproj">
-      <Project>{ca71d6ea-c96c-458d-88bf-0c4e90ce2b70}</Project>
-      <Name>Auditorias</Name>
+    <ProjectReference Include="..\AuditoriaLib\AuditoriaLib.csproj">
+      <Project>{44cd8012-41f0-462f-af87-9f1d6aaa86a8}</Project>
+      <Name>AuditoriaLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OcorrenciaLib\OcorrenciaLib.csproj">
+      <Project>{691a4dd5-70d3-475a-bdcf-80f4b96ece7a}</Project>
+      <Name>OcorrenciaLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
