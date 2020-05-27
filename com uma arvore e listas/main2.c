@@ -6,8 +6,8 @@
 #include <locale.h>
 
 #define MAX 64
-#define TXTACTOR "actorsBig.txt"
-#define TXTCOACTOR "co-actorsBig.txt"
+#define TXTACTOR "actors.txt"
+#define TXTCOACTOR "co-actors.txt"
 
 #define DEBUG 0
 //typedef struct  Actor3;
@@ -74,6 +74,16 @@ void FindCoactors(Actor3 *actor);
 void FindActorsWho_act_only_whith_females(Actor3 *actor);
 void WriteTree(Actor3 *actor);
 void PercorrerTree(Actor3 *actor, FILE *dados);
+
+void Actors_Name(Actor3 *actor);
+void Actor_with_Same_Name(Actor3 *actor, char *nome);
+void find(Actor3 *actor);
+void MaisCenas(Actor3 * actor);
+Actor3 * MaisCenas2(Actor3 * actor, Actor3 * aux);
+
+Actor3 * GajoComMaisCenas;
+
+
 void main()
 {
 
@@ -87,7 +97,25 @@ void main()
     LoadFileCoActors(actor);
     printf("\nVou listar, prima uma tecla para continuar: \n");
     getchar();
-    WriteTree(actor);
+
+    Actor3 * aux = (Actor3*)malloc(sizeof(Actor3));
+    aux->numAtuacoes = -1;
+
+    GajoComMaisCenas = (Actor3 *) malloc(sizeof(Actor3));
+    MaisCenas( actor);
+    printf("Gajo com cenas %s\n", GajoComMaisCenas->id);
+
+    Actor3  *outroGajoMaisCenas = (Actor3 *) malloc(sizeof(Actor3));
+    outroGajoMaisCenas = MaisCenas2( actor, outroGajoMaisCenas);
+    printf("Gajo com cenas %s\n", outroGajoMaisCenas->id);
+
+
+    getchar();
+
+    //find(actor);
+    //FindActorsWho_act_only_whith_females(actor);
+    //WriteTree(actor);
+    Actors_Name(actor);
     //FindActorsWho_act_only_whith_females(actor);
     //ListarTreeActors(actor);
     //FindCoactors(actor);
@@ -677,6 +705,17 @@ void FindCoactors(Actor3 *actor)
     getchar();
 }
 
+void find(Actor3 *actor)
+{
+    if (actor)
+    {
+        find(actor->anterior);
+        if (actor)
+            printf("%s, %d\n", actor->id, actor->soTemMulher);
+        find(actor->seguinte);
+    }
+}
+
 void FindActorsWho_act_only_whith_females(Actor3 *actor)
 {
     if (actor)
@@ -691,7 +730,8 @@ void FindActorsWho_act_only_whith_females(Actor3 *actor)
 
         FindActorsWho_act_only_whith_females(actor->seguinte);
     }
-    getchar();
+
+    //getchar();
 }
 
 void WriteTree(Actor3 *actor)
@@ -699,8 +739,10 @@ void WriteTree(Actor3 *actor)
 
     FILE *dados;
 
-    dados = fopen("dadosFinais.txt", "w");
-    if(dados==NULL)printf("nao abriu arquivo txt\n");
+    dados = fopen("dadosFinais.txt", "wb");
+    if (dados == NULL)
+        printf("nao abriu arquivo txt\n");
+
     PercorrerTree(actor, dados);
     fclose(dados);
     printf("Escrita completa\n");
@@ -712,12 +754,54 @@ void PercorrerTree(Actor3 *actor, FILE *dados)
     if (actor)
     {
         PercorrerTree(actor->anterior, dados);
-        fprintf(dados, "%s %s %s %d %d %d", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes, actor->soTemMulher);
+        fprintf(dados, "%s %s %s %d %d %d\n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes, actor->soTemMulher);
+        if (actor->incidencia != NULL)
+        {
+            CoActor2 *aux = actor->incidencia;
+            while (aux)
+            {
+                fprintf(dados, "%s %s %s %d %d %d %s %s\n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes, actor->soTemMulher,
+                        aux->actorProprio->nome, aux->actorProprio->id);
+                aux = aux->seguinte;
+            }
+        }
         PercorrerTree(actor->seguinte, dados);
     }
 }
 
-void Actor_with_More_Opposite_acts(Actor3 *actor){
+void MaisCenas(Actor3 *actor)
+{
+    if(actor)
+    {
+        MaisCenas(actor->anterior); 
+        
+        if(GajoComMaisCenas->numAtuacoes < actor->numAtuacoes)
+            GajoComMaisCenas = actor;
+
+        MaisCenas(actor->seguinte); 
+    }
+
+}
+
+Actor3 * MaisCenas2(Actor3 *actor, Actor3 *aux)
+{
+    if(actor)
+    {
+        aux = MaisCenas2(actor->anterior, aux); 
+        
+        if(aux->numAtuacoes < actor->numAtuacoes)
+            aux = actor;
+
+        aux = MaisCenas2(actor->seguinte, aux); 
+    }
+
+    return aux;
+
+}
+
+
+
+/* void Actor_with_More_Opposite_acts(Actor3 *actor){
 
     if(actor){
         Actor_with_More_Opposite_acts(actor->anterior);
@@ -732,4 +816,40 @@ void Actor_with_More_Opposite_acts(Actor3 *actor){
     printf("O Ator que contracenou com mais pessoas foi:\n");
     printf(" %s com o Id: %s e com o total de %d contrenacoes\n", aux->nome,aux->id,aux->);
 
+}  */
+
+void Actor_with_Same_Name(Actor3 *actor, char *nome)
+{
+
+
+    if (actor)
+    {
+        Actor_with_Same_Name(actor->anterior, nome);
+
+        if (strcmp(actor->nome, nome) == 0)
+        {
+            printf("%s %s\n", actor->nome, actor->id);
+        }
+        Actor_with_Same_Name(actor->seguinte, nome);
+    } /* else{
+        printf("Nao existe Ninguem com esse nome\n");
+    } */
+}
+
+void Actors_Name(Actor3 *actor)
+{
+
+    char nome[64];
+    
+    do
+    {
+        system("cls");
+        printf("Indique um nome para procuar referencias:\n");
+        fflush(stdin);
+        gets(nome);
+    } while (nome[0] == '\0' || nome[0] == 10 || nome[0] == 13);
+
+    Actor_with_Same_Name(actor, nome);
+
+    getchar();
 }
