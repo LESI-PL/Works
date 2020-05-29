@@ -19,36 +19,38 @@
 /**
  *! Exercicio 1
 */
-Actor* LoadFileActors(Actor* actor);
-Actor* LoadFileCoActors(Actor* actor);
+Actor3 *LoadFileActors(Actor3 *actor);
 
-Actor *InsertTreeNode(Actor *actor, char *id, char *nome, char *sexo);
-Actor *NewNode(char *id, char *nome, char *sexo);
 
-CoActor *InsertTreeNodeInc(CoActor *coActor, char *id);
-CoActor *NewNodeInc(char *id);
+void *LoadFileCoActors(Actor3 *actor);
+CoActor2 *InsereListaCoActor(CoActor2 *aux, char *id);
 
-char *DevolveId(char line[]);
-char *DevolveName(char line[]);
+
 char *DevolveGender(char line[]);
+int GetIdNumber(char *idString);
+char *DevolveName(char line[]);
+char *DevolveId(char line[]);
 
-void ShowTree(Actor* actor);
-void ShowTreeCo(CoActor* coActor);
+Actor3 *NewNode(char *id, char *nome, char *sexo);
+Actor3 *InsertTreeNode(Actor3 *actor, char *id, char *nome, char *sexo);
+Actor3 *FindActorManual1(Actor3 *actors, char *id);
+void ListarTreeActors(Actor3 *actor);
+void ListarTreeActors1(Actor3 *actor);
+void ListarTreeActors_Coatores(Actor3 *actor);
+Actor3 *FindActorManualIterativa(Actor3 *actors, char *id);
 
-int GetHighestId(Actor* actors);
-int GetIdNumber(char* idString);
+void ListarCoAtores2Recursivo(CoActor2 *CoActor);
+void ImprimirActor(Actor3 *actor);
+void FindCoactors(Actor3 *actor);
+void FindActorsWho_act_only_whith_females(Actor3 *actor);
+void WriteTree(Actor3 *actor);
+void PercorrerTree(Actor3 *actor, FILE *dados);
 
-
-int FindActor(Actor* actors,char* id);
-
-Actor* InsertIncidence(Actor* a,char* rootId, char* incidenceId);
-
-
-Actor* FindActorManual1(Actor* actors, char *id);
-
-void FreeAll(CoActor* coActor);
-
-void ShowListCo(CoActor* coActor);
+void Actors_Name(Actor3 *actor);
+void Actor_with_Same_Name(Actor3 *actor, char *nome);
+void find(Actor3 *actor);
+/* void MaisCenas(Actor3 * actor); */
+Actor3 * MaisCenas2(Actor3 * actor, Actor3 * aux);
 /**
  *! Fim Exercicio 1
 */

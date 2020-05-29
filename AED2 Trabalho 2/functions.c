@@ -14,8 +14,11 @@
 #include "structs.h"
 #include "functions.h"
 #define MAX 64
+#define DEBUG 0
 #define TXTACTOR "actorsBig.txt"
 #define TXTCOACTOR "co-actorsBig.txt"
+/* #define TXTACTOR "actors.txt"
+#define TXTCOACTOR "co-actors.txt" */
 
 /**
  *!                                                 FUNCTIONS
@@ -26,19 +29,22 @@
 /**
  *! Exercicio 1
 */
-Actor *LoadFileActors(Actor *actor)
+Actor3 *LoadFileActors(Actor3 *actor)
 {
     FILE *ficheiro;
+    Actor3 *aux = (Actor3 *)malloc(sizeof(Actor3));
     char *a, *b, *c, *line;
     int i = 0;
-    actor = NULL;
+    aux = NULL;
+    
+    
 
     ficheiro = fopen(TXTACTOR, "r");
 
     line = (char *)malloc(MAX * sizeof(char));
-    a = (char *)malloc(sizeof(char));
-    b = (char *)malloc(sizeof(char));
-    c = (char *)malloc(sizeof(char));
+    a = (char *)malloc(sizeof(char) * 11);
+    b = (char *)malloc(sizeof(char) * 50);
+    c = (char *)malloc(sizeof(char) * 2);
 
     if (ficheiro == NULL)
     {
@@ -52,26 +58,62 @@ Actor *LoadFileActors(Actor *actor)
             c = DevolveGender(line);
             b = DevolveName(line);
 
-            actor = InsertTreeNode(actor, a, b, c);
+            aux = InsertTreeNode(aux, a, b, c);
             i++;
         }
     }
     system("cls");
     printf("Total de Registros: %d\n", i);
     fclose(ficheiro);
-    free(a);free(b);free(c);free(line);
-    return actor;
+    free(a);
+    free(b);
+    free(c);
+    free(line);
+    return aux;
 }
-Actor *LoadFileCoActors(Actor *actor)
+
+
+CoActor2 *sorted_insert(CoActor2 *lst, char *id, Actor3 *Ator, Actor3 *ProprioAtor)
+{
+    if (!lst || GetIdNumber(id) < GetIdNumber(lst->id))
+    {
+        CoActor2 *new = (CoActor2 *)malloc(sizeof(CoActor2));
+        strcpy(new->id, id);
+        new->seguinte = lst;
+        new->contagem = 1;
+        new->actorProprio = ProprioAtor;
+        lst = new;
+        Ator->numCoActoresDiferentes++;
+    }
+    else
+    {
+        if (lst && GetIdNumber(id) == GetIdNumber(lst->id))
+            lst->contagem++;
+        else
+            lst->seguinte = sorted_insert(lst->seguinte, id, Ator, ProprioAtor);
+    }
+
+    return lst;
+}
+
+void *LoadFileCoActors(Actor3 *actor)
 {
     FILE *ficheiro;
+    Actor3 *aux = (Actor3 *)malloc(sizeof(Actor3));
+    Actor3 *aux2 = (Actor3 *)malloc(sizeof(Actor3));
+    Actor3 *aux3 = actor;
+    CoActor2 *coAtor = (CoActor2 *)malloc(sizeof(CoActor2));
+    int i = 0;
     char *a, *b;
+    coAtor = NULL;
+    aux = NULL;
+    
     
 
     ficheiro = fopen(TXTCOACTOR, "r");
 
-    a = (char *)malloc(sizeof(char));
-    b = (char *)malloc(sizeof(char));
+    a = (char *)malloc(sizeof(char) * 16);
+    b = (char *)malloc(sizeof(char) * 16);
 
     if (ficheiro == NULL)
     {
@@ -79,130 +121,63 @@ Actor *LoadFileCoActors(Actor *actor)
     }
     else
     {
-
         while (fscanf(ficheiro, "%s %s", a, b) != EOF)
         {
-            
-            actor = InsertIncidence(actor, a, b);
-            actor = InsertIncidence(actor, b, a);
+            i++;
+
+            aux = FindActorManualIterativa(aux3, a);
+            aux2 = FindActorManualIterativa(aux3, b);
+
+            if (aux != NULL && aux2 != NULL)
+            {
+                /* //--------------------------------- primeira insercao--------------------------------------
+                //CoActor2 *new = (CoActor2 *)malloc(sizeof(CoActor2));
+                //strcpy(new->id, b);
+                //new->seguinte = aux->incidencia;
+                //aux->incidencia = new;
+                //aux->numElementos++; */
+                aux->incidencia = sorted_insert(aux->incidencia, b, aux, aux2);
+                aux->numAtuacoes++;
+                /*--------------------------------- Segunda insercao--------------------------------------*/
+                i++;
+                /*                 CoActor2 *new2 = (CoActor2 *)malloc(sizeof(CoActor2));
+                strcpy(new2->id, a);
+                new2->seguinte = aux2->incidencia;
+                aux2->incidencia = new2;
+                aux2->numElementos++; */
+
+                aux2->incidencia = sorted_insert(aux2->incidencia, a, aux2, aux);
+                aux2->numAtuacoes++;
+                if (aux->genero[0] != 'F')
+                {
+                    aux2->soTemMulher = -1;
+                }
+                if (aux2->genero[0] != 'F')
+                {
+                    aux->soTemMulher = -1;
+                }
+
+                if (DEBUG == 1)
+                {
+                    if (i % 13000 == 0)
+                    {
+                        printf("%d - %d Percent done.....\n", i, (i / 13000));
+                    }
+                }
+            }
+            else
+            {
+                if (DEBUG == 1)
+                    printf("Nao encontrei na arvore a linha %d %s %s\n", i, a, b);
+            }
         }
     }
 
+    printf("acabei coatores\n");
+    printf("%d\n", i);
     fclose(ficheiro);
-    return actor;
 }
 
-Actor *InsertTreeNode(Actor *actor, char *id, char *nome, char *sexo)
-{
-    
-    if (actor == NULL)
-    {
-        return NewNode(id, nome, sexo);
-    }
-    else
-    {
-        if (GetIdNumber(id) < GetIdNumber(actor->id))
-        {
-
-            actor->left = InsertTreeNode(actor->left, id, nome, sexo);
-        }
-        else if (GetIdNumber(id) > GetIdNumber(actor->id))
-        {
-
-            actor->right = InsertTreeNode(actor->right, id, nome, sexo);
-        }
-    }
-    return actor;
-}
-
-Actor *NewNode(char *id, char *nome, char *sexo)
-{
-    Actor *new = (Actor *)malloc(sizeof(Actor));
-    int a, b, c;
-    a = strlen(id);
-    b = strlen(nome);
-    c = strlen(sexo);
-    new->id = (char *)malloc((a + 1) * (sizeof(char)));
-    new->nome = (char *)malloc((b + 1) * (sizeof(char)));
-    new->sexo = (char *)malloc((c + 1) * (sizeof(char)));
-    strcpy(new->id, id);
-    strcpy(new->nome, nome);
-    strcpy(new->sexo, sexo);
-    new->numElementos = 0;
-    new->temMulher = 0;
-
-    new->right = NULL;
-    new->left = NULL;
-    new->incidencia = NULL;
-    return new;
-}
-void FreeAll(CoActor* coActor){
-    if(coActor){
-        
-        printf("A");
-        FreeAll(coActor->right);
-        free(coActor);   
-    }   
-    
-}
-CoActor *InsertTreeNodeInc(CoActor *coActor, char *id){
-    /*HEAD INSERT CODE*/
-        CoActor *new = (CoActor *)malloc(sizeof(CoActor));
-
-        new->right = coActor;
-        new->id = (char *)malloc(sizeof(char) * strlen(id + 1));
-        strcpy(new->id, id);
-        return new;
-    
-    /*if(coActor){
-        
-        if (GetIdNumber(id) < GetIdNumber(coActor->id))
-        {
-            coActor->left = InsertTreeNodeInc(coActor->left, id);
-        }
-        if (GetIdNumber(id) > GetIdNumber(coActor->id))
-        {
-            coActor->right = InsertTreeNodeInc(coActor->right, id);
-        }          
-    }else{
-        
-        return NewNodeInc(id);
-         
-    }
-    return coActor;*/
-}
-
-CoActor *NewNodeInc(char *id)
-{
-    CoActor *new = (CoActor *)malloc(sizeof(CoActor));
-    int a;
-    a = strlen(id);
-    new->id = (char *)malloc((a + 1) * (sizeof(char)));
-    strcpy(new->id, id);
-    new->right = NULL;
-    new->left = NULL;
-    return new;
-}
-
-char *DevolveId(char line[])
-{
-    char *aux;
-    int i = 0, j = 0;
-
-    while (line[i] != '\0' && line[i] != '\t')
-    {
-        i++;
-    }
-    aux = (char *)malloc((i + 1) * sizeof(char));
-
-    for (j = 0; j < i; j++)
-    {
-        aux[j] = line[j];
-    }
-    aux[j] = '\0';
-
-    return aux;
-}
 
 char *DevolveName(char line[])
 {
@@ -227,7 +202,7 @@ char *DevolveName(char line[])
     b = (a - i) + 1;
 
     aux = (char *)malloc(b * sizeof(char));
-    for (i=i; i < a - 1; i++)
+    for (i = i; i < a - 1; i++)
     {
 
         aux[j] = aux1[i];
@@ -251,131 +226,401 @@ char *DevolveGender(char line[])
 
 int GetIdNumber(char *idString)
 {
-    int id, size, i = 0, j = 0;
+    int i = 0;
+    char aux[16];
+
+    while (idString[i] != 0)
+    {
+        aux[i - 2] = idString[i];
+        i++;
+    }
+
+    aux[i - 2] = 0;
+
+    i = atoi(aux);
+
+    /* //printf("********** %d *************\n", i); */
+
+    return i;
+}
+
+char *DevolveId(char line[])
+{
     char *aux;
-    size = strlen(idString);
-    aux = (char *)malloc(sizeof(char) * size);
+    int i = 0, j = 0;
 
-    for (i = 2; i < size; i++)
+    while (line[i] != '\0' && line[i] != '\t')
     {
-
-        aux[j] = idString[i];
-        j++;
+        i++;
     }
-    id = atoi(aux);
+    aux = (char *)malloc((i + 1) * sizeof(char));
 
-    return id;
-}
-void ShowListCo(CoActor* coActor){
-    while(coActor){
-        printf("Id:%s\n",coActor->id);
-        coActor = (coActor->right ? coActor->right:NULL);
+    for (j = 0; j < i; j++)
+    {
+        aux[j] = line[j];
     }
+    aux[j] = '\0';
+
+    return aux;
 }
-void ShowTreeCo(CoActor *coActor)
+
+void Menu()
 {
-    if (coActor)
+    char op;
+    while (op != 115)
     {
-        ShowTreeCo(coActor->left);
-        printf("\nID:%s", coActor->id);
-        ShowTreeCo(coActor->right);
+        printf("_____________________________________________________________________\n");
+        printf("|                                                                   |\n");
+        printf("| 1- Mostrar Pessoas com o mesmo Nome                               |\n ");
+        printf("| 2- Mostrar Individuos com que um(a) ator(atriz) contracenou       |\n ");
+        printf("| 3- Apresentar Individuos que contracenaram apenas com Mulheres    |\n ");
+        printf("| 4- Calcular quem contracenou com mais pessoas                     | \n");
+        printf("| 5- Mostrar Caminho entre duas pessoas                             | \n");
+        printf("|___________________________________________________________________|\n");
+        printf("\nSelecione uma opcao!\n");
+        scanf("%c", op);
+        switch (op)
+        {
+        case 1:
+            
+            break;
+        case 2:
+            
+            break;
+        case 3:
+            break;
+        case 4:
+            
+            break;
+        case 5:
+            break;
+        default:
+            break;
+        }
     }
 }
 
-void ShowTree(Actor *actor)
+Actor3 *InsertTreeNode(Actor3 *actor, char *id, char *nome, char *sexo)
 {
-    if (actor)
+
+    if (actor == NULL)
     {
-        ShowTree(actor->left);
-        printf("%s %s %s\n", actor->id, actor->nome, actor->sexo);
-        ShowTreeCo(actor->incidencia);
-        getchar();
-        ShowTree(actor->right);
-    }
-}
-int FindActor(Actor *actors, char *id)
-{
-    int idSearch = GetIdNumber(id);
-    if (actors)
-    {
-        if (GetIdNumber(actors->id) < idSearch)
-        {
-            FindActor(actors->right, id);
-        }
-        else if (GetIdNumber(actors->id) > idSearch)
-        {
-            FindActor(actors->left, id);
-        }
-        else
-        {
-            printf("%s %s %s\nCo-Actors:", actors->id, actors->nome, actors->sexo);
-            ShowListCo(actors->incidencia);
-            /*ShowTreeCo(actors->incidencia);*/
-            getchar();
-            return 1;
-        }
+        return NewNode(id, nome, sexo);
     }
     else
     {
-        printf("Not Found\n");
-        return -1;
+        if (GetIdNumber(id) < GetIdNumber(actor->id))
+        {
+
+            actor->anterior = InsertTreeNode(actor->anterior, id, nome, sexo);
+        }
+        else if (GetIdNumber(id) > GetIdNumber(actor->id))
+        {
+
+            actor->seguinte = InsertTreeNode(actor->seguinte, id, nome, sexo);
+        }
     }
-    return 1;
+    return actor;
 }
-Actor *FindActorManual1(Actor *actors, char *id)
-{    
+
+Actor3 *NewNode(char *id, char *nome, char *sexo)
+{
+    Actor3 *new = (Actor3 *)malloc(sizeof(Actor3));
+    int a, b, c;
+    a = strlen(id);
+    b = strlen(nome);
+    c = strlen(sexo);
+    strcpy(new->id, id);
+    strcpy(new->nome, nome);
+    strcpy(new->genero, sexo);
+    new->numAtuacoes = 0;
+    new->numCoActoresDiferentes = 0;
+    new->soTemMulher = 0;
+    new->anterior = NULL;
+    new->seguinte = NULL;
+    new->incidencia = NULL;
+    return new;
+}
+
+Actor3 *FindActorManualIterativa(Actor3 *actors, char *id)
+{
+    int key = GetIdNumber(id);
+    int code_tree = -1;
+    Actor3 *aux = actors;
+
+    while (aux != NULL && code_tree != key)
+    {
+        code_tree = GetIdNumber(aux->id);
+        /* //printf("%d %d \t", code_tree, key); */
+
+        if (key < code_tree)
+            aux = aux->anterior;
+        else if (key > code_tree)
+            aux = aux->seguinte;
+    }
+    /*    if (aux != NULL)
+            printf("%s %d \n", aux->nome, aux->id);
+        else
+            printf("sai\n");  */
+
+    return aux;
+}
+
+Actor3 *FindActorManual1(Actor3 *actors, char *id)
+{
+    /* //2,147,483,647 */
+
     int key, code_tree;
     if (actors)
     {
-        
+
         key = GetIdNumber(id);
         code_tree = GetIdNumber(actors->id);
-        
         if (key < code_tree)
         {
-            FindActorManual1(actors->left, id);
+
+            return FindActorManual1(actors->anterior, id);
         }
         else if (key > code_tree)
         {
-            FindActorManual1(actors->right, id);
+            return FindActorManual1(actors->seguinte, id);
         }
         else
-        {          
+        {
+            printf("procura %s %s", actors->id, id);
+            getchar();
             return actors;
         }
     }
     else
     {
-        return actors;
-    }   
+        return NULL;
+    }
+}
+
+void ListarTreeActors(Actor3 *actor)
+{
+
+    if (actor)
+    {
+        ListarTreeActors(actor->anterior);
+        ImprimirActor(actor);
+
+        if (actor->numCoActoresDiferentes != actor->numAtuacoes)
+        {
+            printf("Encontrei um ator com contracenacoes repetidas, prima uma tecla par aocntinuar");
+            getchar();
+        }
+
+        ListarCoAtores2Recursivo(actor->incidencia);
+
+        ListarTreeActors(actor->seguinte);
+    }
+}
+
+void ImprimirActor(Actor3 *actor)
+{
+
+    printf("ID: %s  Name: %s Gender: %s N. Atuacoes: %d N. Atores diferentes:%d sotemMulher: %d\n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes, actor->soTemMulher);
+}
+void ListarCoAtores2Recursivo(CoActor2 *CoActor)
+{
+    if (CoActor != NULL)
+    {
+        printf("%s\t%s\t%d\t%s \n", CoActor->actorProprio->nome, CoActor->id, CoActor->contagem, CoActor->actorProprio->genero);
+        ListarCoAtores2Recursivo(CoActor->seguinte);
+    }
+}
+
+void ListarTreeActors_Coatores(Actor3 *actor)
+{
+
+    if (actor)
+    {
+        ListarTreeActors(actor->anterior);
+        printf("ID: %s  Name: %s Gender: %s\n", actor->id, actor->nome, actor->genero);
+        if (actor->incidencia != NULL)
+        {
+            CoActor2 *aux = actor->incidencia;
+            while (aux)
+            {
+                printf("CoAtor ID: %s\n", aux->id);
+                aux = aux->seguinte;
+            }
+        }
+        ListarTreeActors(actor->seguinte);
+    }
+}
+
+void FindCoactors(Actor3 *actor)
+{
+    Actor3 *aux = NULL;
+    char procura[16];
+    do
+    {
+        printf("Indique o Id de um actor a procurar!\n");
+        scanf("%s", procura);
+        if (FindActorManualIterativa(actor, procura) == NULL)
+        {
+            printf("Actor nao existe! Tente novamente!\n");
+        }
+    } while (FindActorManualIterativa(actor, procura) == NULL);
+    /* //------encontra o actor ---------- */
+    aux = FindActorManualIterativa(actor, procura);
+
+    system("cls");
+    ImprimirActor(aux);
+
+    ListarCoAtores2Recursivo(aux->incidencia);
+    getchar();
+}
+
+void find(Actor3 *actor)
+{
+    if (actor)
+    {
+        find(actor->anterior);
+        if (actor)
+            printf("%s, %d\n", actor->id, actor->soTemMulher);
+        find(actor->seguinte);
+    }
+}
+
+void FindActorsWho_act_only_whith_females(Actor3 *actor)
+{
+    if (actor)
+    {
+        FindActorsWho_act_only_whith_females(actor->anterior);
+
+        if (actor->soTemMulher == 0)
+        {
+            ImprimirActor(actor);
+            ListarCoAtores2Recursivo(actor->incidencia);
+        }
+
+        FindActorsWho_act_only_whith_females(actor->seguinte);
+    }
+
+  
+}
+
+void WriteTree(Actor3 *actor)
+{
+
+    FILE *dados;
+
+    dados = fopen("dadosFinais.txt", "wb");
+    if (dados == NULL)
+        printf("nao abriu arquivo txt\n");
+
+    PercorrerTree(actor, dados);
+    fclose(dados);
+    printf("Escrita completa\n");
+    getchar();
+}
+
+void PercorrerTree(Actor3 *actor, FILE *dados)
+{
+    if (actor)
+    {
+        PercorrerTree(actor->anterior, dados);
+        fprintf(dados, "%s %s %s %d %d %d\n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes, actor->soTemMulher);
+        if (actor->incidencia != NULL)
+        {
+            CoActor2 *aux = actor->incidencia;
+            while (aux)
+            {
+                fprintf(dados, "%s %s %s %d %d %d %s %s\n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes, actor->soTemMulher,
+                        aux->actorProprio->nome, aux->actorProprio->id);
+                aux = aux->seguinte;
+            }
+        }
+        PercorrerTree(actor->seguinte, dados);
+    }
+}
+
+/* void MaisCenas(Actor3 *actor)
+{
+    if (actor)
+    {
+        MaisCenas(actor->anterior);
+
+        if (GajoComMaisCenas->numAtuacoes < actor->numAtuacoes)
+            GajoComMaisCenas = actor;
+
+        MaisCenas(actor->seguinte);
+    }
+} */
+
+Actor3 * MaisCenas2(Actor3 *actor, Actor3 *aux)
+{
+    if(actor)
+    {
+        aux = MaisCenas2(actor->anterior, aux); 
+        
+        if(aux->numAtuacoes < actor->numAtuacoes)
+            aux = actor;
+
+        aux = MaisCenas2(actor->seguinte, aux); 
+    }
+
+    return aux;
 
 }
 
-Actor *InsertIncidence(Actor *a, char *rootId, char *incidenceId)
+
+
+/* void Actor_with_More_Opposite_acts(Actor3 *actor){
+
+    if(actor){
+        Actor_with_More_Opposite_acts(actor->anterior);
+        int maior=actor->numAtuacoes;
+        if(actor->numAtuacoes>maior){
+            Actor3*aux=NULL;
+            maior =actor->numAtuacoes;
+            aux=actor;
+        }
+        Actor_with_More_Opposite_acts(actor->seguinte);
+    }
+    printf("O Ator que contracenou com mais pessoas foi:\n");
+    printf(" %s com o Id: %s e com o total de %d contrenacoes\n", aux->nome,aux->id,aux->);
+
+}  */
+
+void Actor_with_Same_Name(Actor3 *actor, char *nome)
 {
+
+
+    if (actor)
+    {
+        Actor_with_Same_Name(actor->anterior, nome);
+
+        if (strcmp(actor->nome, nome) == 0)
+        {
+            printf("%s %s\n", actor->nome, actor->id);
+        }
+        Actor_with_Same_Name(actor->seguinte, nome);
+    } /* else{
+        printf("Nao existe Ninguem com esse nome\n");
+    } */
+}
+
+void Actors_Name(Actor3 *actor)
+{
+
+    char nome[64];
     
-    int rootSearch = GetIdNumber(rootId);
-    if (a)
+    do
     {
-        if (GetIdNumber(a->id) < rootSearch)
-        {
-            InsertIncidence(a->right, rootId, incidenceId);
-        }
-        else if (GetIdNumber(a->id) > rootSearch)
-        {
-            InsertIncidence(a->left, rootId, incidenceId);
-        }
-        else
-        {
-            
-            a->incidencia = InsertTreeNodeInc(a->incidencia, incidenceId);
-        }
-    }
-    else
-    {
-        return a;
-    }
-    return a;
+        system("cls");
+        printf("Indique um nome para procuar referencias:\n");
+        fflush(stdin);
+        gets(nome);
+    } while (nome[0] == '\0' || nome[0] == 10 || nome[0] == 13);
+
+    Actor_with_Same_Name(actor, nome);
+
+    getchar();
 }
 
 /**
