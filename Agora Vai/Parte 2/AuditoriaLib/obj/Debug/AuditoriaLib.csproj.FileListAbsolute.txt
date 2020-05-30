@@ -1,0 +1,18 @@
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.csprojAssemblyReference.cache
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\bin\Debug\AuditoriaLib.dll
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\bin\Debug\AuditoriaLib.pdb
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\bin\Debug\OcorrenciaLib.dll
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\bin\Debug\OcorrenciaLib.pdb
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.csproj.CopyComplete
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.dll
+C:\Users\Lenovo\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.pdb
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\bin\Debug\AuditoriaLib.dll
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\bin\Debug\AuditoriaLib.pdb
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\bin\Debug\OcorrenciaLib.dll
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\bin\Debug\OcorrenciaLib.pdb
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.csproj.CoreCompileInputs.cache
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.csproj.CopyComplete
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.dll
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\AuditoriaLib\obj\Debug\AuditoriaLib.pdb

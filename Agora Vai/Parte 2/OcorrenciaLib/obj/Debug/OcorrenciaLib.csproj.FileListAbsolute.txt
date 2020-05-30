@@ -1,0 +1,11 @@
+C:\Users\Lenovo\Desktop\Nova pasta (20)\OcorrenciaLib\bin\Debug\OcorrenciaLib.dll
+C:\Users\Lenovo\Desktop\Nova pasta (20)\OcorrenciaLib\bin\Debug\OcorrenciaLib.pdb
+C:\Users\Lenovo\Desktop\Nova pasta (20)\OcorrenciaLib\obj\Debug\OcorrenciaLib.csprojAssemblyReference.cache
+C:\Users\Lenovo\Desktop\Nova pasta (20)\OcorrenciaLib\obj\Debug\OcorrenciaLib.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\Nova pasta (20)\OcorrenciaLib\obj\Debug\OcorrenciaLib.dll
+C:\Users\Lenovo\Desktop\Nova pasta (20)\OcorrenciaLib\obj\Debug\OcorrenciaLib.pdb
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\OcorrenciaLib\bin\Debug\OcorrenciaLib.dll
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\OcorrenciaLib\bin\Debug\OcorrenciaLib.pdb
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\OcorrenciaLib\obj\Debug\OcorrenciaLib.csproj.CoreCompileInputs.cache
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\OcorrenciaLib\obj\Debug\OcorrenciaLib.dll
+C:\Users\Yuri Lemos\Desktop\Nova pasta (20)\OcorrenciaLib\obj\Debug\OcorrenciaLib.pdb
