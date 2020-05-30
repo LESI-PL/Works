@@ -36,8 +36,6 @@ Actor3 *LoadFileActors(Actor3 *actor)
     char *a, *b, *c, *line;
     int i = 0;
     aux = NULL;
-    
-    
 
     ficheiro = fopen(TXTACTOR, "r");
 
@@ -72,7 +70,6 @@ Actor3 *LoadFileActors(Actor3 *actor)
     return aux;
 }
 
-
 CoActor2 *sorted_insert(CoActor2 *lst, char *id, Actor3 *Ator, Actor3 *ProprioAtor)
 {
     if (!lst || GetIdNumber(id) < GetIdNumber(lst->id))
@@ -102,13 +99,8 @@ void *LoadFileCoActors(Actor3 *actor)
     Actor3 *aux = (Actor3 *)malloc(sizeof(Actor3));
     Actor3 *aux2 = (Actor3 *)malloc(sizeof(Actor3));
     Actor3 *aux3 = actor;
-    CoActor2 *coAtor = (CoActor2 *)malloc(sizeof(CoActor2));
     int i = 0;
     char *a, *b;
-    coAtor = NULL;
-    aux = NULL;
-    
-    
 
     ficheiro = fopen(TXTCOACTOR, "r");
 
@@ -177,7 +169,6 @@ void *LoadFileCoActors(Actor3 *actor)
     printf("%d\n", i);
     fclose(ficheiro);
 }
-
 
 char *DevolveName(char line[])
 {
@@ -264,42 +255,6 @@ char *DevolveId(char line[])
     return aux;
 }
 
-void Menu()
-{
-    char op;
-    while (op != 115)
-    {
-        printf("_____________________________________________________________________\n");
-        printf("|                                                                   |\n");
-        printf("| 1- Mostrar Pessoas com o mesmo Nome                               |\n ");
-        printf("| 2- Mostrar Individuos com que um(a) ator(atriz) contracenou       |\n ");
-        printf("| 3- Apresentar Individuos que contracenaram apenas com Mulheres    |\n ");
-        printf("| 4- Calcular quem contracenou com mais pessoas                     | \n");
-        printf("| 5- Mostrar Caminho entre duas pessoas                             | \n");
-        printf("|___________________________________________________________________|\n");
-        printf("\nSelecione uma opcao!\n");
-        scanf("%c", op);
-        switch (op)
-        {
-        case 1:
-            
-            break;
-        case 2:
-            
-            break;
-        case 3:
-            break;
-        case 4:
-            
-            break;
-        case 5:
-            break;
-        default:
-            break;
-        }
-    }
-}
-
 Actor3 *InsertTreeNode(Actor3 *actor, char *id, char *nome, char *sexo)
 {
 
@@ -326,10 +281,6 @@ Actor3 *InsertTreeNode(Actor3 *actor, char *id, char *nome, char *sexo)
 Actor3 *NewNode(char *id, char *nome, char *sexo)
 {
     Actor3 *new = (Actor3 *)malloc(sizeof(Actor3));
-    int a, b, c;
-    a = strlen(id);
-    b = strlen(nome);
-    c = strlen(sexo);
     strcpy(new->id, id);
     strcpy(new->nome, nome);
     strcpy(new->genero, sexo);
@@ -368,7 +319,6 @@ Actor3 *FindActorManualIterativa(Actor3 *actors, char *id)
 
 Actor3 *FindActorManual1(Actor3 *actors, char *id)
 {
-    /* //2,147,483,647 */
 
     int key, code_tree;
     if (actors)
@@ -421,7 +371,7 @@ void ListarTreeActors(Actor3 *actor)
 void ImprimirActor(Actor3 *actor)
 {
 
-    printf("ID: %s  Name: %s Gender: %s N. Atuacoes: %d N. Atores diferentes:%d sotemMulher: %d\n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes, actor->soTemMulher);
+    printf("ID: %s  Name: %s Gender: %s N. Atuacoes: %d N. Atores diferentes:%d \n\n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes);
 }
 void ListarCoAtores2Recursivo(CoActor2 *CoActor)
 {
@@ -458,6 +408,7 @@ void FindCoactors(Actor3 *actor)
     char procura[16];
     do
     {
+        system("cls");
         printf("Indique o Id de um actor a procurar!\n");
         scanf("%s", procura);
         if (FindActorManualIterativa(actor, procura) == NULL)
@@ -468,10 +419,11 @@ void FindCoactors(Actor3 *actor)
     /* //------encontra o actor ---------- */
     aux = FindActorManualIterativa(actor, procura);
 
-    system("cls");
+    printf("\n");
     ImprimirActor(aux);
 
     ListarCoAtores2Recursivo(aux->incidencia);
+    printf("Prima qualquer tecla\n");
     getchar();
 }
 
@@ -500,8 +452,6 @@ void FindActorsWho_act_only_whith_females(Actor3 *actor)
 
         FindActorsWho_act_only_whith_females(actor->seguinte);
     }
-
-  
 }
 
 void WriteTree(Actor3 *actor)
@@ -516,7 +466,6 @@ void WriteTree(Actor3 *actor)
     PercorrerTree(actor, dados);
     fclose(dados);
     printf("Escrita completa\n");
-    getchar();
 }
 
 void PercorrerTree(Actor3 *actor, FILE *dados)
@@ -552,24 +501,6 @@ void PercorrerTree(Actor3 *actor, FILE *dados)
     }
 } */
 
-Actor3 * MaisCenas2(Actor3 *actor, Actor3 *aux)
-{
-    if(actor)
-    {
-        aux = MaisCenas2(actor->anterior, aux); 
-        
-        if(aux->numAtuacoes < actor->numAtuacoes)
-            aux = actor;
-
-        aux = MaisCenas2(actor->seguinte, aux); 
-    }
-
-    return aux;
-
-}
-
-
-
 /* void Actor_with_More_Opposite_acts(Actor3 *actor){
 
     if(actor){
@@ -590,7 +521,6 @@ Actor3 * MaisCenas2(Actor3 *actor, Actor3 *aux)
 void Actor_with_Same_Name(Actor3 *actor, char *nome)
 {
 
-
     if (actor)
     {
         Actor_with_Same_Name(actor->anterior, nome);
@@ -600,20 +530,18 @@ void Actor_with_Same_Name(Actor3 *actor, char *nome)
             printf("%s %s\n", actor->nome, actor->id);
         }
         Actor_with_Same_Name(actor->seguinte, nome);
-    } /* else{
-        printf("Nao existe Ninguem com esse nome\n");
-    } */
+    }
 }
 
 void Actors_Name(Actor3 *actor)
 {
 
     char nome[64];
-    
+
     do
     {
         system("cls");
-        printf("Indique um nome para procuar referencias:\n");
+        printf("Indique um nome para procuar as referencias:\n");
         fflush(stdin);
         gets(nome);
     } while (nome[0] == '\0' || nome[0] == 10 || nome[0] == 13);
@@ -723,6 +651,31 @@ void Actors_Name(Actor3 *actor)
  *! Genericas
 */
 
+Actor3 *More_Actings(Actor3 *actor, Actor3 *aux)
+{
+    if (actor)
+    {
+        aux = More_Actings(actor->anterior, aux);
+
+        if (aux->numAtuacoes < actor->numAtuacoes)
+            aux = actor;
+
+        aux = More_Actings(actor->seguinte, aux);
+    }
+
+    return aux;
+}
+
+void Actor_Who_Act_More(Actor3 *actor)
+{
+
+    Actor3 *auxMaisContracenacoes;
+    auxMaisContracenacoes->numAtuacoes = -1;
+    auxMaisContracenacoes = More_Actings(actor, auxMaisContracenacoes);
+    printf("Quem contracenou com mais pessoas foi % com o Id: %s com um total de %d contracenacoes\n", auxMaisContracenacoes->nome, auxMaisContracenacoes->id, auxMaisContracenacoes->numAtuacoes);
+    getchar();
+    printf("Prima qualquer tecla\n");
+}
 /**
  *! Exercicio 2
 */
@@ -787,20 +740,91 @@ void Actors_Name(Actor3 *actor)
 char ShowMenu() /*Menu principal*/
 {
     char op;
+    int i, comp = 80;
     system("cls");
-    printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 1) Exercicio 2 - Categoria Gramatical Ordenada  | 2) Exercicio 3 - Comprimento das palavras         |");
-    printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 3) Exercicio 4- Coluna 3 e 4 Media e Desvio     | 4) Exercicio 5 - Comprimento das palavras         |");
-    printf("\n|                                                 |    Medidas de Localizacao e Dispersao             |");
-    printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 5) Exercicio 6 (AED) - Frequencia de palavras   | 6) Exercicio 6 (Est.) - Comprimento das Palavras  |");
-    printf("\n|    Mostrar o quartil que a palavra pertence     |    Quartis em relacao ao comprimento              |");
-    printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n| 7) Construir histograma das probabilidades      |                                                   |");
-    printf("\n|-----------------------------------------------------------------------------------------------------|");
-    printf("\n|                                          s)Sair                                                     |");
-    printf("\n|-----------------------------------------------------------------------------------------------------|\n\n");
+    printf("\n%c", 201);
+    for (i = 0; i < comp; i++)
+    {
+        printf("%c", 205);
+    }
+    printf("%c\n", 187);
+    printf("%c  1) Mostrar Pessoas com o mesmo Nome", 186);
+    for (i = 0; i < 43; i++)
+    {
+        printf("%c", 0);
+    }
+    printf("%c", 186);
+    printf("\n%c", 186);
+    for (i = 0; i < comp; i++)
+    {
+        printf("%c", 205);
+    }
+    printf("%c\n", 186);
+    printf("%c", 186);
+    printf("  2) Mostrar Individuos com que um(a) ator(atriz) contracenou");
+    for (i = 0; i < 19; i++)
+    {
+        printf("%c", 0);
+    }
+    printf("%c", 186);
+    printf("\n%c", 186);
+    for (i = 0; i < comp; i++)
+    {
+        printf("%c", 205);
+    }
+    printf("%c\n", 186);
+    printf("%c", 186);
+    printf("  3) Apresentar Individuos que contracenaram apenas com Mulheres");
+    for (i = 0; i < 16; i++)
+    {
+        printf("%c", 0);
+    }
+    printf("%c", 186);
+    printf("\n%c", 186);
+    for (i = 0; i < comp; i++)
+    {
+        printf("%c", 205);
+    }
+    printf("%c\n", 186);
+    printf("%c", 186);
+    printf("  4) Calcular quem contracenou com mais pessoas");
+    for (i = 0; i < 33; i++)
+    {
+        printf("%c", 0);
+    }
+    printf("%c", 186);
+    printf("\n%c", 186);
+    for (i = 0; i < comp; i++)
+    {
+        printf("%c", 205);
+    }
+    printf("%c\n", 186);
+    printf("%c", 186);
+    printf("  5) Mostrar Caminho entre duas pessoas");
+    for (i = 0; i < 41; i++)
+    {
+        printf("%c", 0);
+    }
+    printf("%c\n", 186);
+    printf("%c", 186);
+    for (i = 0; i < comp; i++)
+    {
+        printf("%c", 205);
+    }
+    printf("%c\n", 186);
+    printf("%c", 186);
+    printf("\t\t\t\ts)Sair");
+    for (i = 0; i < 43; i++)
+    {
+        printf("%c", 0);
+    }
+    printf("%c", 186);
+    printf("\n%c", 200);
+    for (i = 0; i < comp; i++)
+    {
+        printf("%c", 205);
+    }
+    printf("%c\n", 188);
     op = getch();
     return op;
 }

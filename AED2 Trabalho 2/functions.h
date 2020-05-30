@@ -50,7 +50,9 @@ void Actors_Name(Actor3 *actor);
 void Actor_with_Same_Name(Actor3 *actor, char *nome);
 void find(Actor3 *actor);
 /* void MaisCenas(Actor3 * actor); */
-Actor3 * MaisCenas2(Actor3 * actor, Actor3 * aux);
+Actor3 * More_Actings(Actor3 *actor, Actor3 *aux);
+void Actor_Who_Act_More(Actor3 *actor);
+char ShowMenu();
 /**
  *! Fim Exercicio 1
 */

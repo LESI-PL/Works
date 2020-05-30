@@ -21,9 +21,7 @@
 int main()
 {
     Actor3 *actor = NULL;
-    Actor3 * GajoComMaisCenas;
-    Actor3 * aux = (Actor3*)malloc(sizeof(Actor3));
-    Actor3  *outroGajoMaisCenas = (Actor3 *) malloc(sizeof(Actor3));
+    char op;
     /* //system("C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Opera\\launcher.exe c:\\export\\a.html");
     //system("C:\\Users\\Lenovo\\AppData\\Local\\Programs\\Opera\\launcher.exe c:\\export\\actors.txt"); */
 
@@ -31,50 +29,28 @@ int main()
     printf("Ficheiro carregado!\n");
     LoadFileCoActors(actor);
     printf("\nVou listar, prima uma tecla para continuar: \n");
-    getchar();
-
-    
-    aux->numAtuacoes = -1;
-
-    GajoComMaisCenas = (Actor3 *) malloc(sizeof(Actor3));
-    /*MaisCenas( actor);*/
-    printf("Gajo com cenas %s\n", GajoComMaisCenas->id);
-
-    
-    outroGajoMaisCenas = MaisCenas2( actor, outroGajoMaisCenas);
-    printf("Gajo com cenas %s\n", outroGajoMaisCenas->id);
-
-
-    getchar();
-/* 
-    //find(actor);
-    //FindActorsWho_act_only_whith_females(actor); */
     WriteTree(actor);
-    Actors_Name(actor);
-    /* FindActorsWho_act_only_whith_females(actor);
-    //ListarTreeActors(actor);
-    //FindCoactors(actor);
-    //ListarTreeActors(actor); */
+
     printf("Ficheiro carregado e listado e com coatores\n");
-    getchar();
-    /*do
+    
+    do
     {
-        op = getch();
+        op =ShowMenu();
         
 
         switch (op)
         {
         case '1': 
-            
+            Actors_Name(actor);
             break;
         case '2': 
-            
+            FindCoactors(actor);
             break;
         case '3': 
-            
+            FindActorsWho_act_only_whith_females(actor);
             break;
         case '4': 
-            
+            Actor_Who_Act_More(actor);
             break;
         case '5': 
             
@@ -89,6 +65,6 @@ int main()
             break;
         }
 
-    } while (op != 's');*/
+    } while (op != 's');
     return 0;
 }
