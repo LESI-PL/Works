@@ -370,13 +370,14 @@ void ListarTreeActors(Actor3 *actor)
 
 void ImprimirActor(Actor3 *actor)
 {
-
-    printf("ID: %s  Name: %s Gender: %s N. Atuacoes: %d N. Atores diferentes:%d \n\n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes);
+    printf("\nActor\n");
+    printf("ID: %s  Name: %s Gender: %s N. Atuacoes: %d N. Atores diferentes:%d \n", actor->id, actor->nome, actor->genero, actor->numAtuacoes, actor->numCoActoresDiferentes);
 }
 void ListarCoAtores2Recursivo(CoActor2 *CoActor)
 {
     if (CoActor != NULL)
     {
+        printf("Coactor \t");
         printf("%s\t%s\t%d\t%s \n", CoActor->actorProprio->nome, CoActor->id, CoActor->contagem, CoActor->actorProprio->genero);
         ListarCoAtores2Recursivo(CoActor->seguinte);
     }
@@ -423,7 +424,8 @@ void FindCoactors(Actor3 *actor)
     ImprimirActor(aux);
 
     ListarCoAtores2Recursivo(aux->incidencia);
-    printf("Prima qualquer tecla\n");
+    printf("\n\nPrima qualquer tecla\n");
+    fflush(stdin);
     getchar();
 }
 
@@ -461,11 +463,15 @@ void WriteTree(Actor3 *actor)
 
     dados = fopen("dadosFinais.txt", "wb");
     if (dados == NULL)
+    {
         printf("nao abriu arquivo txt\n");
-
-    PercorrerTree(actor, dados);
-    fclose(dados);
-    printf("Escrita completa\n");
+    }
+    else
+    {
+        PercorrerTree(actor, dados);
+        fclose(dados);
+        printf("Escrita completa\n");
+    }
 }
 
 void PercorrerTree(Actor3 *actor, FILE *dados)

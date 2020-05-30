@@ -48,6 +48,7 @@ int main()
             break;
         case '3': 
             FindActorsWho_act_only_whith_females(actor);
+            getchar();
             break;
         case '4': 
             Actor_Who_Act_More(actor);
