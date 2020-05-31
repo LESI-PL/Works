@@ -1,0 +1,6 @@
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Model\obj\Debug\MVC_Model.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Model\obj\Debug\MVC_Model.csproj.CoreCompileInputs.cache
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Model\bin\Debug\MVC_Model.dll
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Model\bin\Debug\MVC_Model.pdb
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Model\obj\Debug\MVC_Model.dll
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Model\obj\Debug\MVC_Model.pdb

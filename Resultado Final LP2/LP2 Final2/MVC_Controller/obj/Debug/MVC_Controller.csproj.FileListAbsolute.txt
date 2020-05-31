@@ -1,0 +1,9 @@
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\obj\Debug\MVC_Controller.csprojAssemblyReference.cache
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\obj\Debug\MVC_Controller.csproj.CoreCompileInputs.cache
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\bin\Debug\MVC_Controller.dll
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\bin\Debug\MVC_Controller.pdb
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\bin\Debug\MVC_Model.dll
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\bin\Debug\MVC_Model.pdb
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\obj\Debug\MVC_Controller.csproj.CopyComplete
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\obj\Debug\MVC_Controller.dll
+C:\Users\Yuri Lemos\Desktop\LP2 Final2\MVC_Controller\obj\Debug\MVC_Controller.pdb
